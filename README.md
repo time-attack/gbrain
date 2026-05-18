@@ -2,6 +2,26 @@
 
 **Your AI agent is smart but forgetful. GBrain gives it a brain.**
 
+**[97.60% R@5 on the public LongMemEval `_s` benchmark.](https://github.com/garrytan/gbrain-evals/blob/master/docs/benchmarks/2026-05-07-longmemeval-s.md)**
+500 questions. **No LLM in the retrieval loop. $0.50 per 1000 queries.**
+Deterministic, reproducible, ships in the binary as `gbrain eval longmemeval
+<dataset.jsonl>`. Beats MemPalace's published raw baseline by a point. Beats
+every academic dense retriever on this dataset (Stella ~85%, Contriever ~78%,
+BM25 ~70%). Within striking distance of MemPalace's LLM-reranked variant
+(98.4% held-out) — but they pay for an LLM call on every retrieval; gbrain
+does not. Mastra and Supermemory publish higher numbers but measure a
+different metric (end-to-end QA accuracy with an LLM judge, not retrieval
+recall).
+
+**Plus +31.4 points P@5 from the self-wiring knowledge graph** when your
+queries are relational ("who works at X?", "what did Y invest in this
+quarter?"). [BrainBench v0.20.0](https://github.com/garrytan/gbrain-evals/blob/master/docs/benchmarks/2026-04-23-brainbench-v0.20.0.md)
+measures gbrain against three baselines on a 240-page rich-prose corpus with
+145 relational gold queries. Vector-only RAG scores **10.8% P@5**. Grep-BM25
+scores **17.1%**. Vector+keyword RRF without graph scores **17.8%**. gbrain
+scores **49.1%** — the graph layer is separable, measured, and load-bearing.
+Flat across seven releases (v0.16 → v0.20). Zero retrieval regression.
+
 Built by the President and CEO of Y Combinator to run his own AI agents. The
 production brain powering Garry's OpenClaw and Hermes deployments has grown
 into the largest documented personal-AI knowledge graph in active use:
@@ -17,7 +37,7 @@ into the largest documented personal-AI knowledge graph in active use:
 | **~31,000** | media items (tweets, books, papers, interviews, films, articles, calls) |
 | **~2,200** | LLM-conversation transcripts (ChatGPT, Claude, Perplexity, agent forks) |
 | **108** | cron jobs running autonomously |
-| **273** | skills (35 from gbrain bundle + 238 user-built in the live agent fork) |
+| **273** | skills in the live agent fork (35 from gbrain bundle + 238 user-built on top) |
 
 The agent ingests meetings, emails, tweets, voice calls, books, papers, and
 original ideas while you sleep. It enriches every person and company it
@@ -29,10 +49,10 @@ you went to bed.
 GBrain is those patterns, generalized. **Install in 30 minutes. Your agent
 does the work.** As Garry's personal agent gets smarter, so does yours.
 
-> Database ready in 2 seconds (PGLite, no server). Eval-tuned hybrid retrieval
-> beats vector-only RAG by **+31.4 points P@5** on the BrainBench corpus.
-> Full scorecards in the sibling [gbrain-evals](https://github.com/garrytan/gbrain-evals)
-> repo.
+> Database ready in 2 seconds (PGLite, no server). Full eval scorecards,
+> reproduction instructions, cross-system comparisons, and the
+> corpora live in the sibling
+> [gbrain-evals](https://github.com/garrytan/gbrain-evals) repo.
 
 > **LLMs:** fetch [`llms.txt`](llms.txt) for the doc map, or
 > [`llms-full.txt`](llms-full.txt) for the map with core docs inlined.
@@ -86,11 +106,84 @@ gbrain serve --http                              # prints admin bootstrap token
 gbrain serve --http --bind 0.0.0.0 --public-url https://gbrain.example.com
 ```
 
-The HTTP server supports **OAuth 2.1** (client_credentials, authorization_code
-+ PKCE, refresh token rotation, revocation, RFC 7591 DCR behind `--enable-dcr`).
-Source-scoped clients with `--source dept-x` tie write authority to one
-source; `--federated-read S1,S2,S3` adds orthogonal read scopes. Loopback bind
-by default — `--bind 0.0.0.0` to publish to the LAN.
+The HTTP server supports **OAuth 2.1** (`client_credentials`,
+`authorization_code` with PKCE, refresh token rotation, revocation, RFC 7591
+DCR behind `--enable-dcr`). Source-scoped clients with `--source dept-x` tie
+write authority to one source; `--federated-read S1,S2,S3` adds orthogonal
+read scopes. Loopback bind by default — pass `--bind 0.0.0.0` to publish to
+the LAN.
+
+---
+
+## Benchmarks
+
+Every retrieval, ranking, and compression claim in this README is backed by
+a published eval. Full reports, reproduction commands, corpora, and
+cross-system tables live in the sibling
+[gbrain-evals](https://github.com/garrytan/gbrain-evals) repo.
+
+### Public benchmarks
+
+| Benchmark | gbrain result | Top published competitor | Comparable | Date |
+|---|---|---|---|---|
+| **LongMemEval `_s` (R@5, 500Q)** | **97.60%** (`gbrain-hybrid`, no LLM in loop) | MemPalace raw 96.6%; hybrid+rerank 98.4% (with LLM) | yes — same dataset, K, n | 2026-05-07 |
+| LongMemEval `_s` per-type | +7.1pt single-session-assistant vs MemPal | MemPal | yes | 2026-05-07 |
+
+Mastra (94.87%) and Supermemory (~99%) publish QA-accuracy on this dataset
+with an LLM judge in the loop — different metric, not directly comparable.
+See the [cross-system comparison](https://github.com/garrytan/gbrain-evals/blob/master/docs/comparison-systems.md)
+for the honest table.
+
+### In-house BrainBench corpus
+
+| Adapter | P@5 | R@5 | Δ vs gbrain |
+|---|---|---|---|
+| **gbrain** (full hybrid + graph) | **49.1%** | **97.9%** | — |
+| vector-grep-rrf-fusion (graph disabled) | 17.8% | 65.1% | **−31.4 pts P@5** |
+| grep-only (BM25) | 17.1% | 62.4% | −32.0 pts P@5 |
+| vector-only (cosine RAG) | 10.8% | 40.7% | −38.4 pts P@5 |
+
+240-page rich-prose corpus (80 people / 80 companies / 50 meetings / 30
+concepts), 145 relational gold queries, deterministic re-runs. The graph
+layer's contribution (+31.4 pts P@5) is separable and reproducible. Flat
+across v0.16 → v0.20 — zero retrieval regression over seven releases.
+
+### Source-swamp resistance
+
+Curated content vs bulk content: do articles win against chat dumps that
+mention the same phrases? gbrain v0.22.0 source-aware ranking lifts top-1
+from 80% (grep-only) and 90% (pre-source-boost) to **93.3%**, while
+keeping swamp-at-top at **6.7%**. [Full report.](https://github.com/garrytan/gbrain-evals/blob/master/docs/benchmarks/2026-04-25-brainbench-cat13b-source-swamp.md)
+
+### Skill / prompt compression
+
+`functional-area-resolver` is a two-layer dispatch pattern for compressing
+an agent's `AGENTS.md` / `RESOLVER.md`. A real-world 25KB resolver
+compressed to **13KB (48% size)** and **gained +13 to +17pp routing
+accuracy** across three frontier models (Opus 4.7, Sonnet 4.6, Haiku 4.5).
+The `(dispatcher for: ...)` clause is load-bearing — the ablation case
+(same compression without it) collapses Sonnet's lenient accuracy to
+41.7%. [Receipts in this repo.](evals/functional-area-resolver/)
+
+### Run your own evals
+
+```bash
+# Public benchmark, in-process, ~30s warm
+gbrain eval longmemeval ~/Downloads/longmemeval_s.jsonl
+
+# Multi-model output quality gate (3 frontier models score the same output)
+gbrain eval cross-modal --task "..." --output report.md
+
+# Capture every real query/search call as eval data (contributor mode)
+GBRAIN_CONTRIBUTOR_MODE=1 gbrain eval export > snapshot.ndjson
+gbrain eval replay --against snapshot.ndjson   # regression-gate retrieval
+
+# In-house BrainBench (sibling repo)
+cd ~/git/gbrain-evals && bun eval/runner/multi-adapter.ts
+```
+
+The full BrainBench corpus + per-category scorecards (Cats 1–13) live in
+[`gbrain-evals/eval/data/`](https://github.com/garrytan/gbrain-evals/tree/master/eval/data).
 
 ---
 
