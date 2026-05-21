@@ -2,7 +2,7 @@
 
 All notable changes to GBrain will be documented in this file.
 
-## [0.40.0.1] - 2026-05-20
+## [0.37.5.0] - 2026-05-20
 
 **`gbrain doctor` stops flagging your tags as broken when they're not.**
 

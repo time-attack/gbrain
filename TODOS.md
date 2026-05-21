@@ -1,9 +1,9 @@
 # TODOS
 
 
-## v0.40.0.1 NESTED_QUOTES validator follow-up
+## v0.37.5.0 NESTED_QUOTES validator follow-up
 
-- [ ] **v0.40.x+: unify `serializeFrontmatter` tag/title quoting with `brain-writer.ts:184`'s single-quote-with-`''`-escape style for consistency.** Cosmetic only now that the validator at `src/core/markdown.ts:219-238` is YAML-aware (v0.40.0.1). Today the emitter still produces `tags: ["yc"]` (double-quoted via `JSON.stringify`) while the repair path produces `tags: ['yc']` (single-quoted). Both are valid YAML and the validator accepts both, so this is cosmetic — but new writes drifting from repair-side output reads as inconsistency. Original signal: PR #1217 by @garrytan-agents (closed in favor of the validator fix). Touch `src/core/frontmatter-inference.ts:391-416` only; should be ~5 LOC + the existing test at `test/frontmatter-inference.test.ts:239` updated.
+- [ ] **v0.37.x+: unify `serializeFrontmatter` tag/title quoting with `brain-writer.ts:184`'s single-quote-with-`''`-escape style for consistency.** Cosmetic only now that the validator at `src/core/markdown.ts:219-238` is YAML-aware (v0.37.5.0). Today the emitter still produces `tags: ["yc"]` (double-quoted via `JSON.stringify`) while the repair path produces `tags: ['yc']` (single-quoted). Both are valid YAML and the validator accepts both, so this is cosmetic — but new writes drifting from repair-side output reads as inconsistency. Original signal: PR #1217 by @garrytan-agents (closed in favor of the validator fix). Touch `src/core/frontmatter-inference.ts:391-416` only; should be ~5 LOC + the existing test at `test/frontmatter-inference.test.ts:239` updated.
 
 
 ## v0.35.6.0 floor-ratio gate follow-ups (v0.36.x+)
