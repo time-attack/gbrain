@@ -48,7 +48,7 @@ beforeEach(async () => {
   // MinionQueue.ensureSchema() sees the migrated state. The schema itself
   // is preserved (initSchema applied in beforeAll); only the config-table
   // marker row needs re-seeding.
-  await engine.setConfig('version', '84');
+  await engine.setConfig('version', '85');
   tmpAuditDir = fs.mkdtempSync(path.join(os.tmpdir(), 'submit-agent-audit-'));
 });
 

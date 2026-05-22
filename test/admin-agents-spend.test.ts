@@ -36,7 +36,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   await resetPgliteState(engine);
-  await engine.setConfig('version', '84');
+  await engine.setConfig('version', '85');
 });
 
 async function seedClient(opts: {

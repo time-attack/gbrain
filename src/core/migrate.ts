@@ -3768,6 +3768,49 @@ export const MIGRATIONS: Migration[] = [
   },
   {
     version: 81,
+    name: 'pages_provenance_columns',
+    // v0.38 ingestion cathedral (eng review E4):
+    // Adds four nullable provenance columns to `pages` so every ingested
+    // page carries a record of WHERE it came from. The columns are
+    // populated by the ingest_capture Minion handler (via the put_page
+    // write-through path landing in a sibling commit). NULL is the
+    // historical-page default — pre-v0.38 pages never had provenance.
+    //
+    //   - ingested_via    TEXT  — source kind taxonomy
+    //                             (file-watcher | inbox-folder | webhook |
+    //                              cron-scheduler | capture-cli |
+    //                              <skillpack-kind>)
+    //   - ingested_at     TIMESTAMPTZ — UTC time the ingestion daemon
+    //                                   accepted the event
+    //   - source_uri      TEXT  — original URI/path/message-id the event
+    //                             carried (file path, mail message-id, URL)
+    //   - source_kind     TEXT  — duplicates ingested_via for indexed
+    //                             filtering convenience (one column for
+    //                             "type of source", one for richer label
+    //                             — kept narrow + indexable separately)
+    //
+    // ADD COLUMN with NULL default is metadata-only on Postgres 11+ and
+    // PGLite 17.5 — instant on tables of any size.
+    //
+    // No index: provenance queries are admin-surface only.
+    //
+    // Forward-reference bootstrap: every brain that upgrades through this
+    // version needs the columns visible to the embedded SCHEMA_SQL replay
+    // BEFORE migrations run. applyForwardReferenceBootstrap on both
+    // engines covers this; REQUIRED_BOOTSTRAP_COVERAGE pins the contract.
+    //
+    // Renumbered v80→v81 during master merge with v0.37.2.0's
+    // takes_unresolvable_quality hotfix.
+    idempotent: true,
+    sql: `
+      ALTER TABLE pages ADD COLUMN IF NOT EXISTS ingested_via TEXT NULL;
+      ALTER TABLE pages ADD COLUMN IF NOT EXISTS ingested_at TIMESTAMPTZ NULL;
+      ALTER TABLE pages ADD COLUMN IF NOT EXISTS source_uri TEXT NULL;
+      ALTER TABLE pages ADD COLUMN IF NOT EXISTS source_kind TEXT NULL;
+    `,
+  },
+  {
+    version: 82,
     name: 'subagent_tool_executions_stable_id',
     // v0.38 Slice 1 — D11 stable-ID columns. The pre-v81 reconciliation key
     // for crash-replay was `(job_id, tool_use_id)` where tool_use_id came from
@@ -3831,7 +3874,7 @@ export const MIGRATIONS: Migration[] = [
     },
   },
   {
-    version: 82,
+    version: 83,
     name: 'mcp_spend_reservations',
     // v0.38 Slice 2 — D3 + codex P2 — reserve-then-settle budget pattern.
     //
@@ -3871,7 +3914,7 @@ export const MIGRATIONS: Migration[] = [
     `,
   },
   {
-    version: 84,
+    version: 85,
     name: 'oauth_clients_agent_binding',
     // v0.38 Slice 3 — D13 + codex P1 + P2 — registration-time binding for
     // OAuth clients that hold the `agent` scope. The binding fields are
@@ -3933,14 +3976,14 @@ export const MIGRATIONS: Migration[] = [
     },
   },
   {
-    version: 83,
+    version: 84,
     name: 'oauth_clients_budget_usd_per_day',
     // v0.38 Slice 2 — D2 + D3 — per-OAuth-client daily budget cap.
     //
-    // Pre-v83 the daily cap lived in a per-search-image config key. This
+    // Pre-v84 the daily cap lived in a per-search-image config key. This
     // column makes it a first-class property of each OAuth client and lets
     // `gbrain auth register-client --budget-usd-per-day N` persist the cap
-    // alongside scope. NULL = no cap (current pre-v83 behavior).
+    // alongside scope. NULL = no cap (current pre-v84 behavior).
     //
     // Column-only; metadata-only on Postgres 11+ and PGLite 17.5.
     idempotent: true,

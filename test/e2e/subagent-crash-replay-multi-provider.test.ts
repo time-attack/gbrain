@@ -60,7 +60,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   await resetPgliteState(engine);
-  await engine.setConfig('version', '84');
+  await engine.setConfig('version', '85');
   await engine.setConfig('agent.use_gateway_loop', 'true');
 
   configureGateway({

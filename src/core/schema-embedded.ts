@@ -445,7 +445,7 @@ CREATE TABLE IF NOT EXISTS oauth_clients (
   deleted_at              TIMESTAMPTZ,
   source_id               TEXT REFERENCES sources(id) ON DELETE RESTRICT,
   federated_read          TEXT[] NOT NULL DEFAULT '{}',
-  -- v0.38 Slice 2 + 3: per-client daily budget cap (v83) + agent binding (v84).
+  -- v0.38 Slice 2 + 3: per-client daily budget cap (v84) + agent binding (v85).
   budget_usd_per_day      NUMERIC(10, 2) NULL,
   bound_tools             TEXT[] NULL,
   bound_source_id         TEXT NULL,
@@ -748,7 +748,7 @@ CREATE TABLE IF NOT EXISTS subagent_tool_executions (
   -- v0.38 D11: gbrain-owned stable IDs (ordinal assigned at first
   -- observation of a tool call; gbrain_tool_use_id is uuid v7). Reconciliation
   -- on crash-replay uses (job_id, message_idx, ordinal) as the unique key.
-  -- Legacy rows (pre-v81) have ordinal=NULL + gbrain_tool_use_id=NULL and
+  -- Legacy rows (pre-v82) have ordinal=NULL + gbrain_tool_use_id=NULL and
   -- are resolved by the read-time D5 shim that recomputes the key from
   -- (job_id, message_idx, content_blocks index, tool_name).
   ordinal             INTEGER,

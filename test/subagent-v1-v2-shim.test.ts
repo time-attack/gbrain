@@ -37,7 +37,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   await resetPgliteState(engine);
-  await engine.setConfig('version', '84');
+  await engine.setConfig('version', '85');
 });
 
 describe('adaptContentBlocksToChatBlocks (D5 — v1 Anthropic → v2 ChatBlock shape)', () => {
