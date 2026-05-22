@@ -383,3 +383,233 @@ describe('extractAndInsertClaims — cache stats reporting', () => {
     expect(stats.size).toBe(1);
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────
+// v0.40.2.0 — extractor stress + persistence shape pins
+// ─────────────────────────────────────────────────────────────────────
+
+describe('extractAndInsertClaims — alias map cross-session stress (10+ sessions)', () => {
+  test('one canonical slug per name across 12 sessions in the same question', async () => {
+    // Tests the core LongMemEval contract: the user mentions a person
+    // by varying name forms ("Marco", "Marco Smith", "marco") across
+    // many haystack sessions in ONE question. The alias map collapses
+    // them all under one slug. If it didn't, the trajectory router
+    // would later split the entity across multiple slugs and fragment
+    // the timeline.
+    const aliasMap = makeAliasMap();
+
+    // Build 12 sessions, each contributing 1 claim about "Marco" in
+    // varying name forms.
+    const nameForms = [
+      'Marco', 'marco', 'Marco Smith', 'marco smith',
+      'MARCO', 'Marco', 'Marco Smith Jr', 'Marco S.',
+      'marco', 'Marco', 'Marco Smith', 'marco',
+    ];
+
+    for (let i = 0; i < nameForms.length; i++) {
+      const name = nameForms[i];
+      const sessionId = `sess-${i + 1}`;
+      const { client } = stubClient(new Map([
+        [`marker-${sessionId}`, [
+          {
+            entity: name,
+            metric: 'role',
+            value: i + 1,
+            unit: null,
+            period: null,
+            event_type: null,
+            valid_from: `2026-${String((i % 12) + 1).padStart(2, '0')}-01`,
+            text: `claim ${i + 1} about ${name}`,
+          },
+        ]]
+      ]));
+      await extractAndInsertClaims({
+        engine,
+        client,
+        model: 'stub',
+        sessionSlug: `chat/${sessionId}`,
+        sessionId,
+        sessionBody: `body marker-${sessionId}`,
+        sourceId: 'default',
+        aliasMap,
+      });
+    }
+
+    // Pin: all 12 rows landed under ONE entity_slug (the alias map
+    // collapsed every name form to the first-mention canonical).
+    const rows = await engine.executeRaw<{ entity_slug: string }>(
+      `SELECT DISTINCT entity_slug FROM facts ORDER BY entity_slug`,
+    );
+    expect(rows.length).toBe(1);
+
+    const total = await engine.executeRaw<{ count: string }>(
+      `SELECT COUNT(*)::text AS count FROM facts`,
+    );
+    expect(Number(total[0].count)).toBe(12);
+  });
+
+  test('different entities stay separate across many sessions', async () => {
+    const aliasMap = makeAliasMap();
+    // 6 sessions mixing two entities (Marco + Alice). Each session
+    // mentions only ONE of them. Pin: 2 distinct entity_slugs after
+    // all sessions land.
+    const interleaved = ['Marco', 'Alice', 'Marco', 'Alice', 'Marco Smith', 'Alice Example'];
+    for (let i = 0; i < interleaved.length; i++) {
+      const name = interleaved[i];
+      const { client } = stubClient(new Map([
+        [`pair-${i}`, [
+          { entity: name, metric: 'role', value: i + 1, unit: null, period: null, event_type: null, valid_from: '2026-01-01', text: `claim ${i}` },
+        ]],
+      ]));
+      await extractAndInsertClaims({
+        engine, client, model: 'stub',
+        sessionSlug: `chat/pair-${i}`,
+        sessionId: `pair-${i}`,
+        sessionBody: `body pair-${i}`,
+        sourceId: 'default',
+        aliasMap,
+      });
+    }
+    const rows = await engine.executeRaw<{ entity_slug: string }>(
+      `SELECT DISTINCT entity_slug FROM facts ORDER BY entity_slug`,
+    );
+    expect(rows.length).toBe(2);
+  });
+});
+
+describe('extractAndInsertClaims — persistence shape pins', () => {
+  test('embedding column is NULL on every benchmark-inserted row', async () => {
+    // The extractor passes `embedding: null` because the benchmark
+    // doesn't need drift_score. Pin: every inserted row has NULL in
+    // both embedding AND embedded_at. If a future refactor adds an
+    // embed-on-write path, this test catches it.
+    const aliasMap = makeAliasMap();
+    const { client } = stubClient(new Map([
+      ['sess-emb', [
+        { entity: 'X', metric: 'mrr', value: 100, unit: 'USD', period: 'monthly', event_type: null, valid_from: '2026-01-01', text: 'mrr' },
+        { entity: 'X', metric: null, value: null, unit: null, period: null, event_type: 'meeting', valid_from: '2026-02-01', text: 'met X' },
+      ]],
+    ]));
+    await extractAndInsertClaims({
+      engine, client, model: 'stub',
+      sessionSlug: 'chat/sess-emb',
+      sessionId: 'sess-emb',
+      sessionBody: 'body sess-emb',
+      sourceId: 'default',
+      aliasMap,
+    });
+
+    const rows = await engine.executeRaw<{
+      embedding: string | null;
+      embedded_at: Date | string | null;
+    }>(`SELECT embedding::text AS embedding, embedded_at FROM facts`);
+    expect(rows.length).toBe(2);
+    for (const r of rows) {
+      expect(r.embedding).toBeNull();
+      expect(r.embedded_at).toBeNull();
+    }
+  });
+
+  test('row_num + source_markdown_slug populated correctly across multi-claim sessions', async () => {
+    // The extractor assigns sequential row_num (1, 2, 3, ...) and
+    // stamps source_markdown_slug to the session slug. Pin both for
+    // the v0.32.2 partial UNIQUE index that requires
+    // (source_id, source_markdown_slug, row_num) uniqueness.
+    const aliasMap = makeAliasMap();
+    const { client } = stubClient(new Map([
+      ['multi', [
+        { entity: 'A', metric: 'mrr', value: 1, unit: null, period: null, event_type: null, valid_from: '2026-01-01', text: 'a' },
+        { entity: 'B', metric: 'mrr', value: 2, unit: null, period: null, event_type: null, valid_from: '2026-02-01', text: 'b' },
+        { entity: 'C', metric: 'mrr', value: 3, unit: null, period: null, event_type: null, valid_from: '2026-03-01', text: 'c' },
+      ]],
+    ]));
+    await extractAndInsertClaims({
+      engine, client, model: 'stub',
+      sessionSlug: 'chat/multi-rownum',
+      sessionId: 'multi-rownum',
+      sessionBody: 'body multi',
+      sourceId: 'default',
+      aliasMap,
+    });
+
+    const rows = await engine.executeRaw<{
+      row_num: number;
+      source_markdown_slug: string;
+    }>(`SELECT row_num, source_markdown_slug FROM facts ORDER BY row_num`);
+    expect(rows.length).toBe(3);
+    expect(rows.map(r => r.row_num)).toEqual([1, 2, 3]);
+    for (const r of rows) {
+      expect(r.source_markdown_slug).toBe('chat/multi-rownum');
+    }
+  });
+
+  test('source field is stamped "longmemeval:extractor" for audit', async () => {
+    // Pins the source-tag that distinguishes benchmark-extracted facts
+    // from production facts (the autoplan path uses `cli:think`,
+    // extract_facts cycle uses `cycle:extract_facts`, etc).
+    const aliasMap = makeAliasMap();
+    const { client } = stubClient(new Map([
+      ['tag', [
+        { entity: 'X', metric: 'mrr', value: 1, unit: null, period: null, event_type: null, valid_from: '2026-01-01', text: 'x' },
+      ]],
+    ]));
+    await extractAndInsertClaims({
+      engine, client, model: 'stub',
+      sessionSlug: 'chat/tag',
+      sessionId: 'tag',
+      sessionBody: 'body tag',
+      sourceId: 'default',
+      aliasMap,
+    });
+    const rows = await engine.executeRaw<{ source: string; source_session: string }>(
+      `SELECT source, source_session FROM facts`,
+    );
+    expect(rows.length).toBe(1);
+    expect(rows[0].source).toBe('longmemeval:extractor');
+    expect(rows[0].source_session).toBe('tag');
+  });
+});
+
+describe('extractAndInsertClaims — cache key invariance', () => {
+  test('same body text → same hash → second call hits cache regardless of sessionId/slug', async () => {
+    resetExtractorState();
+    const aliasMap = makeAliasMap();
+    const callCounter = { count: 0 };
+    const client: ThinkLLMClient = {
+      create: async () => {
+        callCounter.count++;
+        return {
+          id: 'k', type: 'message', role: 'assistant', model: 's',
+          stop_reason: 'end_turn', stop_sequence: null,
+          usage: { input_tokens: 1, output_tokens: 1, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, server_tool_use: null, service_tier: null },
+          content: [{ type: 'text', text: JSON.stringify([
+            { entity: 'X', metric: 'mrr', value: 1, unit: null, period: null, event_type: null, valid_from: '2026-01-01', text: 'x' },
+          ]) }],
+        } as never;
+      },
+    };
+    const body = 'identical body shared across two completely different sessions';
+
+    const r1 = await extractAndInsertClaims({
+      engine, client, model: 'stub',
+      sessionSlug: 'chat/alpha',
+      sessionId: 'alpha',
+      sessionBody: body,
+      sourceId: 'default',
+      aliasMap,
+    });
+    const r2 = await extractAndInsertClaims({
+      engine, client, model: 'stub',
+      sessionSlug: 'chat/beta-different-slug',
+      sessionId: 'beta-completely-different-id',
+      sessionBody: body,
+      sourceId: 'default',
+      aliasMap,
+    });
+    // Cache hit on r2 because sessionBody hash matches; sessionId and
+    // sessionSlug are NOT in the hash key (cache is body-content scoped).
+    expect(r1.cacheHit).toBe(false);
+    expect(r2.cacheHit).toBe(true);
+    expect(callCounter.count).toBe(1);
+  });
+});
