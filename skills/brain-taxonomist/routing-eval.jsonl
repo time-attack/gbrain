@@ -1,0 +1,7 @@
+{"intent": "where does this brain page go", "expected_skill": "brain-taxonomist"}
+{"intent": "file this in the brain", "expected_skill": "brain-taxonomist"}
+{"intent": "brain taxonomist", "expected_skill": "brain-taxonomist"}
+{"intent": "taxonomy check", "expected_skill": "brain-taxonomist"}
+{"intent": "refile brain page", "expected_skill": "brain-taxonomist"}
+{"intent": "which directory does this page go", "expected_skill": "brain-taxonomist"}
+{"intent": "is this page in the right place", "expected_skill": "brain-taxonomist"}

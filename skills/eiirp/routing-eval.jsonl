@@ -1,0 +1,10 @@
+{"intent": "EIIRP", "expected_skill": "eiirp"}
+{"intent": "everything in its right place", "expected_skill": "eiirp"}
+{"intent": "store this research properly", "expected_skill": "eiirp"}
+{"intent": "put this in the brain and DRY it up", "expected_skill": "eiirp"}
+{"intent": "file all of this", "expected_skill": "eiirp"}
+{"intent": "organize all of this work", "expected_skill": "eiirp"}
+{"intent": "make this re-doable", "expected_skill": "eiirp"}
+{"intent": "DRY this up", "expected_skill": "eiirp"}
+{"intent": "check everything is in the right place", "expected_skill": "eiirp"}
+{"intent": "archive this research thread", "expected_skill": "eiirp"}
