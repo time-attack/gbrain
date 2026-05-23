@@ -2,7 +2,7 @@
 
 All notable changes to GBrain will be documented in this file.
 
-## [0.41.0.0] - 2026-05-23
+## [0.40.5.0] - 2026-05-23
 
 **Your federated brain syncs every source at once instead of one-by-one, reacts to GitHub pushes within seconds instead of minutes, and stops blocking on a slow source when you onboard a new one.**
 
@@ -62,7 +62,7 @@ Codex's outside-voice review on the plan caught a real bug class: submitting `em
 
 The webhook handler had a different bug — caught at test-writing time. `Buffer.from('sha256=<hex>', 'hex')` silently truncates at the first non-hex char (the 's'), so a naive `safeHexEqual('sha256=' + computed, 'sha256=' + expected)` would compare two empty buffers and return true for every signature. Fix: strip the `sha256=` prefix before the constant-time compare. Pinned by a `test/sources-webhook.test.ts` IRON-RULE case.
 
-## To take advantage of v0.41.0.0
+## To take advantage of v0.40.5.0
 
 `gbrain upgrade` should do this automatically. If it didn't, or if `gbrain doctor` warns about a partial migration:
 
@@ -76,7 +76,7 @@ The webhook handler had a different bug — caught at test-writing time. `Buffer
    gbrain doctor                  # check federation_health
    gbrain sync trigger --help     # confirm trigger subcommand wired
    ```
-3. **Opt out (if needed):** `gbrain config set sync.federated_v2 false && gbrain jobs supervisor restart` reverts to pre-v0.41 sequential behavior. The per-source lock + migration v89 stay on regardless.
+3. **Opt out (if needed):** `gbrain config set sync.federated_v2 false && gbrain jobs supervisor restart` reverts to pre-v0.40.5 sequential behavior. The per-source lock + migration v89 stay on regardless.
 4. **If any step fails,** file an issue at https://github.com/garrytan/gbrain/issues with the output of `gbrain doctor` and `~/.gbrain/upgrade-errors.jsonl` if it exists.
 
 ### Itemized changes
