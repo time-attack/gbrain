@@ -296,6 +296,28 @@ export async function resolveLiveRerankerModel(engine: BrainEngine): Promise<str
 }
 
 /**
+ * Resolve the reranker timeout the same way live search does, via
+ * `loadSearchModeConfig` + `resolveSearchMode`. Precedence chain:
+ *   per-call > `search.reranker.timeout_ms` config > recipe `default_timeout_ms` > mode bundle.
+ *
+ * Codex outside-voice (Pass 9 of the wave) caught the probe lying either way
+ * when the operator sets `search.reranker.timeout_ms`: the probe used the
+ * recipe default (30s for llama) while production search used the (lower)
+ * config value, so doctor reported reachable while production always
+ * timed out. Same fix shape as `resolveLiveRerankerModel`.
+ */
+export async function resolveLiveRerankerTimeoutMs(engine: BrainEngine): Promise<number> {
+  try {
+    const { loadSearchModeConfig, resolveSearchMode } = await import('../core/search/mode.ts');
+    const input = await loadSearchModeConfig(engine);
+    const resolved = resolveSearchMode(input);
+    return resolved.reranker_timeout_ms ?? 5000;
+  } catch {
+    return 5000;
+  }
+}
+
+/**
  * v0.35.0.0+: zero-network reranker config probe. Validates that the
  * configured reranker model resolves through the recipe registry, that the
  * recipe declares a `reranker` touchpoint, and that the model is in the
@@ -394,15 +416,13 @@ async function probeRerankerReachability(engine: BrainEngine): Promise<ProbeResu
   const modelStr = await resolveLiveRerankerModel(engine);
   if (!modelStr) return null;
 
-  // Resolve the recipe's default_timeout_ms so cold-start on a local
-  // CPU-only reranker doesn't false-fail. Caller (search code path) gets
-  // the same value via mode.ts; we duplicate the lookup here because the
-  // probe runs before any search.
-  const { getRecipe } = await import('../core/ai/recipes/index.ts');
-  const colon = modelStr.indexOf(':');
-  const providerId = colon === -1 ? modelStr : modelStr.slice(0, colon);
-  const recipe = getRecipe(providerId);
-  const probeTimeoutMs = recipe?.touchpoints?.reranker?.default_timeout_ms ?? 5000;
+  // Use the same timeout resolution live search uses: per-call > config >
+  // recipe > bundle. Pre-fix the probe read only the recipe default, so an
+  // operator who set `search.reranker.timeout_ms=1000` would see doctor wait
+  // 30s and report reachable while production search timed out at 1s
+  // (codex Pass-9 finding). resolveLiveRerankerTimeoutMs reuses the full
+  // precedence chain via mode.ts.
+  const probeTimeoutMs = await resolveLiveRerankerTimeoutMs(engine);
 
   const start = Date.now();
   try {

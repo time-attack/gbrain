@@ -2,6 +2,24 @@
 
 ## community-pr-wave follow-ups (filed during ship)
 
+- [ ] **`FREE_LOCAL_*_PROVIDERS` zero-pricing bypassable via redirected
+  BASE_URL env vars.** An operator who sets `LLAMA_SERVER_BASE_URL=https://paid-api.com/v1`
+  routes `llama-server:foo` requests to a paid proxy, but the budget
+  tracker still zero-prices them because the provider-prefix match in
+  `FREE_LOCAL_EMBED_PROVIDERS` / `FREE_LOCAL_RERANK_PROVIDERS` doesn't
+  see the resolved URL. The bypass is real but requires operator
+  misconfiguration (paid-API behind a "local" recipe alias) — same
+  trust posture as the rest of the BASE_URL env vars.
+
+  Fix shape (couples with the unification TODO already filed for v0.41+):
+  move the freeness decision from provider-prefix lookup to the gateway's
+  embed/rerank call sites where the resolved URL is known, or detect
+  non-loopback `provider_base_urls` and refuse zero-pricing in that case.
+
+  Surfaced by codex Pass-9 adversarial review; pre-existing for the rerank
+  case in v0.40.7.1, broadened to embed by v0.40.8.0. Tracked here so the
+  unification PR closes both at once.
+
 - [ ] **`probeEmbeddingReachability` should honor recipe `default_timeout_ms`
   for embed touchpoint.** The reranker probe was just fixed in PR #1326 to
   read `recipe.touchpoints.reranker.default_timeout_ms` so Qwen3-Reranker-4B
