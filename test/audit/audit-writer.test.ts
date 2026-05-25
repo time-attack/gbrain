@@ -129,7 +129,10 @@ describe('createAuditWriter — log()', () => {
     await withEnv({ GBRAIN_AUDIT_DIR: dir }, async () => {
       const writer = createAuditWriter<TestEvent>({ featureName: 'ts-override' });
       writer.log({ ts: fixedTs, message: 'pinned' });
-      const file = path.join(dir, writer.computeFilename());
+      // Events route to the ISO-week file for their OWN ts (so back-dated
+      // events stay readable by readRecent that walks by event week).
+      // Compute the file path using the event's ts, not wall-clock now.
+      const file = path.join(dir, writer.computeFilename(new Date(fixedTs)));
       const content = fs.readFileSync(file, 'utf8');
       const row = JSON.parse(content.trim());
       expect(row.ts).toBe(fixedTs);

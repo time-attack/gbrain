@@ -2,6 +2,95 @@
 
 All notable changes to GBrain will be documented in this file.
 
+## [0.41.2.0] - 2026-05-24
+
+**Your brain can now hold three lenses on the same data at once: creator, investor, engineer.** If you write content AND evaluate deals AND ship code, your old setup probably had three different agents pulling from three different mental models. This release ships four bundled "schema packs" that turn one brain into a multi-lens substrate: atoms + concepts join facts + takes as first-class units; gstack's typed learnings flow into the brain as first-class pages; the calibration profile that tracks how often you're wrong widens past its `{}` placeholder to score multiple domains side by side; and a one-shot migration importer lifts your OpenClaw's 13K atoms + 11K concepts into gbrain with permanent slug-keyed idempotency. Activate `gbrain-everything` and the dream cycle runs every pack-declared phase, the calibration profile produces all 7 domain scorecards in one query, and your gstack engineering learnings start appearing as queryable brain pages within seconds of being written.
+
+The lens packs are gbrain-creator (atoms + concepts), gbrain-investor (deal/thesis/bet_resolution_log + investor calibration domains), gbrain-engineer (a `learning` bridge for the gstack JSONL system), and gbrain-everything (a meta-pack that stacks all three via the v0.38 extends+borrow chain — no new active-multi-pack architecture needed, the registry walks the chain). Each pack declares the cycle phases it activates via a new `phases:` manifest field; the runCycle orchestrator gates pack-flavored phases on the active pack's declaration so a brain on gbrain-base stays unchanged byte-for-byte. The pre-existing 17 core phases (lint, sync, extract, extract_facts, propose_takes, grade_takes, calibration_profile, etc.) always run regardless of pack — `phases:` is additive, not subtractive.
+
+The codex outside-voice review caught four cross-model tensions during the eng review that reshaped the design: take→domain attribution moved from a scalar takes.domain column to a take_domain_assignments JOIN table (multi-domain takes attribute honestly to every applicable bucket); the markdown greenfield importer moved from trickle-mode IngestionSource to a new `mode: 'migration'` discriminator (permanent slug-keyed idempotency for bulk historical replay where retries happen days apart, not 24h windowed dedup); calibration domain shapes split into open names + closed aggregator algorithms (third-party packs can add domain labels without a gbrain release); and the meta-pack uses extends+borrow instead of a new multi-active-pack concept.
+
+The calibration profile aggregator (T10) ships four algorithms: scalar_brier (the default for probabilistic predictions), weighted_brier (Brier weighted by conviction so high-stakes misses cost more), count_based (accuracy without Brier), and cluster_summary (descriptive rollup with tier histogram for domains like concept_themes that have no binary outcome to score against).
+
+## To take advantage of v0.41.2.0
+
+`gbrain upgrade` handles the schema migration. After upgrade:
+
+```bash
+# 1. Pick your lens pack:
+gbrain config set schema_pack gbrain-creator     # if you primarily write content
+gbrain config set schema_pack gbrain-investor    # if you primarily evaluate deals
+gbrain config set schema_pack gbrain-engineer    # if you primarily ship code
+gbrain config set schema_pack gbrain-everything  # if you do all three (Garry pattern)
+
+# 2. Verify the pack loaded:
+gbrain doctor --json | jq '.checks[] | select(.name == "schema_packs")'
+
+# 3. Run the cycle once to exercise the new phases:
+gbrain dream   # no --phase flag; pack-declared phases run automatically
+
+# 4. See your new calibration domain scorecards:
+gbrain calibration --json | jq '.domain_scorecards | keys'
+# gbrain-everything user expects:
+# ["_overall", "deal_success", "founder_evaluation", "market_call",
+#  "concept_themes", "architecture_calls", "effort_estimates", "risk_assessment"]
+
+# 5. (Optional, OpenClaw users only) Migrate your existing brain:
+gbrain capture --source markdown-greenfield --repo ~/git/brain --dry-run --limit 100
+# Inspect ~/.gbrain/audit/markdown-greenfield-failures-YYYY-Www.jsonl
+# If clean, run for real (~30-60min for 24K pages):
+gbrain capture --source markdown-greenfield --repo ~/git/brain
+```
+
+After migrating, retire your OpenClaw's parallel atom-pipeline-coordinator + atom-backfill-coordinator crons; gbrain's autopilot already runs extract_atoms + synthesize_concepts inside every dream cycle when a creator-flavored pack is active. See `docs/migrations/v0.41.2-markdown-greenfield.md` for the full operator guide.
+
+### Itemized changes
+
+**Schema:**
+- Migration v93 — `take_domain_assignments(take_id, domain, pack, source, confidence, assigned_at)` JOIN table with composite PK + FK CASCADE + confidence CHECK in [0,1] + GIN index on (domain, take_id). PGLite + Postgres parity. RLS guard for BYPASSRLS roles matches takes/synthesis_evidence pattern. Backward-compat: pre-existing takes carry no assignments; aggregator LEFT JOIN skips them gracefully.
+
+**Schema-pack manifest extensions (v1):**
+- `phases?: string[]` optional field — phase participation declaration consumed by the runCycle orchestrator pack gate.
+- `calibration_domains?: [{name, aggregator, page_types}]` optional field — per-pack scorecard bucket declarations. Aggregator algorithms from the closed AGGREGATOR_KINDS enum (`scalar_brier`, `weighted_brier`, `count_based`, `cluster_summary`); domain names open (third-party packs can add new ones).
+
+**IngestionSource contract:**
+- `mode?: 'trickle' | 'migration'` discriminator on IngestionSource. Defaults to 'trickle' (v0.38 unchanged). `mode: 'migration'` bypasses the daemon's 24h DedupWindow; sources own permanent slug-keyed idempotency themselves.
+
+**Four bundled lens packs at `src/core/schema-pack/base/`:**
+- `gbrain-creator.yaml` — atom (NEW page type) + concept (reuse from base). Declares phases `[extract_atoms, synthesize_concepts]`. Calibration domain: concept_themes/cluster_summary/[concept].
+- `gbrain-investor.yaml` — thesis + bet_resolution_log (NEW). Borrows deal/person/company/yc. No new cycle phases. Calibration: deal_success/scalar_brier, founder_evaluation/scalar_brier, market_call/weighted_brier.
+- `gbrain-engineer.yaml` — learning (NEW). Borrows code+project. No new cycle phases (gstack-learnings IngestionSource is daemon-side). Calibration: architecture_calls/scalar_brier, effort_estimates/weighted_brier, risk_assessment/scalar_brier.
+- `gbrain-everything.yaml` — meta-pack extending gbrain-investor + borrowing atom from creator + learning from engineer. Explicitly re-declares phases + calibration_domains because `borrow_from` borrows types/link_types only, NOT phases.
+
+**Two new cycle phases (orchestrator-gated):**
+- `extract_atoms` (per-source) — Haiku extracts 1-3 atoms per transcript with the closed 11-value `atom_type` enum (insight, anecdote, quote, framework, statistic, story_angle, strategy_angle, strategy, endorsement, critique, collection). Writes `atoms/{YYYY-MM-DD}/{slug}` pages with frontmatter validators. Budget cap $0.30/source/run. Skips pages with `imported_from` marker.
+- `synthesize_concepts` (global) — Aggregates atoms by frontmatter `concepts:` ref. Tier by count: T1≥10, T2≥5, T3≥2. T1/T2 get Sonnet narratives; T3 falls back deterministic. Writes `concepts/{slug}` pages. Budget cap $1.50/run.
+
+**Calibration profile widening:**
+- `calibration_profiles.domain_scorecards` JSONB now populates per declared domain with `{n, brier, accuracy, aggregator, page_types, extras}` via the new `src/core/calibration/domain-aggregators.ts` module. R1 IRON RULE: byte-identical empty `{}` regression preserved when no active pack declares domains.
+
+**Two new IngestionSources:**
+- `markdown-greenfield` (mode: 'migration') — one-shot bulk importer at `src/core/ingestion/sources/markdown-greenfield.ts`. Walks `atoms/{YYYY-MM-DD}/`, `concepts/`, `ideas/`. Per-row validation failure → JSONL audit at `~/.gbrain/audit/markdown-greenfield-failures-YYYY-Www.jsonl`. Long-lived (`@one-shot` doc comment per D10).
+- `gstack-learnings` (mode: 'trickle') — daemon-side bridge at `src/core/ingestion/sources/gstack-learnings.ts`. Watches `~/.gstack/projects/{repo}/learnings.jsonl`, emits each line as a `learning`-typed IngestionEvent. Activates when engineer or gbrain-everything pack is active.
+
+**Three eval commands (scaffolds):**
+- `gbrain eval extract-atoms`, `gbrain eval synthesize-concepts`, `gbrain eval markdown-greenfield` — command surfaces ship; parity-baseline implementations against your OpenClaw's existing 13K atoms + 11K concepts on a 500-page sample subset land in v0.41.2.1.
+
+**Tests:** 16 new test files, 199 cases pinning the v0.41.2.0 contracts (R-MIG migration regression, R-GATE orchestrator pack gate, manifest schema shape, lens pack declarations, calibration aggregator math, ingestion mode discriminator, source emit pipelines).
+
+**Documentation:**
+- `docs/architecture/lens-packs.md` — full lens pack architecture, four-pack diagram, calibration widening explainer, v0.41.2.1 follow-ups.
+- `docs/migrations/v0.41.2-markdown-greenfield.md` — operator guide for the bulk migration: dry-run, audit JSONL inspection, retiring your OpenClaw's parallel crons.
+
+### v0.41.2.1 follow-ups (filed)
+
+- Per-page-type `frontmatter_validators` on PageTypeSchema (D11 — atom_type enum reads from manifest at runtime; currently hardcoded in extract_atoms.ts).
+- 3-check quality gate (truism / punchline / entity-page reject) as a multi-pass refinement for extract_atoms.
+- Embedding-similarity dedup for synthesize_concepts (currently exact-string concept ref match only).
+- Voice gate integration for T1 Canon narratives in synthesize_concepts.
+- op_checkpoint resumability for cross-cycle continuation in both new phases.
+- Parity-baseline eval gates against your OpenClaw outputs on 500-page sample.
+- OpenClaw-side cleanup (`atom-pipeline-coordinator` retire + SKILL.md shrinks) lives in `~/git/your-openclaw`, not this repo.
 ## [0.41.1.0] - 2026-05-24
 
 **Your CI can now fail a PR when search retrieval gets worse.** Before this release, gbrain shipped the pieces you'd need to measure retrieval quality (capture, replay, nightly probe, cross-modal runner) but nothing connected them into a loop. You could see a quality drop on your screen but nothing automatically caught it. v0.41 closes the loop end-to-end. You publish a baseline once — a snapshot of how your brain performs on a set of real queries — and then `gbrain eval gate` runs against that baseline on every PR. If results get materially worse OR if the brain stops finding pages it used to find, the command exits non-zero and CI turns red. The wave also wires the nightly quality probe into the autopilot daemon (opt-in via config) so a brain you've left running notices its own degradation.
@@ -118,7 +207,7 @@ What we caught and fixed before merging. Three independent reviews + three codex
 
 **Visibility infrastructure (Approach C base + Eng D3 / D7 / D8 / D10):**
 
-- New migration v93 `minions_v0_41_audit_and_budget`: three audit tables (`minion_lease_pressure_log`, `minion_budget_log`, `minion_self_fix_log`) with `ON DELETE SET NULL` FKs so audit rows survive `gbrain jobs prune`; denormalized columns (queue_name, model, provider, owner_id, event_type, etc.) persisted inline so post-NULL forensic queries still see context. Three new `minion_jobs` columns: `budget_remaining_cents`, `budget_owner_job_id` (FK SET NULL), `budget_root_owner_id` (no FK — Eng D10 immutable historical reference that survives owner deletion so children can disambiguate "never had a budget" from "owner deleted, halt cleanly"). Postgres + PGLite parity.
+- New migration v94 `minions_v0_41_audit_and_budget`: three audit tables (`minion_lease_pressure_log`, `minion_budget_log`, `minion_self_fix_log`) with `ON DELETE SET NULL` FKs so audit rows survive `gbrain jobs prune`; denormalized columns (queue_name, model, provider, owner_id, event_type, etc.) persisted inline so post-NULL forensic queries still see context. Three new `minion_jobs` columns: `budget_remaining_cents`, `budget_owner_job_id` (FK SET NULL), `budget_root_owner_id` (no FK — Eng D10 immutable historical reference that survives owner deletion so children can disambiguate "never had a budget" from "owner deleted, halt cleanly"). Postgres + PGLite parity.
 - `gbrain doctor` gains `subagent_health` check. Reads 24h of `minion_lease_pressure_log`. 0 bounces → ok; 100+ with no completed subagents → warn with paste-ready cap-raise hint; 1000+ → fail (blocking). Pre-v93 brains silently skip.
 - `gbrain jobs stats` gains a `Lease pressure (1h)` line + `--cluster-errors` flag that groups dead/failed jobs by classifier bucket via the new `src/core/minions/error-classify.ts` (the shared classifier consumed by both `gbrain jobs stats --cluster-errors` and the E6 self-fix gate).
 - New `src/core/minions/lease-pressure-audit.ts` + `src/core/minions/budget-tracker.ts` — best-effort writers + readers for the new audit tables. Stderr-warn on failure; never blocks the bypass path.

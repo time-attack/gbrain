@@ -12,7 +12,7 @@
   + `src/core/minions/handlers/subagent.ts:GBRAIN_ANTHROPIC_MAX_INFLIGHT`.
 
 - [ ] **v0.41+: `minion_lease_pressure_log` + budget/self-fix audit retention sweep.**
-  v0.41 migration v93 promoted `ON DELETE SET NULL` on audit FKs so rows
+  v0.41 migration v94 promoted `ON DELETE SET NULL` on audit FKs so rows
   survive `gbrain jobs prune`. Codex pass-3 #5 caught the corollary: without
   retention, audit tables grow unbounded. On a steady-pressure install
   (heavy daily batches), `minion_lease_pressure_log` is millions of rows by
