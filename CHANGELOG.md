@@ -2,7 +2,7 @@
 
 All notable changes to GBrain will be documented in this file.
 
-## [0.41.16.0] - 2026-05-26
+## [0.41.17.0] - 2026-05-26
 
 **You can now run `extract-conversation-facts`, `extract`,
 `edges-backfill`, `reindex-multimodal`, `reindex --markdown`,
@@ -10,7 +10,7 @@ All notable changes to GBrain will be documented in this file.
 197K-page brain, the `extract-conversation-facts` backfill that used to
 take ~50 hours now finishes in ~3 hours with `--workers 20`.**
 
-Until 0.41.16.0, every long-running bulk operation in gbrain ran one
+Until 0.41.17.0, every long-running bulk operation in gbrain ran one
 thing at a time. If you had 6,594 conversation pages to backfill into
 the facts table, gbrain would talk to your LLM for one page, wait, talk
 again for the next page, wait again, page by page, for 50 hours
@@ -70,9 +70,9 @@ Real production data from the wave's motivating backfill (Garry's
 
 | Workers | Pages/min | Total time | Method |
 |---------|-----------|------------|--------|
-| 1 (pre-0.41.16.0) | ~2 | ~50 hours | Default serial |
+| 1 (pre-0.41.17.0) | ~2 | ~50 hours | Default serial |
 | 5 (manual hack) | ~10 | ~11 hours | Spawn 5 OS processes |
-| 20 (0.41.16.0) | ~35-40 (projected) | ~3 hours | `--workers 20` |
+| 20 (0.41.17.0) | ~35-40 (projected) | ~3 hours | `--workers 20` |
 
 The 5× speedup from the manual hack is what confirmed the work is
 I/O-bound on LLM API responses. The proper worker pool with shared
@@ -204,7 +204,7 @@ by @garrytan-agents. The 5-process production data driving the
 197K-page brain. Thank you for the well-shaped RFC; the substance
 shipped.
 
-## To take advantage of 0.41.16.0
+## To take advantage of 0.41.17.0
 
 `gbrain upgrade` should do this automatically. If it didn't, or if
 `gbrain doctor` warns about a partial migration:

@@ -1,27 +1,27 @@
 # TODOS
 
-## v0.41.16.0 `--workers N` cathedral follow-ups (v0.41.17+)
+## v0.41.17.0 `--workers N` cathedral follow-ups (v0.41.18+)
 
 These were filed during the ship of `garrytan/dar-es-salaam-v1`
 (PR #1473 productionization). The wave landed seven `--workers N`
 surfaces + the shared worker-pool helper + facts dim doctor parity.
-The follow-ups below are scope deliberately deferred from v0.41.16.0
+The follow-ups below are scope deliberately deferred from v0.41.17.0
 per /plan-eng-review D-decisions.
 
-- [ ] **v0.41.17+: dream execution-concurrency knob via queue-layer
+- [ ] **v0.41.18+: dream execution-concurrency knob via queue-layer
   recoupling** (D21). Today the only knob that controls how many dream
   subagents run concurrently is `gbrain jobs work --concurrency N` —
   a process-wide setting, not per-invocation. A user running
   `gbrain dream` who wants 5 concurrent synthesize subagents has no
   way to express that without changing the queue daemon's global cap.
-  v0.41.16.0 dropped `dream --workers` from scope (D14) because the
+  v0.41.17.0 dropped `dream --workers` from scope (D14) because the
   obvious naming would only bound submit rate, not actual execution.
   The proper fix is a queue-side primitive ("temporarily clamp
   concurrency to N for jobs tagged with X") and a new
   `gbrain dream --execution-concurrency N` flag that uses it.
   Multi-wave design; touches `MinionQueue.claim` semantics. File when
   someone asks.
-- [ ] **v0.41.17+: auto-tune `--workers` from observed rate-limit
+- [ ] **v0.41.18+: auto-tune `--workers` from observed rate-limit
   headers** (D19). Instead of operator picking `--workers N` manually,
   the worker pool observes 429s / Retry-After in gateway responses and
   AIMD-style auto-tunes to stay just under the provider's actual cap.
@@ -32,8 +32,8 @@ per /plan-eng-review D-decisions.
   The RFC (PR #1473) explicitly punted this with "start manual,
   observe before auto-pick" — file when we have multiple weeks of
   real-world `--workers` usage data to inform the auto-tune curve.
-- [ ] **v0.41.17+: per-tracker mutex on `BudgetTracker.reserve()`** (D20).
-  v0.41.16.0 D3 chose to document the worst-case overshoot
+- [ ] **v0.41.18+: per-tracker mutex on `BudgetTracker.reserve()`** (D20).
+  v0.41.17.0 D3 chose to document the worst-case overshoot
   (`N_workers × avg_per_call_cost` over the cap) rather than mutex
   `reserve()` because the overshoot is single-digit dollars at any
   realistic `--max-cost-usd`. The structural fix is a per-instance
@@ -42,7 +42,7 @@ per /plan-eng-review D-decisions.
   used by 5+ call sites including the hot embed path. File when
   someone reports overshoot or wants exact-ceiling compliance for
   paid-API tracking.
-- [ ] **v0.41.17+: `extractLinksForSlugs` + `extractTimelineForSlugs`
+- [ ] **v0.41.18+: `extractLinksForSlugs` + `extractTimelineForSlugs`
   sync-integration hooks get `--workers N` parity.** T7 wired
   `--workers` into the CLI-facing `extract` paths (extractForSlugs,
   extractLinksFromDir, extractTimelineFromDir) but left the two
@@ -50,27 +50,27 @@ per /plan-eng-review D-decisions.
   called from sync.ts post-sync and would benefit from the same
   fan-out shape. Mechanical change; mirror the runSlidingPool
   conversion from T7.
-- [ ] **v0.41.17+: extract DB-source loops (`extractLinksFromDB`,
+- [ ] **v0.41.18+: extract DB-source loops (`extractLinksFromDB`,
   `extractTimelineFromDB`, `extractMentionsFromDb`) get `--workers N`.**
   T7 explicitly scoped the workers wiring to fs-walk inner loops; the
   DB-source paths use the engine's own pagination and stay serial.
   Wire when an operator hits perf issues running `gbrain extract
   --source db` on a large brain.
-- [ ] **v0.41.17+: deeper `resolveSymbolEdgesIncremental` intra-source
+- [ ] **v0.41.18+: deeper `resolveSymbolEdgesIncremental` intra-source
   parallelism.** T8 wired `--workers N` for the cross-source loop
   under `--all-sources` only. The inner per-batch loop inside
   `resolveSymbolEdgesIncremental` (200 chunks per batch, sequential)
-  is the larger throughput lever and stays serial in v0.41.16.0.
+  is the larger throughput lever and stays serial in v0.41.17.0.
   Touches the symbol-resolver core; defer until the next chunker
   refactor wave.
-- [ ] **v0.41.17+: `reindex-frontmatter` worker pool actually parallelizes
+- [ ] **v0.41.18+: `reindex-frontmatter` worker pool actually parallelizes
   the underlying `backfillEffectiveDate` library.** T12 added the
   `--workers N` flag for API consistency but the underlying library
   doesn't honor it (work is pure CPU date-precedence resolution, no
   I/O per row). Speedup would be marginal anyway. File only if a real
   operator complaint surfaces; otherwise leave as informational.
 - [ ] **v0.42+: reactive auto-ALTER on facts dim drift** (D18 — was
-  explicitly skipped). v0.41.16.0 ships doctor warn + extraction
+  explicitly skipped). v0.41.17.0 ships doctor warn + extraction
   preflight (D15) with a paste-ready DROP INDEX + ALTER USING +
   CREATE INDEX recipe. The structural fix is auto-running the recipe
   on connect when drift is detected. ALTER on a 100M+ row facts table
