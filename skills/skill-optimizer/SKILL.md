@@ -89,7 +89,7 @@ When invoked, this skill produces:
 - `skills/<name>/skillopt/rejected.json` — bounded LRU of rejected edits
 - `~/.gbrain/audit/skillopt-YYYY-Www.jsonl` — ISO-week-rotated audit trail
 
-## Anti-patterns
+## Anti-Patterns
 
 - **Don't bypass the validation gate.** The median-of-3 + epsilon=0.05 is
   load-bearing; without it, the optimizer accepts noise as improvement.
