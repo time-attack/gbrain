@@ -66,6 +66,135 @@ it doesn't.
   pattern's regex requires `\)` immediately after the time group, so
   `(2024-03-15 9:00 AM)` shapes correctly fall through to the more
   specific pattern.
+## [0.41.22.1] - 2026-05-27
+
+**Your `gbrain brainstorm` and `gbrain lsd` calls now actually score the ideas they generate.**
+
+Since the calibration cold-start landed, every brainstorm or LSD run was
+quietly returning `judge_failed: true` and saving the ideas with no
+scores. You'd ask for 72 ideas, get 72 unscored entries, and have no
+way to tell which ones the judge would have called good. v0.41.22.1
+closes the two bugs that caused it. On the same 72-idea fixture that
+scored 0/72 before, you'll now see ~39/72 passing — real judgment, not
+silence.
+
+The same patch closes a second silent bug: pricing lookup missed
+slash-form model ids. If you ran `gbrain brainstorm --judge-model
+anthropic/claude-sonnet-4-6 --max-cost 5` (slash, the form CLI flags
+accept and OpenRouter recipes emit), the BudgetTracker refused to
+start because the pricing table only matched the colon-prefix form
+`anthropic:claude-...`. Now both forms work the same.
+
+**How to turn it on:** Nothing to do. `gbrain upgrade` is all you need.
+No schema migration, no config change.
+
+**What you'd see in a concrete example:**
+
+| Command | Pre-fix | Post-fix |
+|---|---|---|
+| `gbrain brainstorm "topic" --max-cost 5` | judge_failed, 0/72 ideas scored | summary table with ~39/72 passing |
+| `gbrain brainstorm ... --judge-model anthropic/claude-sonnet-4-6 --max-cost 5` | `BudgetExhausted reason=no_pricing` | runs to completion, cost tracked |
+| `gbrain lsd ... --judge-model anthropic:claude-sonnet-4-6 --max-cost 5` | works both pre + post (colon form) | works both pre + post |
+
+**The fix in one paragraph.** Two bugs lived in the same release. Bug
+1: the judge hard-coded `maxTokens: 4000` while emitting ~100 tokens
+per idea, so any chunk past ~40 ideas got truncated mid-JSON and the
+parser threw. Bug 2: every pricing lookup site (5 of them across the
+codebase) re-implemented an inline `provider:model` split, and none of
+them handled `provider/model` (slash). Three reviews refound the slash
+bug in three separate places. The fix: one shared `parseModelId`
+helper that 5 sites now route through, plus a maxTokens formula that
+scales with idea count and respects each model's actual output cap.
+
+**A subagent-guard bug fixed in the same wave.** The v0.31.12 subagent
+runtime guard (`isAnthropicProvider`) only handled the colon form too.
+If anyone had configured their subagent tier as
+`anthropic/claude-sonnet-4-6` (slash), the guard would have silently
+returned false, and the subagent loop would have fallen back to
+TIER_DEFAULTS instead of honoring the explicit config. The same
+centralizer closes this bypass.
+
+**What's safe to know about.** This is pure-function refactoring + a
+new constant. No schema change, no DB plane impact, no behavioral
+change for existing colon-form or bare model ids. Brainstorm runs at
+larger judge maxTokens budgets will see somewhat longer Anthropic API
+latency (the call now actually completes instead of truncating). The
+trade is slower-but-correct vs faster-but-broken.
+
+**What we caught and fixed before merging.** Adversarial review caught
+four real issues that landed in the shipped version:
+
+1. The original "32K maxTokens cap, applied uniformly" was unsafe for
+   legacy Claude 3.5 models whose output cap is 8,192. The shipped
+   version uses a per-model cap map (`ANTHROPIC_OUTPUT_CAPS`) so legacy
+   models bind at 8K and modern 4-series at 32K or 64K.
+2. The `splitProviderModelId` defensive contract should be in the type
+   signature, not just in tests — the shipped signature is
+   `splitProviderModelId(input: string | null | undefined)`.
+3. The pricing-side fix would let BudgetTracker pass for slash-form ids,
+   but `gateway.chat()` would then throw via the OLDER gateway-side
+   `parseModelId` (in `src/core/ai/model-resolver.ts`). The shipped
+   version also relaxes the gateway resolver to accept slash form,
+   closing the bug class end-to-end. Bare names without ANY separator
+   still throw — gateway routing always needs an explicit provider.
+4. The maxTokens cap was looking at `modelOverride` (caller-passed) but
+   ignoring the gateway's actual configured chat model — so an
+   `undefined` override fell back to 32K even if the configured default
+   was a legacy 8K model. The shipped version routes through the
+   gateway's `getChatModel()` so the cap matches what `chat()` will
+   actually use.
+
+The in-project name collision between my new
+`src/core/model-id.ts:parseModelId` and the existing gateway-side
+`src/core/ai/model-resolver.ts:parseModelId` was killed by renaming
+the new helper to `splitProviderModelId`. Both functions now accept
+the same input shapes; they differ only in how they handle bare names
+(`splitProviderModelId` returns `{provider: null, model: 'bare'}`;
+the gateway one throws because routing needs an explicit provider).
+
+Thanks to `@garrytan-agents` whose original bug report (PR #1540,
+since closed as superseded by this wave) drove the whole investigation
+and provided the first-pass diff for the two most visible sites.
+
+### Itemized changes
+
+- **`src/core/model-id.ts` (NEW)** — `splitProviderModelId(input): {provider, model}` shared parser for the pricing side. Splits on `:` first, then `/`. Defensive contract: null/undefined/empty/whitespace returns `{provider: null, model: ''}`. Pinned by 16 cases in `test/model-id.test.ts`.
+- **`src/core/ai/model-resolver.ts`** — gateway-side `parseModelId` extended to also accept slash form (`anthropic/claude-sonnet-4-6`). Pre-fix the colon-only check threw at every gateway entry point (chat / embed / rerank) so even with the pricing fix, slash-form judge models would still fail mid-judge. Bare names without ANY separator still throw — gateway routing always needs an explicit provider. New test file `test/ai/model-resolver-slash.test.ts` (10 cases including a resolveRecipe round-trip pinning slash form resolves to the same recipe as colon form).
+- **`src/core/anthropic-pricing.ts`** — `estimateMaxCostUsd` routes through `splitProviderModelId`. Now handles slash-form ids that previously returned null. New test file `test/anthropic-pricing.test.ts` (7 cases including a structural regression guard that every key in `ANTHROPIC_PRICING` is reachable via bare + colon + slash).
+- **`src/core/budget/budget-tracker.ts`** — `lookupPricing` routes through `splitProviderModelId`. Closes the `BudgetExhausted reason=no_pricing` hard-fail on `--max-cost N` + `--judge-model anthropic/claude-...` (the headline brainstorm bug). 2 new cases in the existing budget-tracker test.
+- **`src/core/eval-contradictions/cost-tracker.ts`** — `pricingFor` routes through `splitProviderModelId`. The duplicate ANTHROPIC_PRICING table (consolidation deferred to follow-up TODO) now correctly bills colon and slash forms of Sonnet/Opus instead of silently falling back to Haiku pricing. New test file `test/eval-contradictions/cost-tracker-slash.test.ts` (6 cases including a legacy-behavior pin for the unknown-model silent-Haiku fallback).
+- **`src/core/minions/batch-projection.ts`** — deleted the 3-line inline `bareModel` helper; inlined `splitProviderModelId(model).model` at both call sites. Existing `test/batch-projection.test.ts` extended with slash-form + double-separator cases.
+- **`src/core/model-config.ts:isAnthropicProvider`** — routes through `splitProviderModelId`. **Silently fixed a v0.31.12 subagent-guard bypass:** slash-form Anthropic ids (`anthropic/claude-sonnet-4-6`) now correctly classify as Anthropic, so the subagent loop honors them instead of falling back to TIER_DEFAULTS. 2 new cases in `test/model-config.serial.test.ts`.
+- **`src/core/brainstorm/judges.ts`** — `maxTokens: 4000` replaced with `computeJudgeMaxTokens(ideaCount, modelId)`. Named constants `TOKEN_BUDGET_PER_IDEA`, `TOKEN_BUDGET_ENVELOPE`, `LEGACY_MIN_MAX_TOKENS`, `MAX_OUTPUT_TOKENS_CEIL` extracted at top of file with per-constant comment. New `ANTHROPIC_OUTPUT_CAPS` map per-model output ceilings (Opus 4.7 = 32K, Sonnet 4.6 / Haiku 4.5 = 64K, legacy 3.5 = 8K). When the caller passes no `modelOverride`, the cap routes through the gateway's actual configured chat model via `getChatModel()` so the formula matches what `chat()` will use, not whatever the override hints at. Pinned by 16 cases in `test/brainstorm/judges-maxtokens.test.ts`.
+
+### For contributors
+
+Three follow-up TODOs filed in `TODOS.md` from the v0.41.22.1 plan review:
+
+- Config-write normalization (canonicalize provider IDs to `:` form on config write)
+- Non-Anthropic pricing tables (OpenAI / Gemini / OpenRouter)
+- Eval-contradictions duplicate ANTHROPIC_PRICING table consolidation
+
+The first two are v0.42+ scope. The third is deferred from this wave per the explicit Step 0 scope decision (cleanup-the-pricing-system would double the blast radius of a brainstorm fix).
+
+## To take advantage of v0.41.22.1
+
+`gbrain upgrade` is all you need. No schema migration, no config change.
+
+**Verify the fix worked:**
+
+```bash
+# Pre-fix this would silently exit with judge_failed in the report:
+gbrain brainstorm "what should I work on next" --max-cost 1
+# Look for: "passing N/M ideas" in the summary — should be > 0
+
+# Pre-fix this would refuse to start with BudgetExhausted no_pricing:
+gbrain brainstorm "topic" --judge-model anthropic/claude-sonnet-4-6 --max-cost 1
+# Should run to completion and print a scored idea list
+```
+
+If `gbrain brainstorm` still hits `judge_failed` after upgrading, file an issue at https://github.com/garrytan/gbrain/issues with the output of `gbrain --version` and the brainstorm command you ran. The fix is structural; failure post-upgrade indicates the fix didn't land properly.
+
 ## [0.41.22.0] - 2026-05-27
 
 **Your brain runs on a real taxonomy now. Not 94 types of cruft. Fifteen
@@ -635,6 +764,8 @@ it exists.
     `{"schema_version"` envelope prefix instead of walking back from
     `"checks"` (which broke once `category_scores` introduced a
     nested object between).
+
+
 ## [0.41.19.0] - 2026-05-26
 
 **Your dream cycle stops silently losing wiki links.**
