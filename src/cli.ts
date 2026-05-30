@@ -1461,6 +1461,13 @@ async function handleCliOnly(command: string, args: string[]) {
           }
           break;
         }
+        if (args.includes('--aliases')) {
+          // T8 — backfill the free-text alias layer (page_aliases) for existing
+          // pages whose frontmatter `aliases:` predate the import-time projection.
+          const { runReindexAliases } = await import('./commands/reindex-aliases.ts');
+          await runReindexAliases(engine, args);
+          break;
+        }
         const { runReindex } = await import('./commands/reindex.ts');
         await runReindex(engine, args);
         break;
