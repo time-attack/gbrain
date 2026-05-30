@@ -21,6 +21,7 @@ import {
   estimateEmbeddingCostUsd,
   getEmbeddingModelName,
   currentEmbeddingPricePerMTok,
+  currentEmbeddingSignature,
   willEmbedSynchronously,
   shouldBlockSync,
 } from '../core/embedding.ts';
@@ -2322,7 +2323,9 @@ See also:
       // hiccup never blocks the sync.
       let staleChars = 0;
       try {
-        staleChars = await engine.sumStaleChunkChars();
+        // v0.41.30: signature-aware so a model/dims swap surfaces in the
+        // backlog estimate (NULL signature grandfathered → not counted).
+        staleChars = await engine.sumStaleChunkChars({ signature: currentEmbeddingSignature() });
       } catch {
         staleChars = 0;
       }

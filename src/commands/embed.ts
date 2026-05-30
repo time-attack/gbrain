@@ -1,5 +1,5 @@
 import type { BrainEngine } from '../core/engine.ts';
-import { embedBatch } from '../core/embedding.ts';
+import { embedBatch, currentEmbeddingSignature } from '../core/embedding.ts';
 import type { ChunkInput } from '../core/types.ts';
 import { chunkText } from '../core/chunkers/recursive.ts';
 import { createProgress, type ProgressReporter } from '../core/progress.ts';
@@ -396,6 +396,10 @@ async function embedAll(
     catchUp?: boolean;
   },
 ) {
+  // v0.41.30: current embedding provenance signature. Stamped onto pages
+  // when their chunks are (re)embedded so a later model/dimension swap is
+  // detectable as stale.
+  const signature = currentEmbeddingSignature();
   // ─────────────────────────────────────────────────────────────
   // Stale-only fast path: avoid the listPages + per-page getChunks
   // bomb that pulled every page row + every chunk's embedding column
@@ -412,7 +416,7 @@ async function embedAll(
   if (staleOnly) {
     // D7: thread sourceId so `gbrain embed --stale --source X` actually scopes.
     // v0.41.18.0 (A13): thread batchSize/priority/catchUp into the stale path.
-    return await embedAllStale(engine, sourceId, dryRun, result, onProgress, staleOpts);
+    return await embedAllStale(engine, sourceId, dryRun, result, onProgress, staleOpts, signature);
   }
 
   // v0.31.12: when sourceId is set, scope listPages to that source.
@@ -482,6 +486,9 @@ async function embedAll(
         token_count: c.token_count || Math.ceil(c.chunk_text.length / 4),
       }));
       await engine.upsertChunks(page.slug, updated, pageOpts);
+      // v0.41.30: stamp embedding provenance so a later model swap is
+      // detectable as stale.
+      await engine.setPageEmbeddingSignature(page.slug, { sourceId: pageSourceId, signature });
       result.embedded += toEmbed.length;
     } catch (e: unknown) {
       serr(`\n  Error embedding ${page.slug}: ${e instanceof Error ? e.message : e}`);
@@ -543,13 +550,31 @@ async function embedAllStale(
     priority?: 'recent';
     catchUp?: boolean;
   },
+  signature?: string,
 ) {
   // D7: thread sourceId so source-scoped runs only count + visit
   // that source's NULL embeddings.
   const sourceOpt = sourceId ? { sourceId } : undefined;
 
+  // v0.41.30: re-embed pages whose embedding_signature drifted (model/dims
+  // swap). dry-run must NOT mutate, so it counts signature-stale via the
+  // widened predicate; a live run NULLs them first so the existing
+  // NULL-embedding cursor (listStaleChunks) picks them up unchanged.
+  if (!dryRun && signature) {
+    const invalidated = await engine.invalidateStaleSignatureEmbeddings({
+      signature,
+      ...(sourceId && { sourceId }),
+    });
+    if (invalidated > 0) {
+      slog(`[embed] invalidated ${invalidated} chunk(s) embedded under a prior model signature`);
+    }
+  }
+
   // Pre-flight: 0 stale chunks → nothing to do, no further DB reads.
-  const staleCount = await engine.countStaleChunks(sourceOpt);
+  // dry-run includes signature-drift in the count without mutating.
+  const staleCount = await engine.countStaleChunks(
+    dryRun && signature ? { ...sourceOpt, signature } : sourceOpt,
+  );
   if (staleCount === 0) {
     if (dryRun) {
       slog('[dry-run] Would embed 0 chunks (0 stale found)');
@@ -671,6 +696,10 @@ async function embedAllStale(
             token_count: c.token_count || Math.ceil(c.chunk_text.length / 4),
           }));
           await engine.upsertChunks(slug, merged, { sourceId: keySourceId });
+          // v0.41.30: stamp provenance after the page's chunks are embedded.
+          if (signature) {
+            await engine.setPageEmbeddingSignature(slug, { sourceId: keySourceId, signature });
+          }
           result.embedded += stale.length;
         } catch (e: unknown) {
           // Budget-fired aborts are expected on the way out; don't spam

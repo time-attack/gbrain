@@ -163,6 +163,27 @@ export function estimateEmbeddingCostUsd(tokens: number): number {
 }
 
 /**
+ * Embedding provenance signature for the currently-configured model:
+ * `<provider:model>:<dims>` (e.g. `openai:text-embedding-3-large:1536`).
+ * Stamped onto `pages.embedding_signature` when a page's chunks are
+ * embedded so a later model/dimension swap can be detected as stale.
+ *
+ * Deliberately does NOT include the chunker version — chunker drift is
+ * already tracked per-page via `pages.chunker_version` (used by sync +
+ * doctor). This signature is strictly about the EMBEDDING space.
+ *
+ * Falls back to the OpenAI default signature when the gateway is
+ * unconfigured (unit-test context), matching the other estimator fallbacks.
+ */
+export function currentEmbeddingSignature(): string {
+  try {
+    return `${gatewayGetModel()}:${gatewayGetDims()}`;
+  } catch {
+    return `${EMBEDDING_MODEL}:${EMBEDDING_DIMENSIONS}`;
+  }
+}
+
+/**
  * Whether a `gbrain sync --all` invocation will embed at sync time
  * ('inline') or defer embedding to per-source `embed-backfill` minion jobs
  * ('deferred'). Under federated_v2 the default path defers; the backfill
