@@ -3722,7 +3722,11 @@ const code_callers: Operation = {
       allSources,
       sourceId,
     });
-    return { symbol, count: edges.length, callers: edges };
+    const { resolveCodeReadiness } = await import('./code-graph-readiness.ts');
+    const readiness = await resolveCodeReadiness(ctx.engine, {
+      kind: 'edge', count: edges.length, sourceId, allSources,
+    });
+    return { symbol, count: edges.length, status: readiness.status, ready: readiness.ready, callers: edges };
   },
   cliHints: { name: 'code_callers', hidden: true },
 };
@@ -3753,7 +3757,11 @@ const code_callees: Operation = {
       allSources,
       sourceId,
     });
-    return { symbol, count: edges.length, callees: edges };
+    const { resolveCodeReadiness } = await import('./code-graph-readiness.ts');
+    const readiness = await resolveCodeReadiness(ctx.engine, {
+      kind: 'edge', count: edges.length, sourceId, allSources,
+    });
+    return { symbol, count: edges.length, status: readiness.status, ready: readiness.ready, callees: edges };
   },
   cliHints: { name: 'code_callees', hidden: true },
 };
@@ -3773,7 +3781,10 @@ const code_def: Operation = {
       limit: (p.limit as number) ?? 20,
       language: (p.lang as string) || undefined,
     });
-    return { symbol: p.symbol as string, count: defs.length, defs };
+    // code_def is brain-wide (not source-scoped); readiness is 'symbol' grain.
+    const { resolveCodeReadiness } = await import('./code-graph-readiness.ts');
+    const readiness = await resolveCodeReadiness(ctx.engine, { kind: 'symbol', count: defs.length });
+    return { symbol: p.symbol as string, count: defs.length, status: readiness.status, ready: readiness.ready, defs };
   },
   cliHints: { name: 'code_def', hidden: true },
 };
@@ -3793,7 +3804,10 @@ const code_refs: Operation = {
       limit: (p.limit as number) ?? 50,
       language: (p.lang as string) || undefined,
     });
-    return { symbol: p.symbol as string, count: refs.length, refs };
+    // code_refs is brain-wide (not source-scoped); readiness is 'symbol' grain.
+    const { resolveCodeReadiness } = await import('./code-graph-readiness.ts');
+    const readiness = await resolveCodeReadiness(ctx.engine, { kind: 'symbol', count: refs.length });
+    return { symbol: p.symbol as string, count: refs.length, status: readiness.status, ready: readiness.ready, refs };
   },
   cliHints: { name: 'code_refs', hidden: true },
 };
