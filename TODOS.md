@@ -42,6 +42,14 @@ context). Deliberately scoped OUT of that PR. See plan + GSTACK REVIEW REPORT at
   intra-batch duplicate `(page_id,row_num)` rejects under `ON CONFLICT DO UPDATE`
   (comment-claimed, unasserted). (Testing specialist.)
 
+- [ ] **P3 — Enforce a max batch size on the JSONB bulk inserts.** One JSONB datum
+  is not unbounded (server-side parse/memory ceiling). In-tree callers chunk well
+  under any limit (extract ~100, NER ~500), and `batch-rows.ts` documents "chunk
+  ~1-5K rows", but nothing enforces it for an external direct-engine caller passing
+  a giant batch. Consider a `BATCH_INSERT_MAX` constant + a clear throw, mirroring
+  the existing `DELETE_BATCH_SIZE` valve in `deletePages`. Deferred because no
+  in-tree caller hits it and the cap value is a judgment call. (Codex #1861 P2b.)
+
 ## v0.42.21.0 module-singleton ownership follow-ups (v0.42+)
 
 Filed from the v0.42.21.0 wave (#1404/#1471/#1619 — the dream-cycle
