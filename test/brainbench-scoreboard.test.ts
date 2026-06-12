@@ -1,0 +1,185 @@
+/**
+ * BrainBench scoreboard + gate governance (decisions 4, 8, 10).
+ * Canonical baseline determinism, count-aware gating, corpus-bless modes,
+ * justification flow, allow-regression recording, isolation gates-at-zero.
+ */
+import { describe, expect, test } from 'bun:test';
+import {
+  compareBaselines,
+  parseBaseline,
+  renderScoreboardMarkdown,
+  serializeBaseline,
+  toCanonicalBaseline,
+} from '../src/eval/brainbench/scoreboard.ts';
+import type { BrainBenchBaseline, BrainBenchResult, SuiteMetrics } from '../src/eval/brainbench/types.ts';
+
+function cell(partial: Partial<SuiteMetrics>): SuiteMetrics {
+  return {
+    suite: 'know-to-ask',
+    harness: 'openclaw',
+    seam: 'production',
+    gold_total: 10,
+    gold_failed: 1,
+    metrics: { know_to_ask_failure_rate: 0.1, source_isolation_violations: 0 },
+    fixtures: ['fx-1'],
+    ...partial,
+  };
+}
+
+function mkBaseline(cells: SuiteMetrics[], hash = 'hash-a', justification?: string): BrainBenchBaseline {
+  return toCanonicalBaseline({ cells, receipt: { fixtures_hash: hash } }, justification);
+}
+
+describe('canonical baseline (decision 10)', () => {
+  test('deterministic bytes: same input → identical serialization; keys sorted; 4-decimal rounding', () => {
+    const a = mkBaseline([
+      cell({ metrics: { know_to_ask_failure_rate: 0.123456789, source_isolation_violations: 0 } }),
+      cell({ harness: 'codex', seam: 'contract' }),
+    ]);
+    const b = mkBaseline([
+      cell({ harness: 'codex', seam: 'contract' }),
+      cell({ metrics: { know_to_ask_failure_rate: 0.123456789, source_isolation_violations: 0 } }),
+    ]);
+    expect(serializeBaseline(a)).toBe(serializeBaseline(b)); // cell order irrelevant
+    expect(a.cells['openclaw/know-to-ask'].know_to_ask_failure_rate).toBe(0.1235);
+    expect(Object.keys(a.cells)).toEqual([...Object.keys(a.cells)].sort());
+  });
+
+  test('receipts (sha/ts/cmd_args) never enter the committed baseline', () => {
+    const b = mkBaseline([cell({})]);
+    const ser = serializeBaseline(b);
+    expect(ser).not.toContain('harness_sha');
+    expect(ser).not.toContain('cmd_args');
+    expect(parseBaseline(ser, 'x.json').fixtures_hash).toBe('hash-a');
+  });
+});
+
+describe('same-hash gate (count-aware, decision 8)', () => {
+  test('one newly-failed gold item = regression, named in the breach', () => {
+    const main = mkBaseline([cell({ gold_failed: 1 })]);
+    const current = mkBaseline([cell({ gold_failed: 2 })]);
+    const out = compareBaselines(current, main);
+    expect(out.verdict).toBe('regression');
+    expect(out.mode).toBe('same-hash');
+    expect(out.breaches.some((b) => b.metric === 'gold_failed' && b.detail.includes('1 newly-failed'))).toBe(true);
+  });
+
+  test('adverse gated-metric move without a count change is still a breach (precision class)', () => {
+    const main = mkBaseline([cell({ suite: 'push', metrics: { push_precision: 0.9, source_isolation_violations: 0 } })]);
+    const current = mkBaseline([cell({ suite: 'push', metrics: { push_precision: 0.85, source_isolation_violations: 0 } })]);
+    expect(compareBaselines(current, main).verdict).toBe('regression');
+  });
+
+  test('improvement passes; diagnostic-only metrics (avg_injected_tokens) never gate', () => {
+    const main = mkBaseline([cell({ gold_failed: 2, metrics: { know_to_ask_failure_rate: 0.2, avg_injected_tokens: 10, source_isolation_violations: 0 } })]);
+    const current = mkBaseline([cell({ gold_failed: 1, metrics: { know_to_ask_failure_rate: 0.1, avg_injected_tokens: 99, source_isolation_violations: 0 } })]);
+    expect(compareBaselines(current, main).verdict).toBe('pass');
+  });
+
+  test('disappeared cell (coverage loss) is a breach', () => {
+    const main = mkBaseline([cell({}), cell({ harness: 'codex', seam: 'contract' })]);
+    const current = mkBaseline([cell({})]);
+    const out = compareBaselines(current, main);
+    expect(out.verdict).toBe('regression');
+    expect(out.breaches.some((b) => b.detail.includes('coverage disappeared'))).toBe(true);
+  });
+
+  test('--allow-regression downgrades to pass and RECORDS the reason', () => {
+    const main = mkBaseline([cell({ gold_failed: 0 })]);
+    const current = mkBaseline([cell({ gold_failed: 1 })]);
+    const out = compareBaselines(current, main, { allowRegression: 'intentional trade, see PR' });
+    expect(out.verdict).toBe('pass');
+    expect(out.notes.join(' ')).toContain('intentional trade, see PR');
+    expect(out.breaches.length).toBeGreaterThan(0); // still visible
+  });
+
+  test('source_isolation_violations > 0 gates at zero EVEN IF the baseline had it', () => {
+    const main = mkBaseline([cell({ metrics: { know_to_ask_failure_rate: 0.1, source_isolation_violations: 1 } })]);
+    const current = mkBaseline([cell({ metrics: { know_to_ask_failure_rate: 0.1, source_isolation_violations: 1 } })]);
+    const out = compareBaselines(current, main);
+    expect(out.verdict).toBe('regression');
+    expect(out.breaches[0].detail).toContain('data-leak invariant');
+  });
+});
+
+describe('corpus-bless mode (decision 4 — a PR cannot self-approve)', () => {
+  const main = mkBaseline([cell({ gold_failed: 1 })], 'hash-main');
+
+  test('hash mismatch + no committed baseline → inconclusive with the fix command', () => {
+    const current = mkBaseline([cell({ gold_failed: 1 })], 'hash-new');
+    const out = compareBaselines(current, main, { committedBaseline: null });
+    expect(out.verdict).toBe('inconclusive');
+    expect(out.mode).toBe('corpus-bless');
+    expect(out.notes.join(' ')).toContain('--update-baseline');
+  });
+
+  test('committed baseline that does not match the run → inconclusive (the file cannot lie)', () => {
+    const current = mkBaseline([cell({ gold_failed: 1 })], 'hash-new');
+    const stale = mkBaseline([cell({ gold_failed: 0 })], 'hash-new'); // lies about failures
+    const out = compareBaselines(current, main, { committedBaseline: stale });
+    expect(out.verdict).toBe('inconclusive');
+    expect(out.notes.join(' ')).toContain('does not match this run');
+  });
+
+  // In bless mode, raw counts are incomparable across different gold (the
+  // denominator changed) — the justification trigger is adverse METRIC moves,
+  // which are dimensionless and stay comparable.
+  const regressedCell = cell({
+    gold_failed: 5,
+    metrics: { know_to_ask_failure_rate: 0.3, source_isolation_violations: 0 },
+  });
+
+  test('matching committed baseline + metric regression vs main + NO justification → regression', () => {
+    const current = mkBaseline([regressedCell], 'hash-new');
+    const committed = mkBaseline([regressedCell], 'hash-new');
+    const out = compareBaselines(current, main, { committedBaseline: committed });
+    expect(out.verdict).toBe('regression');
+    expect(out.notes.join(' ')).toContain('justification');
+  });
+
+  test('matching committed baseline + justification → pass with the reason recorded', () => {
+    const current = mkBaseline([regressedCell], 'hash-new');
+    const committed = mkBaseline([regressedCell], 'hash-new', 'corpus rewrite: stricter gold');
+    const out = compareBaselines(current, main, { committedBaseline: committed });
+    expect(out.verdict).toBe('pass');
+    expect(out.notes.join(' ')).toContain('corpus rewrite: stricter gold');
+  });
+
+  test('count comparisons are NOT applied cross-hash (different gold ⇒ counts incomparable)', () => {
+    // current has more failures but also a different corpus; only metric-level
+    // adverse moves + the committed-baseline verification apply.
+    const current = mkBaseline([cell({ gold_failed: 3, metrics: { know_to_ask_failure_rate: 0.1, source_isolation_violations: 0 } })], 'hash-new');
+    const committed = mkBaseline([cell({ gold_failed: 3, metrics: { know_to_ask_failure_rate: 0.1, source_isolation_violations: 0 } })], 'hash-new');
+    const out = compareBaselines(current, main, { committedBaseline: committed });
+    expect(out.verdict).toBe('pass');
+  });
+});
+
+describe('renderScoreboardMarkdown', () => {
+  test('deterministic output; seam column present; gate + breaches rendered', () => {
+    const result: BrainBenchResult = {
+      receipt: {
+        result_schema_version: 1,
+        fixtures_hash: 'abcdef1234567890',
+        harness_sha: 'sha',
+        ts: '2026-06-12T00:00:00Z',
+        cmd_args: [],
+        seed: 42,
+        include_holdout: false,
+        llm: false,
+      },
+      cells: [cell({})],
+      turn_rows: [],
+      seed_failures: [],
+    };
+    const main = mkBaseline([cell({ gold_failed: 0 })]);
+    const current = toCanonicalBaseline({ cells: result.cells, receipt: { fixtures_hash: 'hash-a' } });
+    const outcome = compareBaselines(current, main);
+    const md1 = renderScoreboardMarkdown(result, outcome);
+    const md2 = renderScoreboardMarkdown(result, outcome);
+    expect(md1).toBe(md2);
+    expect(md1).toContain('| openclaw | production | know-to-ask |');
+    expect(md1).toContain('## Gate: REGRESSION');
+    expect(md1).toContain('newly-failed');
+  });
+});
