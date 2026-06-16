@@ -2,6 +2,55 @@
 
 All notable changes to GBrain will be documented in this file.
 
+## [0.42.45.0] - 2026-06-13
+
+**The daily sync cron stops wedging on cost, and the embedding-spend estimate finally matches what a sync actually does (gbrain#2139).** On an active brain the inline-embed cost gate priced the *entire* corpus every time the working tree was dirty — which is always, since agents and crons write to it constantly — so a routine daily sync estimated ~158M tokens / ~$8 when the real delta was a few hundred files / ~$0.04, then blocked the cron with a confirmation it could never answer. Embeds silently stalled until someone noticed. The estimate now mirrors execution: it fetches first and prices only the files this run will pull and import, through the same diff machinery the sync itself uses. A brain whose commits are caught up but whose tree is dirty estimates $0, because an attached-HEAD sync imports only the committed diff.
+
+When the gate does fire in a non-interactive session, it no longer exits with an error — it imports now and defers embedding to capped background jobs (which drain via the jobs worker or `gbrain embed --stale`), so a cron is never wedged again. Operators who have decided cost isn't the constraint get one switch — `gbrain config set spend.posture tokenmax` — that makes every cost gate informational across sync, reindex, enrich, and onboard (spend is still recorded; the switch removes the ceiling, not the accounting). The USD knobs accept `off` / `unlimited`, and every gate message now carries paste-ready commands so the controls are discoverable at the moment they fire.
+
+This release also lifts the rule that blocked `--skip-failed` / `--retry-failed` under parallel sync — failure recovery no longer has to drop to `--serial` (which is what armed the inline gate in the first place).
+
+### Added
+- **`spend.posture` config** — `tokenmax` makes every embedding-cost gate informational (print the estimate, proceed, keep the ledger); `gated` (default) enforces as before. Documented end-to-end in `docs/operations/spend-controls.md`.
+- **First-class off switches** — `sync.cost_gate_min_usd`, `embed.backfill_max_usd_per_source_24h`, `embed.backfill_max_usd`, and `reindex --max-cost` / `enrich --max-usd` accept `off` / `unlimited` / `none`. No more sentinel values like `100000`.
+- **Single-source `gbrain sync` cost preview** — plain `gbrain sync` previously embedded inline with no preview; it now carries the same gate as `sync --all` (auto-defers in non-TTY sessions, never blocks).
+- **Self-describing gate messages** — every cost-gate / FYI line ends with the exact `gbrain config set` commands to widen, disable, or switch posture, plus a docs pointer.
+
+### Changed
+- **`gbrain sync --all` is no longer blocked by the cost gate in cron/agent contexts.** Above the floor in a non-interactive session it auto-defers embeds (exit 0) instead of emitting a `cost_preview_requires_yes` envelope and exiting 2. Cron wrappers that branched on exit 2 now see exit 0 with `status: "auto_deferred"`. A TTY still prompts `[y/N]`; `--yes` still embeds inline.
+- **`--skip-failed` / `--retry-failed` now work under parallel sync.** The failure ledger is per-source and lock-serialized, so the previous "not supported under parallel — re-run with --serial" refusal is retired.
+- **The six spend-control config keys are now first-class** (`gbrain config set` accepts them without `--force`).
+
+### To take advantage of v0.42.45.0
+`gbrain upgrade`. Nothing to configure for the headline fix — the daily sync cron stops wedging and the estimate is accurate out of the box. If you run a high-volume brain where cost genuinely isn't the constraint, `gbrain config set spend.posture tokenmax` makes every gate informational. To widen or disable a specific gate instead, see the table in `docs/operations/spend-controls.md` (e.g. `gbrain config set sync.cost_gate_min_usd off`). Failure-recovery syncs can now stay parallel: `gbrain sync --all --skip-failed` no longer forces `--serial`.
+
+## [0.42.44.0] - 2026-06-13
+
+### Fixed
+
+- **Personal-brain tutorial points at the correct AlphaClaw site.** Step 4 of `docs/tutorials/personal-brain.md` ("Deploy via AlphaClaw on Render") linked to the wrong top-level domain, sending readers to a site that isn't the official AlphaClaw. The link now resolves to the right destination, so the deploy step works as written (gbrain#2165).
+
+## [0.42.43.0] - 2026-06-12
+
+**The brain now volunteers relevant pages instead of waiting to be asked (gbrain#2095).** Retrieval used to be pull-only: a deep session could run for hours with zero brain contributions — not because the brain had nothing, but because nothing prompted the agent to ask, and pages stored under coined names were missed by literal-string queries. Push-based context inverts that, on three channels sharing one zero-LLM, confidence-gated core: the ambient retrieval reflex now reads the last few conversation turns (an entity your assistant introduced two turns ago resolves on the "what did she invest in?" follow-up), a new `volunteer_context` operation gives any agent a per-turn volunteer surface over CLI stdin or MCP, and `gbrain watch` streams volunteered pages as a transcript flows through it.
+
+Every volunteered page carries an honest confidence (alias match 0.9, exact title 0.8, slug-suffix 0.6, small boosts for repeated or newest-turn mentions; default gate 0.7) and a one-line rationale. A feedback loop closes the tuning circle: volunteered pages are logged, "used" is derived from whether the page actually got retrieved afterwards, and `gbrain volunteer-context --stats` reports per-arm precision (labeled approximate, because the retrieval signal is throttled). Suppression learned the difference between a page that was actually surfaced and one merely mentioned — under windowing only a surfaced page is held back, so prior-turn mentions can't silence themselves.
+
+This release also lands on top of v0.42.42.0's exit-contract work as a strict superset: the transaction-mode pooler topology behind three consecutive teardown waves is now reproduced in the local CI gate (a real pooler service + an end-to-end teardown test), the exit-verdict sweep is completed across every command surface (notably `gbrain doctor`, whose FAIL verdict could still report exit 0), and a structural guard makes the next raw exit-code write fail in CI instead of silently reporting success on failure.
+
+### Added
+- **`volunteer_context` operation** (CLI: `gbrain volunteer-context`, MCP tool) — pipe recent turns in (`user:` / `assistant:` prefixed lines, or plain text), get confidence-gated page pointers with rationales and synopses out. `--stats` returns the volunteered-vs-used precision summary. Per-call knobs: `max_pages`, `min_confidence`, `session_id`/`turn` attribution.
+- **`gbrain watch`** — the streaming push transport: feed a transcript on stdin, volunteered pages stream out (`--json` for JSONL), each slug at most once per session. Piped input exits cleanly at end-of-input; interactive sessions run until Ctrl-C.
+- **Rolling-window retrieval reflex** — the ambient channel extracts entities from the last 4 turns (configurable via `retrieval_reflex_window_turns` / `GBRAIN_RETRIEVAL_REFLEX_WINDOW_TURNS`; 1 restores the previous single-turn behavior). Assistant-introduced entities and named-antecedent follow-ups now surface pointers with zero agent-initiated queries.
+- **Volunteered-context feedback log** — volunteered pages are recorded best-effort (channel, arm, confidence, optional session/turn) with 90-day retention handled by the nightly cycle; rationales are deterministic templates, never raw conversation text. Synopses always strip the takes/facts privacy fences before reaching a prompt.
+- **Transaction-mode pooler in the local CI gate** — `bun run ci:local` now runs a real transaction-pooling service in front of Postgres with an end-to-end teardown test, so the bug class behind gbrain#1972/#2015/#2084 is reproducible before it ships, not after.
+
+### Fixed
+- **`gbrain doctor` exits 1 on FAIL again on every engine.** Its verdict write predated the v0.42.42.0 exit-verdict channel and was being silently zeroed; swept, plus a structural test that fails CI on the next raw exit-code write anywhere in the CLI.
+- **Reflex pointer suppression under multi-turn windows** distinguishes "page already surfaced" from "entity merely mentioned earlier" — without this, window extraction would have suppressed every prior-turn entity by construction.
+
+### To take advantage of v0.42.43.0
+`gbrain upgrade` (applies the new feedback-log migration automatically). The wider reflex window is on by default for context-engine hosts — set `retrieval_reflex_window_turns: 1` in `~/.gbrain/config.json` to restore single-turn behavior. Agents without the context engine: call `volunteer_context` per turn (window in, pointers out), or pipe a transcript through `gbrain watch --json`. After a few days, `gbrain volunteer-context --stats` shows which resolution arms are earning their keep; raise or lower `min_confidence` accordingly.
 ## [0.42.42.0] - 2026-06-12
 
 **`gbrain query` no longer pays a flat 10-second exit tax on managed Postgres behind a transaction-mode pooler — and CLI exit codes finally tell the truth on PGLite.** On deployments where the pooler holds sockets open past the bounded pool drain (gbrain#2084, a residual of gbrain#1972), every query printed its results and then sat for 10 seconds until the force-exit banner fired. The cause was two-layered: the hard-deadline timer was armed *before* the operation handler, so a multi-second search on a large brain burned the teardown budget (and any operation slower than 10 seconds was silently killed mid-run with exit 0 and truncated output); and the CLI never exited explicitly on success — it waited for Bun's event loop to drain, which a stuck pooler socket can hold open forever.

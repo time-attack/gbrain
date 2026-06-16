@@ -1,5 +1,88 @@
 # TODOS
 
+## Spend-controls wave follow-ups (filed v0.42.45.0, #2139)
+
+Deferred from the #2139 delta-estimator wave. See plan + GSTACK REVIEW REPORT at
+`~/.claude/plans/system-instruction-you-are-working-lovely-balloon.md`.
+
+- [ ] **P3 — Measured post-import chunk-count gating (#2139 proposal 2b).**
+  **What:** Gate the inline cost decision on the actual chunk count sync produced
+  (known after import, before embedding) instead of the pre-sync token estimate.
+  **Why:** A fully execution-accurate gate with zero estimate error. **Context:**
+  After v0.42.42.0 the estimator already mirrors execution (fetch-first delta via the
+  shared `computeSyncDelta`, `--full`=delta+stale, dirty-tree→$0). This is the
+  belt-and-suspenders fallback if a future case still drifts. **Trigger:** only if the
+  delta estimator proves insufficient in practice. **Start:** the gate call site in
+  `src/commands/sync.ts` (`runInlineCostGate`), gate on post-import `chunksCreated`.
+- [ ] **P3 — Per-source defer granularity (#2139, D8A road-not-taken).**
+  **What:** When the aggregate inline gate trips in a non-TTY session, defer embeds
+  only for sources above a per-source floor; let cheap sources keep embedding inline.
+  **Why:** Cheap sources would get embeddings minutes sooner instead of waiting for a
+  backfill-worker drain. **Context:** v0.42.42.0 chose GLOBAL defer (one flag, strictly
+  dominates the exit-2 it replaced). This is the granularity upgrade. **Trigger:** a
+  filed embedding-latency-by-minutes complaint. **Start:** thread per-source estimates
+  through `runOne` (`src/commands/sync.ts`); design worked out at D8A in the plan.
+
+## gbrain#2095 push-based context follow-ups (v0.43+)
+
+Filed from the #2095 wave (volunteer_context op + reflex window + `gbrain watch`).
+Deliberately scoped OUT of v1 per the eng-review scope decision (success criteria
+are the bar). Plan + GSTACK REVIEW REPORT at
+`~/.claude/plans/system-instruction-you-are-working-cheerful-elephant.md`.
+
+- [ ] **P3 — SSE/HTTP push channel via serve-http.** The op + `gbrain watch` cover
+  pull-per-turn and stdin streaming; a serve-http SSE feed would push volunteered
+  pages to remote agents without a local CLI. **Why:** thin-client/remote-MCP
+  deployments get push too. **Cons:** async plumbing + auth scoping; no consumer
+  wired today. **Where:** `src/commands/serve-http.ts` + `src/core/context/volunteer.ts`.
+  **Blocked by:** a real consumer (revisit when one exists).
+- [ ] **P3 — policy skill + doctor check for push-context.** The ambient reflex
+  needed doctor visibility because silent failure was invisible; volunteer is
+  invoked-on-demand so v1 skipped it. If `volunteer-context --stats` adoption shows
+  agents not discovering the surface, ship a `push-context` recipe (mirror
+  `recipes/retrieval-reflex/`) + a doctor check reading the events table.
+  **Where:** `recipes/`, `src/commands/doctor.ts`.
+- [ ] **P3 — structured `messages[]` param for volunteer_context.** v1 takes a
+  string window (`user:`/`assistant:` prefixes) to avoid a dual-shape contract.
+  If MCP callers accumulate parsing bugs, add a structured array param beside it.
+  **Where:** `src/core/operations.ts:volunteer_context` + `src/core/context/volunteer.ts:parseWindow`.
+- [ ] **P3 — index shapes for the per-turn resolver query.** The arm-2 resolver
+  (`retrieval-reflex.ts`: `lower(title) = ANY() OR slug = ANY() OR slug LIKE
+  ANY('%/...')`) predates #2095 but now runs per turn on three channels
+  (reflex window, volunteer_context, watch) federated across sources. Neither
+  the leading-wildcard suffix arm nor `lower(title)` is index-served. If
+  per-turn latency telemetry on large brains comes back hot: add
+  `(source_id, lower(title))` btree + a reverse(slug) text_pattern_ops (or
+  gin_trgm) index, or split the OR into three index-friendly queries.
+  **Where:** `src/core/context/retrieval-reflex.ts`, migration.
+- [ ] **P3 — batch the volunteer-events pruner's first run after a long gap.**
+  `purgeStaleVolunteerEvents` is one unbatched DELETE with a bare
+  `volunteered_at` predicate (full scan; fine for a TTL-bounded table). Edge:
+  a brain whose dream cycle was off for months could hit the pooler's ~2min
+  statement_timeout on the first prune, get swallowed by the catch, and never
+  make progress. If observed: id-batched chunks (`DELETE ... WHERE id IN
+  (SELECT ... LIMIT 10000)` looped). **Where:**
+  `src/core/context/volunteer-events.ts:purgeStaleVolunteerEvents`.
+- [ ] **P3 — route `gbrain watch` through the serve resolve-IPC on PGLite.**
+  `watch` connects directly, so on a PGLite brain it monopolizes the single
+  connection for its whole (potentially hours-long) session — a concurrent
+  `gbrain serve` or any write path blocks on the lock until watch exits.
+  WATCH_HELP documents the monopoly; the fix is an IPC rung in watch's
+  resolver (reuse `resolveViaIpc` like the ambient reflex's ladder) so a
+  running serve answers and watch never takes the lock. **Why:** watch +
+  serve concurrently is the natural agent topology. **Where:**
+  `src/commands/watch.ts`, `src/core/context/resolve-ipc.ts` (red-team RT2).
+- [ ] **P3 — capability/version gate for host-injected reflex resolvers.**
+  Windowing switched the orchestrator's suppression request to 'slug-only';
+  a host resolver built against the pre-window contract that still applies
+  title-whole-word suppression silently self-suppresses every windowed
+  entity. The contract is documented at `ResolveEntitiesFn` (reflex.ts), but
+  nothing detects a stale host. Add a capability handshake (e.g. resolver
+  advertises `supportsSuppressionModes`) and fall back to
+  `window_turns: 1` semantics when absent. **Where:**
+  `src/core/context/reflex.ts:ResolveEntitiesFn` + the OpenClaw plugin
+  contract (red-team RT4).
+
 ## gbrain triage wave follow-ups (filed v0.42.41.0)
 
 Deferred from the v0.42.41.0 fix wave (eng-reviewed as separate scope, not hotfixes).
@@ -32,11 +115,13 @@ Filed from the #1981 ship (v0.42.39.0). Deliberately scoped OUT — the v1 extra
 is deterministic + precision-biased. See plan + GSTACK REVIEW REPORT at
 `~/.claude/plans/system-instruction-you-are-working-wild-yeti.md`.
 
-- [ ] **P3 — broaden entity detection beyond proper-case ASCII.** The v1 extractor
-  (`src/core/context/entity-salience.ts`) misses lowercase names, many non-Latin
-  scripts, pronoun follow-ups ("what about her?"), and assistant-introduced entities.
-  These need conversation state or an LLM pass. **Why:** higher recall on the read
-  side. **Where:** `entity-salience.ts` + the orchestrator's `priorContextText`.
+- [ ] **P3 — broaden entity detection beyond proper-case ASCII.** The extractor
+  (`src/core/context/entity-salience.ts`) misses lowercase names and many non-Latin
+  scripts; these need an LLM pass or script-aware heuristics. **Why:** higher recall
+  on the read side. **Where:** `entity-salience.ts`. *(Partially done by the #2095
+  wave: `extractCandidatesFromWindow` now covers assistant-introduced entities and
+  pronoun follow-ups whose antecedent was NAMED in the rolling window; true pronoun
+  coreference for never-named antecedents remains with the LLM-pass idea.)*
 - [ ] **P3 — recall knob: optional fuzzy/prefix-expansion resolution.** The resolver
   (`src/core/context/retrieval-reflex.ts`) is exact-only (alias + title + slug-suffix)
   for precision. Revisit adding `resolveEntitySlug`'s trgm-fuzzy / prefix-expansion
