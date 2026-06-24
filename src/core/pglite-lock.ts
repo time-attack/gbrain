@@ -47,11 +47,12 @@ export interface LockHandle {
   heartbeat?: ReturnType<typeof setInterval>;
   lockPath?: string;
   /**
-   * #2058 (codex): our ownership token (`<pid>:<acquired_at>`). If we stall
-   * past the steal grace, another process can reap + re-acquire. When we
-   * resume, the heartbeat and release MUST verify the on-disk lock is STILL
-   * ours before touching it — otherwise a resumed stale holder would refresh
-   * or delete the NEW owner's live lock, re-opening the concurrent-writer hole.
+   * Our ownership token (`<pid>:<acquired_at>`). Since #2348 a LIVE holder is
+   * never reaped, so reap-then-reacquire happens only after the original holder
+   * is dead — but the heartbeat and release STILL verify the on-disk lock is
+   * ours before touching it (defense-in-depth: a crash-then-restart on a reused
+   * PID, or a misclassification, must never let a stale handle refresh or delete
+   * the NEW owner's live lock and re-open the concurrent-writer hole).
    */
   ownerToken?: string;
 }
