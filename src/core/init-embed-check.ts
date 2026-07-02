@@ -117,7 +117,7 @@ function formatInitEmbedWarning(d: Exclude<EmbeddingDiagnosis, { ok: true }>): s
       break;
     case 'user_provided_dims_unset':
       lines.push(`  Provider "${d.provider}" ships no default embedding dimension — set one explicitly.`);
-      lines.push(`    gbrain config set embedding_dimensions <N>   (e.g. 1024 for bge-large)`);
+      lines.push(`    re-run: gbrain init --embedding-dimensions <N>   (e.g. 1024 for bge-large)`);
       break;
     case 'no_model_configured':
       lines.push('  No embedding model is configured.');

@@ -15,7 +15,13 @@
  */
 
 import { afterEach, describe, expect, test } from 'bun:test';
-import { configureGateway, diagnoseEmbedding, resetGateway } from '../../src/core/ai/gateway.ts';
+import {
+  configureGateway,
+  diagnoseEmbedding,
+  getEmbeddingDimensions,
+  resetGateway,
+} from '../../src/core/ai/gateway.ts';
+import { DEFAULT_EMBEDDING_DIMENSIONS } from '../../src/core/ai/defaults.ts';
 
 afterEach(() => resetGateway());
 
@@ -48,5 +54,16 @@ describe('diagnoseEmbedding dims-presence guard (#1292/D6)', () => {
     });
     const d = diagnoseEmbedding();
     expect(d.ok).toBe(true);
+  });
+
+  test('backfill invariant: configureGateway keeps embedding_dimensions honest, but getEmbeddingDimensions() still defaults', () => {
+    // The dims-presence guard depends on _config.embedding_dimensions being
+    // undefined when unset (configureGateway no longer fabricates a default).
+    // Downstream readers must still see the default via their own `??`.
+    configureGateway({
+      embedding_model: 'openai:text-embedding-3-small',
+      env: { OPENAI_API_KEY: 'sk-test' },
+    });
+    expect(getEmbeddingDimensions()).toBe(DEFAULT_EMBEDDING_DIMENSIONS);
   });
 });

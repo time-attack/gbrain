@@ -95,7 +95,8 @@ export function formatEmbeddingCredsError(d: EmbeddingDiagnosis): string {
       return [
         `Provider "${d.provider}" ships no default embedding dimension; set one explicitly.`,
         '',
-        `  Set it: gbrain config set embedding_dimensions <N>`,
+        `  Re-init with the dimension: gbrain init --embedding-dimensions <N>`,
+        '  (embedding_dimensions is a schema-sizing field — `config set` rejects it on purpose)',
         '  Or run with --no-embed to import-only and embed later.',
       ].join('\n');
 

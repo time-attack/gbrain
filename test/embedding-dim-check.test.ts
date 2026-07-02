@@ -294,6 +294,18 @@ describe('resolveSchemaEmbeddingDim', () => {
     if (!got.ok) expect(got.error).toMatch(/rejects custom dimensions 4096|does not support custom dimensions/);
   });
 
+  test('[REGRESSION] trust_custom_dims does NOT bypass the pgvector column cap', () => {
+    // The passthrough tier trusts the user's dim, but the pgvector cap check runs
+    // BEFORE it — pin that ordering so a future refactor can't let an oversized
+    // dim through for a trusted local recipe.
+    const got = resolveSchemaEmbeddingDim({
+      embedding_model: 'ollama:qwen3-embed-8b',
+      embedding_dimensions: PGVECTOR_COLUMN_MAX_DIMS + 1,
+    });
+    expect(got.ok).toBe(false);
+    if (!got.ok) expect(got.error).toMatch(/exceed pgvector|column cap/i);
+  });
+
   test('unknown provider rejected with provider list hint', () => {
     const got = resolveSchemaEmbeddingDim({ embedding_model: 'notarealprovider:foo' });
     expect(got.ok).toBe(false);
