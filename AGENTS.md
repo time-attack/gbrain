@@ -127,3 +127,51 @@ use generic placeholders (`alice-example`, `acme-example`, `fund-a`).
 
 If you are a fork, regenerate `llms.txt` + `llms-full.txt` with your own URL base before
 publishing: `LLMS_REPO_BASE=https://raw.githubusercontent.com/your-org/your-fork/main bun run build:llms`.
+
+## Cursor Cloud specific instructions
+
+Durable, non-obvious notes for agents running in the Cursor Cloud VM (a 4-CPU / ~15 GB
+RAM, **no-swap** Linux box). The startup update script already runs `bun install`, so Bun
+and `node_modules` are present. Standard commands live where they always do: dev/build/test
+scripts in `package.json`, test tiers in `docs/TESTING.md`, engines in `docs/ENGINES.md`.
+
+- **Bun is the runtime.** It is installed at `~/.bun/bin` (added to `~/.bashrc`). If `bun`
+  is not on `PATH` in a fresh non-login shell, run `export PATH="$HOME/.bun/bin:$PATH"`.
+  There is no Node-based build path — everything goes through `bun`.
+
+- **`bun run test` OOM-kills on this VM at the default fan-out.** The default is 4 shards ×
+  `--max-concurrency=4` (up to 16 concurrent `bun test` processes), and a single long-lived
+  shard process accumulates PGLite-WASM memory across its hundreds of files (observed ~8 GB
+  RSS per shard). Two such shards exceed 15 GB and get SIGKILL'd (exit 137). Run the suite
+  **memory-safely by running many small shards one at a time** (each is a fresh, short-lived
+  process that frees memory before the next). Example that stays well under the RAM ceiling:
+  ```bash
+  for i in $(seq 1 16); do SHARD="$i/16" bash scripts/run-unit-shard.sh --max-concurrency=2; done
+  bash scripts/run-serial-tests.sh   # *.serial.test.ts pass
+  ```
+  Reducing the parallel runner (`SHARDS=2 GBRAIN_TEST_MAX_CONCURRENCY=2 bun run test`) is
+  NOT enough — a single shard's accumulated memory alone can approach the ceiling. Keep the
+  per-process file count small (higher shard M) rather than raising concurrency.
+  `bun run verify` (31 checks + typecheck) and `bun run typecheck` are light and run fine as-is.
+
+- **`gbrain init` needs an embedding provider or an explicit opt-out.** With no API keys in
+  the environment, use `gbrain init --pglite --no-embedding`. Keyword search (`gbrain search`),
+  import, `put`/`get`/`list`/`stats` all work without keys; only vector search, `gbrain embed`,
+  `gbrain think`, and enrichment need `OPENAI_API_KEY` / `ZEROENTROPY_API_KEY` / `ANTHROPIC_API_KEY`.
+  Isolate a scratch brain with `export GBRAIN_HOME=/tmp/<name>` and quiet nudges with
+  `export GBRAIN_NO_ONBOARD_NUDGE=1` (also auto-skipped in non-TTY).
+
+- **E2E tests need Docker + Postgres/pgvector, which are NOT installed by default here.**
+  `bun run test:e2e` and `bun run ci:local` are skipped/unavailable unless Docker is added.
+  Most E2E value is covered by the PGLite in-memory suites that run in the normal unit loop.
+  Follow the DB lifecycle in `docs/TESTING.md` if you install Docker.
+
+- **Two known, non-blocking unit failures in this VM** (the other ~14,170 pass). Neither is
+  caused by a normal edit — don't chase them:
+  1. `test/fuzz/filesystem-validators.test.ts > shaped traversal probes: explicit '..'
+     patterns rejected` — fails only because the repo is checked out at `/workspace` (a
+     top-level dir): the probe is passed as the confinement `root`, and `realpathSync('..')`
+     resolves to `/`, which is an ancestor of the `/tmp` temp box, so confinement isn't
+     violated. Checkout-location artifact, not a product defect.
+  2. `test/retrieval-reflex.test.ts > logDeliveredReflexPointers logs channel=reflex events
+     through the drained sink` — pre-existing failure on `master` as well (0 rows written).
