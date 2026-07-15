@@ -1,0 +1,175 @@
+{
+  "pr:472": {
+    "testsEvidence": [
+      "PR files changed: 4",
+      "Touches tests: test/e2e/mechanical.test.ts, test/files.test.ts",
+      "Upstream checks: Heavy tests:SKIPPED, JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS",
+      "Local re-run of overlapping test paths on this checkout: exit=0. (skip) E2E: RLS Verification > gbrain doctor fails with exit 1 when a public table is missing RLS | (skip) E2E: RLS Verification > GBRAIN:RLS_EXEMPT comment WITHOUT reason= still fails doctor | (skip) E2E: RLS Verification > Non-exempt unrelated COMMENT on a no-RLS table still fails doctor |  23 pas"
+    ],
+    "note": "Overlapping local tests PASSED on this workspace checkout (not a full PR-branch CI).",
+    "deepTestStatus": "pass"
+  },
+  "pr:1707": {
+    "testsEvidence": [
+      "PR files changed: 2",
+      "Touches tests: test/commands/schema-packpath.test.ts",
+      "Upstream checks: Tier 1 (Mechanical):SUCCESS, cache-check:SUCCESS, Tier 2 (LLM Skills):SUCCESS, gitleaks:SUCCESS, verify:SUCCESS, serial-tests:SUCCESS"
+    ],
+    "note": "Could not re-run PR tests here (paths missing on checkout or PR has no tests). Author claims + CI signals only.",
+    "deepTestStatus": "skipped"
+  },
+  "pr:2820": {
+    "testsEvidence": [
+      "PR files changed: 15",
+      "Touches tests: test/ai/build-gateway-config.test.ts, test/ai/deepseek-reasoning-content.test.ts, test/ai/gateway-tool-loop.test.ts, test/ai/gateway-toolcall-pairing.test.ts, test/config-set.test.ts, test/e2e/subagent-gateway-resume-reconciliation.test.ts",
+      "Upstream checks: JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS, verify:SUCCESS",
+      "Local re-run of overlapping test paths on this checkout: exit=0. (pass) gateway.toolLoop (v0.38 D11 — provider-agnostic loop control) > refuses replay of non-idempotent pending tool with unrecoverable error [0.18ms] | (pass) gateway.toolLoop (v0.38 D11 — provider-agnostic loop control) > hits max_turns when the model keeps calling tools [0.28ms] | (pass) gateway."
+    ],
+    "note": "Overlapping local tests PASSED on this workspace checkout (not a full PR-branch CI).",
+    "deepTestStatus": "pass"
+  },
+  "pr:2798": {
+    "testsEvidence": [
+      "PR files changed: 3",
+      "No test files in the PR file list.",
+      "Upstream checks: JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS, verify:SUCCESS"
+    ],
+    "note": "Could not re-run PR tests here (paths missing on checkout or PR has no tests). Author claims + CI signals only.",
+    "deepTestStatus": "skipped"
+  },
+  "pr:2440": {
+    "testsEvidence": [
+      "PR files changed: 2",
+      "Touches tests: test/fence-extraction.test.ts",
+      "Upstream checks: Heavy tests:SKIPPED, JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS",
+      "Local re-run of overlapping test paths on this checkout: exit=0. (pass) Layer 8 D2 — markdown fence extraction > missing fence language tag → no fenced_code chunks [11.74ms] | (pass) Layer 8 D2 — markdown fence extraction > multiple fences on one page all extract (under cap) [17.00ms] | (pass) Layer 8 D2 — markdown fence extraction > empty fence body is skipped ("
+    ],
+    "note": "Overlapping local tests PASSED on this workspace checkout (not a full PR-branch CI).",
+    "deepTestStatus": "pass"
+  },
+  "pr:2801": {
+    "testsEvidence": [
+      "PR files changed: 1",
+      "Touches tests: test/doctor-hidden-by-search-policy.test.ts",
+      "Upstream checks: JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS, verify:SUCCESS",
+      "Local re-run of overlapping test paths on this checkout: exit=0. (pass) checkHiddenBySearchPolicy > zero hidden (only curated content) → ok [69.33ms] | (pass) checkHiddenBySearchPolicy > SQL error → warn, not throw [64.17ms] | (pass) hidden_by_search_policy categorization > categorizes as a brain check [62.62ms] |  7 pass |  0 fail | Ran 7 tests across 1 file. [2"
+    ],
+    "note": "Overlapping local tests PASSED on this workspace checkout (not a full PR-branch CI).",
+    "deepTestStatus": "pass"
+  },
+  "pr:2482": {
+    "testsEvidence": [
+      "PR files changed: 2",
+      "Touches tests: test/extract-atoms-page-discovery.test.ts",
+      "Upstream checks: JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS, verify:SUCCESS",
+      "Local re-run of overlapping test paths on this checkout: exit=0. (pass) v0.41.2.1: runPhaseExtractAtoms — dual-source merge + idempotency > PhaseResult.details has additive page fields populated [68.72ms] | (pass) v0.41.2.1: runPhaseExtractAtoms — dual-source merge + idempotency > dry-run skips putPage for atoms [68.20ms] | (pass) v0.41.2.1: runPhaseExtractAtoms "
+    ],
+    "note": "Overlapping local tests PASSED on this workspace checkout (not a full PR-branch CI).",
+    "deepTestStatus": "pass"
+  },
+  "pr:477": {
+    "testsEvidence": [
+      "PR files changed: 2",
+      "Touches tests: test/autopilot-lock.test.ts",
+      "Upstream checks: Heavy tests:SKIPPED, JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS"
+    ],
+    "note": "Could not re-run PR tests here (paths missing on checkout or PR has no tests). Author claims + CI signals only.",
+    "deepTestStatus": "skipped"
+  },
+  "pr:2615": {
+    "testsEvidence": [
+      "PR files changed: 3",
+      "Touches tests: test/extract-atoms-extractable-types.test.ts, test/extract-atoms-page-discovery.test.ts",
+      "Upstream checks: JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS, verify:SUCCESS",
+      "Local re-run of overlapping test paths on this checkout: exit=0. (pass) v0.41.2.1: runPhaseExtractAtoms — dual-source merge + idempotency > PhaseResult.details has additive page fields populated [87.87ms] | (pass) v0.41.2.1: runPhaseExtractAtoms — dual-source merge + idempotency > dry-run skips putPage for atoms [81.38ms] | (pass) v0.41.2.1: runPhaseExtractAtoms "
+    ],
+    "note": "Overlapping local tests PASSED on this workspace checkout (not a full PR-branch CI).",
+    "deepTestStatus": "pass"
+  },
+  "pr:2068": {
+    "testsEvidence": [
+      "PR files changed: 2",
+      "Touches tests: test/orphans-pure-fn.test.ts",
+      "Upstream checks: Tier 1 (Mechanical):SUCCESS, cache-check:SUCCESS, Tier 2 (LLM Skills):SUCCESS, gitleaks:SUCCESS, verify:SUCCESS, serial-tests:SUCCESS",
+      "Local re-run of overlapping test paths on this checkout: exit=0. (pass) shouldExclude — orphan filter regression (preserve curation) > deny-prefixes are excluded [0.59ms] | (pass) shouldExclude — orphan filter regression (preserve curation) > first-segment exclusions fire [0.62ms] | (pass) shouldExclude — orphan filter regression (preserve curation) > regular slu"
+    ],
+    "note": "Overlapping local tests PASSED on this workspace checkout (not a full PR-branch CI).",
+    "deepTestStatus": "pass"
+  },
+  "pr:2632": {
+    "testsEvidence": [
+      "PR files changed: 2",
+      "Touches tests: test/config.test.ts",
+      "Upstream checks: Heavy tests:SKIPPED, JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS",
+      "Local re-run of overlapping test paths on this checkout: exit=0. (pass) configDir — GBRAIN_HOME Windows path acceptance (v0.36.1.x #1019) > '..' segments rejected via backslash separator (Windows path shape) [0.09ms] | (pass) loadConfig — GBRAIN_MAX_MARKUP_RATIO env (v0.42 #1699) > valid ratio in (0,1] is parsed onto content_sanity [0.50ms] | (pass) loadConfig — "
+    ],
+    "note": "Overlapping local tests PASSED on this workspace checkout (not a full PR-branch CI).",
+    "deepTestStatus": "pass"
+  },
+  "pr:2625": {
+    "testsEvidence": [
+      "PR files changed: 3",
+      "Touches tests: test/serve-http-bootstrap-token.test.ts",
+      "Upstream checks: JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS, verify:SUCCESS",
+      "Local re-run of overlapping test paths on this checkout: exit=0. (pass) resolveBootstrapToken (v0.36.1.x #1024) > empty string env (after trim, zero chars) → error | (pass) resolveBootstrapToken (v0.36.1.x #1024) > exactly 32 chars hex (the boundary) → accepted [0.01ms] | (pass) resolveBootstrapToken (v0.36.1.x #1024) > 31 chars (one short) → error |  9 pass |  0"
+    ],
+    "note": "Overlapping local tests PASSED on this workspace checkout (not a full PR-branch CI).",
+    "deepTestStatus": "pass"
+  },
+  "pr:2836": {
+    "testsEvidence": [
+      "PR files changed: 2",
+      "Touches tests: test/sync-reconcile-mass-delete.test.ts",
+      "Upstream checks: none visible"
+    ],
+    "note": "Could not re-run PR tests here (paths missing on checkout or PR has no tests). Author claims + CI signals only.",
+    "deepTestStatus": "skipped"
+  },
+  "pr:2638": {
+    "testsEvidence": [
+      "PR files changed: 3",
+      "Touches tests: test/extract-takes-from-pages-progression.test.ts",
+      "Upstream checks: JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS, verify:SUCCESS"
+    ],
+    "note": "Could not re-run PR tests here (paths missing on checkout or PR has no tests). Author claims + CI signals only.",
+    "deepTestStatus": "skipped"
+  },
+  "pr:2524": {
+    "testsEvidence": [
+      "PR files changed: 4",
+      "Touches tests: test/extract.test.ts, test/link-extraction.test.ts",
+      "Upstream checks: Heavy tests:SKIPPED, JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS",
+      "Local re-run of overlapping test paths on this checkout: exit=0. (pass) extractEntityRefs — v0.18.0 qualified wikilinks > masking prevents unqualified regex from matching inside a qualified link [0.02ms] | (pass) extractEntityRefs — v0.18.0 qualified wikilinks > markdown [Name](path) links always have no sourceId (unqualified by shape) [0.04ms] | (pass) v0.18.0 m"
+    ],
+    "note": "Overlapping local tests PASSED on this workspace checkout (not a full PR-branch CI).",
+    "deepTestStatus": "pass"
+  },
+  "pr:2799": {
+    "testsEvidence": [
+      "PR files changed: 3",
+      "Touches tests: test/model-pricing.test.ts",
+      "Upstream checks: JSONB parity (#2339 regression guard):SUCCESS, cache-check:SUCCESS, Tier 1 (Mechanical):SUCCESS, gitleaks:SUCCESS, Tier 2 (LLM Skills):SUCCESS, verify:SUCCESS",
+      "Local re-run of overlapping test paths on this checkout: exit=0. (pass) DRIFT GUARD — derived views stay equal to canonical (re-hardcode trip-wire) > cross-modal panel models are all priced from canonical [0.03ms] | (pass) S1A — raw-index consumers price provider-prefixed ids > estimateAnthropicCost prices anthropic:claude-opus-4-8 (was zero pre-fix) [0.99ms] | ("
+    ],
+    "note": "Overlapping local tests PASSED on this workspace checkout (not a full PR-branch CI).",
+    "deepTestStatus": "pass"
+  },
+  "pr:1448": {
+    "testsEvidence": [
+      "PR files changed: 2",
+      "No test files in the PR file list.",
+      "Upstream checks: Heavy tests:SKIPPED, Tier 1 (Mechanical):SUCCESS, cache-check:SUCCESS, gitleaks:SKIPPED, Tier 2 (LLM Skills):SUCCESS, verify:SKIPPED"
+    ],
+    "note": "Could not re-run PR tests here (paths missing on checkout or PR has no tests). Author claims + CI signals only.",
+    "deepTestStatus": "skipped"
+  },
+  "pr:2270": {
+    "testsEvidence": [
+      "PR files changed: 1",
+      "No test files in the PR file list.",
+      "Upstream checks: Tier 1 (Mechanical):SUCCESS, cache-check:SUCCESS, Tier 2 (LLM Skills):SUCCESS, gitleaks:SUCCESS, verify:SUCCESS, serial-tests:SUCCESS"
+    ],
+    "note": "Could not re-run PR tests here (paths missing on checkout or PR has no tests). Author claims + CI signals only.",
+    "deepTestStatus": "skipped"
+  }
+}

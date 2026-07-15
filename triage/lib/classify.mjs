@@ -26,7 +26,7 @@ export const PRIORITIES = ['P0', 'P1', 'P2', 'P3', 'none'];
 
 /** Niche / non-mainstream product surfaces (feature integrations). */
 export const PROPRIETARY_FEATURE_RE =
-  /\b(minimax|zhipu|glm-4|kimi|moonshot|comet[\s-]?ecc|yika|multica|google\s*takeout|notion\s*api|obsidian\s*plugin|telegram\s*bot|whatsapp|wechat|discord\s*bot|slack\s*bot|linear\s*api|hubspot|salesforce|zapier|\bn8n\b|make\.com|coze|dify|langflow|flowise|siliconflow|fireworks\.ai|together\.ai|groq\s*only|ollama\s*only|claude-cli|gemini-cli|dashscope|qwen)\b/i;
+  /\b(minimax|zhipu|glm-4|kimi|moonshot|comet[\s-]?ecc|yika|multica|google\s*takeout|notion\s*api|obsidian\s*plugin|telegram\s*bot|whatsapp|wechat|discord\s*bot|slack\s*bot|linear\s*api|hubspot|salesforce|zapier|\bn8n\b|make\.com|coze|dify|langflow|flowise|siliconflow|fireworks\.ai|together\.ai|groq\s*only|ollama\s*only|claude-cli|gemini-cli|dashscope|qwen|baichuan|yi-large|stepfun|sensenova|volcengine|doubao|wenxin|ernie\b|bedrock-only|azure-openai-only|vertex-only|replicate\s*only|modal\.com|banana\.dev|runpod|vast\.ai|novita|togetherai|hyperbolic|deepinfra|friendli|sambanova|cerebras\s*only|grok-only|xai\s*recipe|perplexity\s*api|you\.com|exa\.ai|tavily|brave\s*search\s*api|serpapi|browserless|puppeteer-as-a-service)\b/i;
 
 /**
  * Mentions that are often repro context for mainstream gateway bugs —
@@ -43,7 +43,11 @@ export const DATA_LOSS_RE =
   /\b(?:mass[- ]?delet\w*|data\s*loss|wip(?:e|ed|ing)\s+(?:pages?|brain|source|db|database)|destroy\s+(?:pages?|brain|source)|corrupt(?:ion|ed)?\s+(?:db|database|pages?|brain)|drop\s*source|hard[- ]?exclude|prune\s*all|delete\s*all|silent\s*delet\w*)/i;
 
 export const LOW_VALUE_TITLE_RE =
-  /\b(bump\s+deps?|chore:\s*deps?|update\s+dependencies|dependabot|renovate|typo\s+fix|fix\s+typo|readme\s+typo|add\s+badge|star\s+history)\b/i;
+  /\b(bump\s+deps?|chore:\s*deps?|update\s+dependencies|dependabot|renovate|typo\s+fix|fix\s+typo|readme\s+typo|add\s+badge|star\s+history|update\s+readme\s+only|docs:\s*fix\s+typo|chore:\s*format|prettier|eslint\s+config\s+only)\b/i;
+
+/** Noise dumped into PRs (private agent memory, resume padding). */
+export const JUNK_BODY_RE =
+  /\b(docs\/memory\/|codesmith:footer|Generated with \[Claude Code\]|Co-Authored-By:\s*Claude|YC application|hiring signal)\b/i;
 
 export const FEATURE_TITLE_RE =
   /^(feat|feature)(\(|:|\s)|^(proposal|rfc|idea|enhancement)\b/i;
@@ -238,12 +242,13 @@ export function buildSoftDupClusters(pairs, threshold = 0.85) {
 
 /**
  * Heuristic low-value signals.
- * @param {{ kind: ItemKind, title: string, body?: string, authorLogin?: string, authorIssueCount?: number, authorPrCount?: number, checks?: ReturnType<typeof summarizeChecks>, testEvidence?: string[] }} item
+ * @param {{ kind: ItemKind, title: string, body?: string, authorLogin?: string, authorIssueCount?: number, authorPrCount?: number, checks?: ReturnType<typeof summarizeChecks>, testEvidence?: string[], changedFiles?: number|null, additions?: number|null, deletions?: number|null }} item
  */
 export function lowValueSignals(item) {
   const signals = [];
   if (LOW_VALUE_TITLE_RE.test(item.title || '')) signals.push('Title looks like a dependency bump or typo chore.');
   const body = item.body || '';
+  if (JUNK_BODY_RE.test(body)) signals.push('Body includes agent memory dumps or AI boilerplate.');
   if (item.kind === 'pr') {
     if ((item.testEvidence || []).some((t) => /No clear test evidence/i.test(t))) {
       signals.push('PR body has no clear test evidence.');
@@ -253,12 +258,22 @@ export function lowValueSignals(item) {
     if (item.checks?.ci === 'none' && !item.checks?.greenClean) {
       signals.push('No CI status visible (common for fork PRs).');
     }
+    if (item.checks?.mergeState === 'DIRTY' && (item.testEvidence || []).some((t) => /No clear test evidence/i.test(t))) {
+      signals.push('Conflicts + no tests — skip.');
+    }
     if (/Generated with|codesmith|@codesmith|Claude Code/i.test(body) && body.length < 400) {
       signals.push('Short AI-generated body with little substance.');
+    }
+    // Huge docs/memory noise with tiny code change signal
+    if (/docs\/memory\//i.test(body) && (item.changedFiles || 0) > 20) {
+      signals.push('Touches many files including docs/memory noise.');
     }
   }
   const vol = (item.authorIssueCount || 0) + (item.authorPrCount || 0);
   if (vol >= 12) signals.push(`Author has ${vol} open items in this backlog (high volume).`);
+  if (vol >= 18 && item.kind === 'pr' && item.checks?.ci === 'none') {
+    signals.push('High-volume author + no CI — treat as resume noise until proven otherwise.');
+  }
   return signals;
 }
 
@@ -282,6 +297,7 @@ export function classifyItem(ctx) {
     testEvidence = [],
     lowValue = [],
     curated,
+    competingPrs = null,
   } = ctx;
 
   if (override) {
@@ -380,7 +396,24 @@ export function classifyItem(ctx) {
     };
   }
 
-  if (lowValue.length >= 3 || LOW_VALUE_TITLE_RE.test(title)) {
+  // Competing open PRs for the same issue → keep lowest number as candidate, rest consolidate
+  if (kind === 'pr' && competingPrs && competingPrs.length > 1) {
+    const sorted = [...competingPrs].sort((a, b) => a - b);
+    if (sorted[0] !== number) {
+      flags.push('duplicate', 'consolidate');
+      return {
+        disposition: 'duplicate',
+        priority: 'none',
+        confidence: 0.8,
+        flags,
+        explanation: `Another open PR (#${sorted[0]}) already targets the same issue. Consolidate — do not merge both.`,
+        proposedSolution: `Compare with PR #${sorted[0]}; keep the better diff; close the rest.`,
+      };
+    }
+    flags.push('cluster_canonical', 'consolidate');
+  }
+
+  if (lowValue.length >= 3 || LOW_VALUE_TITLE_RE.test(title) || lowValue.some((s) => /resume noise|docs\/memory/i.test(s))) {
     flags.push('low_value');
     return {
       disposition: 'low_value',

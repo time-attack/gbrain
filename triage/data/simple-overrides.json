@@ -1,0 +1,378 @@
+{
+  "pr:2836": {
+    "explanation": "On Windows, full sync compares file paths with mixed slash styles and can delete almost every page. This PR fixes path matching and adds a safety stop before mass deletes.",
+    "proposedSolution": "Read the diff, run the listed sync tests if you can, and merge through the normal ship path."
+  },
+  "issue:2831": {
+    "explanation": "Saving a file can overwrite another file that only differs by letter case on Windows or Mac. That can silently wipe existing content.",
+    "proposedSolution": "Reproduce on current master, then ship a small fix with a test."
+  },
+  "issue:2828": {
+    "explanation": "On Windows, full sync deletes most pages in subfolders because stored paths use forward slashes but the check uses backslashes. This can wipe a whole source.",
+    "proposedSolution": "Reproduce on current master and ship the fix in PR #2836 with a test."
+  },
+  "pr:2827": {
+    "explanation": "Old export backup pages still show up in search and agent page reads. They should stay stored but stay hidden from normal use.",
+    "proposedSolution": "Review the PR, run the listed archival tests if you can, and merge when they pass."
+  },
+  "issue:2825": {
+    "explanation": "Search cache ignores your exclude rules. Two processes with different exclude settings can share one cache row and leak hidden pages.",
+    "proposedSolution": "Reproduce on current master, then fix the cache key so exclude settings are included."
+  },
+  "issue:2786": {
+    "explanation": "Running chronicle on a legacy mirror source can create life/events pages under the wrong source when that slug only exists there.",
+    "proposedSolution": "Reproduce on current master, then add a guard so backfill skips mirror-only copies."
+  },
+  "pr:2745": {
+    "explanation": "This PR adds a foundation to record what was lost during file conversion. It is new feature work, not an emergency bug fix.",
+    "proposedSolution": "Review scope and whether typecheck was run, then decide if it is ready to merge."
+  },
+  "pr:2711": {
+    "explanation": "This PR adds 19 Android agent skills from an external registry. It expands skill content; it is not a data-loss fix.",
+    "proposedSolution": "Check that skills conformance tests pass, then merge when review looks good."
+  },
+  "pr:2709": {
+    "explanation": "A security flag blocks all local file git pulls, which breaks sync for installs that use the local bare backup repo.",
+    "proposedSolution": "Review the PR, run git-remote tests if you can, and merge the targeted exception."
+  },
+  "issue:2706": {
+    "explanation": "Sync puts image pages under the default source even when they come from another registered source. Text pages get the right source.",
+    "proposedSolution": "Reproduce on current master, then fix image import to use the active source id."
+  },
+  "issue:2684": {
+    "explanation": "Take commands find pages by slug only. If two sources share a slug, writes can hit the wrong page.",
+    "proposedSolution": "Reproduce on current master, then add source filtering to page lookup in take commands."
+  },
+  "pr:2625": {
+    "explanation": "HTTP serve prints the admin token to stdout, which leaks into logs when stdout is piped or captured. This PR hides the raw token in that case.",
+    "proposedSolution": "Read the diff, run bootstrap-token tests if you can, and merge through the normal ship path."
+  },
+  "issue:2624": {
+    "explanation": "Starting HTTP serve prints the admin password in plain text. Container and log systems can store that secret.",
+    "proposedSolution": "Reproduce on current master and merge fix PR #2625 once its tests pass."
+  },
+  "pr:2596": {
+    "explanation": "Chinese, Japanese, and Korean keyword search works on the embedded engine but not on Postgres. CJK queries get weak results on Postgres brains.",
+    "proposedSolution": "Review the PR and run engine-parity tests if you can; merge when they pass."
+  },
+  "pr:2585": {
+    "explanation": "Nightly cycle jobs fail when the source id is a UUID because the lock only accepts short slug-style ids.",
+    "proposedSolution": "Review the PR, run cycle-lock tests if you can, and merge when they pass."
+  },
+  "issue:2570": {
+    "explanation": "Auto-generated dream and synthesis pages go straight into the brain with no review step. There is no built-in pending, adopted, or dismissed state.",
+    "proposedSolution": "Design and build a review workflow before treating generated pages as canonical knowledge."
+  },
+  "issue:2490": {
+    "explanation": "Anthropic prompt caching is requested but never actually applied. Every call pays full input cost again with no warning.",
+    "proposedSolution": "Reproduce on current master, then fix the cache breakpoint wiring in gateway chat."
+  },
+  "pr:2478": {
+    "explanation": "Remote MCP callers cannot run auto-link because it is always skipped for security. Single-user setups may want an opt-in flag to turn it on.",
+    "proposedSolution": "Review the PR design; test status is unclear, so add tests before merge."
+  },
+  "issue:2454": {
+    "explanation": "List supports tag filtering but query and search do not. Multi-profile setups cannot limit search to one profile's tagged pages.",
+    "proposedSolution": "Add tag filtering to query and search commands."
+  },
+  "pr:2427": {
+    "explanation": "Extracted facts get stamped with extraction date instead of when the fact was said. Entity timelines collapse to one day.",
+    "proposedSolution": "Review the PR and confirm typecheck; verify trajectory dates look right before merge."
+  },
+  "issue:2426": {
+    "explanation": "Content saved only in the database never reaches git. A full sync then deletes it as missing files. Three bugs make the loss worse.",
+    "proposedSolution": "Reproduce on current master, then fix write-through durability before relying on full sync."
+  },
+  "issue:2412": {
+    "explanation": "One code path deletes page facts without protecting CLI-added facts. The extract-facts path has this guard; phantom-redirect does not.",
+    "proposedSolution": "Reproduce on current master, then add the same CLI fact guard to phantom-redirect."
+  },
+  "issue:2404": {
+    "explanation": "Sync always skips and deletes ops/ pages. Files under ops/ never import and existing ops pages vanish from the brain.",
+    "proposedSolution": "Reproduce on current master, then remove or make ops/ pruning configurable."
+  },
+  "issue:2389": {
+    "explanation": "A contributor asks if the project wants OAuth token exchange for multi-tenant gateways. This is a design question, not a reported bug.",
+    "proposedSolution": "Decide yes or no on the feature before anyone drafts a large PR."
+  },
+  "pr:2387": {
+    "explanation": "This PR adds optional database row-level security so reads are scoped to allowed sources at the database level.",
+    "proposedSolution": "Review the security design and confirm typecheck; merge only after a careful security review."
+  },
+  "pr:2376": {
+    "explanation": "Top priority fix. The whoami command over stdio MCP should show your local identity but returns an unknown_transport error instead.",
+    "proposedSolution": "Reproduce the bug, fix whoami for stdio transport, and add a test (author says tests were run; we have not verified)."
+  },
+  "issue:2289": {
+    "explanation": "Top priority fix. Using --source __all__ should search every source but quietly searches only the default source.",
+    "proposedSolution": "Reproduce on current master, fix __all__ to span all sources, and add a test."
+  },
+  "issue:2281": {
+    "explanation": "Top priority fix. You cannot prune finished jobs from today because --older-than 0d is rejected and there is no status filter.",
+    "proposedSolution": "Reproduce on current master, then allow same-day pruning or add a --status filter."
+  },
+  "issue:2272": {
+    "explanation": "Top priority work. The repo has no automated security scan for TypeScript code yet.",
+    "proposedSolution": "Add a Semgrep CE GitHub Actions workflow for TypeScript security checks."
+  },
+  "issue:2182": {
+    "explanation": "Top priority work. Dependencies are not scanned regularly for known security holes.",
+    "proposedSolution": "Add a scheduled OSV-Scanner workflow in GitHub Actions."
+  },
+  "issue:2152": {
+    "explanation": "Top priority fix. Valid markdown files with # comment lines in YAML frontmatter fail with a MISSING_CLOSE error.",
+    "proposedSolution": "Reproduce on current master, then fix the frontmatter scanner to allow YAML comments."
+  },
+  "issue:2142": {
+    "explanation": "Top priority work. Release binaries are built and uploaded but lack signed proof they came from this repo.",
+    "proposedSolution": "Add GitHub artifact attestations to the release workflow."
+  },
+  "issue:2138": {
+    "explanation": "Top priority fix. When a page has multiple claims, only the first is saved; the rest are dropped with no warning.",
+    "proposedSolution": "Reproduce on current master, then change the insert logic so all claims are stored."
+  },
+  "issue:2100": {
+    "explanation": "Top priority feature. Users with multi-repo wiki setups cannot group topic folders as linked sources under one hub.",
+    "proposedSolution": "Design and add support for multi-source wiki hubs and source groups."
+  },
+  "issue:2098": {
+    "explanation": "Top priority fix. When using a remote MCP, the --source flag is ignored and searches run without source scoping.",
+    "proposedSolution": "Reproduce on current master, then pass --source through the thin-client routing path."
+  },
+  "issue:1978": {
+    "explanation": "Top priority feature. Synthesized pages should link back to their raw source data but nothing enforces that today.",
+    "proposedSolution": "Add a rule that derived pages must reference a raw trace or declare an approved exemption."
+  },
+  "issue:1974": {
+    "explanation": "Top priority fix. Background subagents can only use 13 read tools, so research skills needing web search or writes cannot run.",
+    "proposedSolution": "Expand the subagent tool list with safe read and write tools for cross-namespace research."
+  },
+  "issue:1954": {
+    "explanation": "Top priority fix. PGLite works briefly after init on macOS 26.3 then crashes with a WASM error on later commands.",
+    "proposedSolution": "Reproduce on macOS 26.3 and fix the PGLite WASM crash."
+  },
+  "issue:1835": {
+    "explanation": "Top priority fix. On WSL, doctor marks image files missing when paths use Windows D:/ form even though the files exist.",
+    "proposedSolution": "Reproduce on WSL, then translate Windows drive paths to /mnt/ paths before checking files."
+  },
+  "issue:1729": {
+    "explanation": "Top priority fix. The dream cycle kills the shared Postgres connection before conversation_facts_backfill can finish.",
+    "proposedSolution": "Reproduce on current master, then stop the early disconnect so the full cycle completes."
+  },
+  "issue:1715": {
+    "explanation": "Top priority fix. Doctor runs checks whose names are missing from doctor-categories, causing unknown-check warnings in JSON output.",
+    "proposedSolution": "Register the missing check names in doctor-categories.ts."
+  },
+  "pr:1692": {
+    "explanation": "Top priority change. Remote put_page skips auto-linking and timeline updates; trusted remote callers need an opt-in way to enable them.",
+    "proposedSolution": "Add an env flag that lets trusted remote callers turn on auto_link and auto_timeline (test plan exists; we have not verified it)."
+  },
+  "issue:1619": {
+    "explanation": "Top priority fix. During dream extract, a dead DB connection causes all link and timeline batches to fail silently.",
+    "proposedSolution": "Reproduce on current master, then fix connection handling so extract retries actually recover."
+  },
+  "issue:1594": {
+    "explanation": "Top priority fix. Dream synthesize uses a hard 30-minute timeout per chunk, so long transcripts fail even when still making progress.",
+    "proposedSolution": "Reproduce on current master, then make the timeout configurable or raise the default."
+  },
+  "pr:1560": {
+    "explanation": "Top priority fix. The admin live-activity feed does not send cookies through reverse proxies, so SSE auth fails behind a proxy.",
+    "proposedSolution": "Enable withCredentials on the EventSource and add the regression test (author says tests were run; we have not verified)."
+  },
+  "issue:1552": {
+    "explanation": "Top priority feature. Multi-tenant apps need a --user-id flag on query and search but the CLI does not offer one.",
+    "proposedSolution": "Add --user-id to query, search, and related read ops for per-user filtering."
+  },
+  "issue:1522": {
+    "explanation": "Top priority fix. ingest_capture accepts source_id, source_kind, and source_uri but drops them before writing the page.",
+    "proposedSolution": "Reproduce on current master, then pass those provenance fields through to the page write."
+  },
+  "issue:1513": {
+    "explanation": "Top priority fix. Doctor shows false pgvector and jsonb_integrity warnings on PGLite even when those checks would pass.",
+    "proposedSolution": "Reproduce on PGLite, then route those doctor checks through the PGLite engine instead of postgres.js."
+  },
+  "issue:1491": {
+    "explanation": "Top priority fix. Autopilot's minion worker crashes because connect() was never called, so no autopilot cycle can finish.",
+    "proposedSolution": "Reproduce on current master, then call engine.connect() before the worker main loop starts."
+  },
+  "issue:1462": {
+    "explanation": "Top priority fix. facts:absorb tries to write a log row on a disconnected engine, so failures are not recorded.",
+    "proposedSolution": "Reproduce on current master, then ensure the engine is connected before writing the ingest log."
+  },
+  "issue:1431": {
+    "explanation": "Top priority fix. Supabase's security check warns that vector and pg_trgm live in the public schema on fresh installs. This is a security setup problem, not a data loss bug.",
+    "proposedSolution": "Reproduce on current master, then move those extensions out of the public schema and add a test."
+  },
+  "issue:1386": {
+    "explanation": "Top priority fix. The --to supabase flag name is wrong because the code works with any Postgres database, not just Supabase.",
+    "proposedSolution": "Reproduce on current master, rename the flag to something generic, and add a test."
+  },
+  "issue:1284": {
+    "explanation": "Top priority fix. After a file rename during sync, auto-embed still tries the old deleted page and logs a confusing 'Page not found' error even though sync worked.",
+    "proposedSolution": "Reproduce on current master, stop auto-embed from targeting deleted slugs, and add a test."
+  },
+  "issue:1196": {
+    "explanation": "Top priority fix. On stateless servers after upgrade, writes fail because the app picks a 1280-dimension embedding model while the database still expects 1536 dimensions.",
+    "proposedSolution": "Reproduce on current master, fix the model fallback to match existing brains, and add a test."
+  },
+  "issue:1154": {
+    "explanation": "Top priority fix. Scoped searches only look in one source and miss useful hits from other sources, with no built-in way to show soft cross-source results.",
+    "proposedSolution": "Reproduce the miss on current master, then design and ship a small cross-source hint feature with a test."
+  },
+  "issue:1074": {
+    "explanation": "Top priority fix. Doctor warns about missing frontmatter on files like README and CHANGELOG that never use frontmatter by convention.",
+    "proposedSolution": "Reproduce on current master, skip or exempt those file types from the audit, and add a test."
+  },
+  "issue:1035": {
+    "explanation": "Top priority fix. Saving a page back without a type field in frontmatter silently changes custom page types to 'concept'.",
+    "proposedSolution": "Reproduce on current master, preserve the existing type on round-trip, and add a test."
+  },
+  "issue:1001": {
+    "explanation": "Top priority fix. This RFC asks what works today for one shared GBrain server used by many agents over HTTP, and what gaps remain.",
+    "proposedSolution": "Reproduce the shared-host setup on current master, document gaps, and ship the smallest safe fixes with tests."
+  },
+  "issue:899": {
+    "explanation": "Top priority fix. After dream/sync adds new pages, the extract step does not pull timeline entries or links from those new pages.",
+    "proposedSolution": "Reproduce on current master, fix incremental extract for new pages, and add a test."
+  },
+  "issue:895": {
+    "explanation": "Top priority fix. Search results are ranked backwards: the best match gets the lowest score and shows up last.",
+    "proposedSolution": "Reproduce on current master, fix the score ordering, and add a test."
+  },
+  "issue:781": {
+    "explanation": "Top priority fix. OAuth login always fails because the code stores a hashed secret but the SDK checks it against the plain-text secret.",
+    "proposedSolution": "Reproduce on current master, fix secret comparison for OAuth clients, and add a test."
+  },
+  "issue:753": {
+    "explanation": "Top priority fix. Sync only works when local_path is the git repo root, so monorepos cannot sync separate subfolders as different sources.",
+    "proposedSolution": "Reproduce on current master, add subfolder sync support, and add a test."
+  },
+  "issue:738": {
+    "explanation": "Top priority fix. Sync strips non-English characters from file paths, so Unicode-only markdown filenames can produce empty slugs and fail.",
+    "proposedSolution": "Reproduce on current master, keep Unicode in slug generation, and add a test."
+  },
+  "issue:693": {
+    "explanation": "Top priority fix. doctor --json still prints progress lines to stderr, which breaks scripts that expect clean JSON-only output.",
+    "proposedSolution": "Reproduce on current master, silence stderr when --json is set, and add a test."
+  },
+  "issue:638": {
+    "explanation": "Top priority fix. A contributor proposal asks for server-side tier boosting in search and a faster write path when only frontmatter mapping changes.",
+    "proposedSolution": "Reproduce on current master, review the proposal, and ship the agreed pieces with tests."
+  },
+  "issue:617": {
+    "explanation": "Top priority fix. Doctor reports resolver_health warnings from shipped skill routing fixtures even when the install is otherwise healthy.",
+    "proposedSolution": "Reproduce on current master, fix or update the shipped fixtures, and add a test."
+  },
+  "issue:584": {
+    "explanation": "Top priority fix. This is a thank-you note with context for four PRs about i18n and local models, not a bug report.",
+    "proposedSolution": "Read the linked PRs on current master and triage whether any follow-up code changes are still needed."
+  },
+  "issue:579": {
+    "explanation": "Top priority fix. Private security reporting is disabled on GitHub, so reporters cannot submit advisories as SECURITY.md instructs.",
+    "proposedSolution": "Enable private vulnerability reporting in the repo settings and confirm the link works."
+  },
+  "issue:550": {
+    "explanation": "Top priority fix. All page writes fail when a required database unique key is missing, and doctor does not flag the problem.",
+    "proposedSolution": "Reproduce on current master, restore the missing constraint and add a doctor check plus a test."
+  },
+  "issue:505": {
+    "explanation": "Top priority fix. The npm name 'gbrain' belongs to a different package, so a normal npm install can pull the wrong code and create a security risk.",
+    "proposedSolution": "Warn users in docs and install paths, and pursue claiming or renaming the npm package."
+  },
+  "issue:486": {
+    "explanation": "Top priority fix. check-update --json returns an empty latest_version and a vague no_releases error instead of a clear result.",
+    "proposedSolution": "Reproduce on current master, return a proper version or a clear error message, and add a test."
+  },
+  "issue:485": {
+    "explanation": "Top priority fix. check-backlinks ignores the directory you pass and scans the current folder instead, which can crash on permission errors.",
+    "proposedSolution": "Reproduce on current master, honor the dir argument, and add a test."
+  },
+  "issue:468": {
+    "explanation": "Top priority fix. Query output shows NaN instead of real scores when using the Postgres engine.",
+    "proposedSolution": "Reproduce on current master, fix score calculation, and add a test."
+  },
+  "issue:456": {
+    "explanation": "Top priority fix. The README documents code indexing commands that do not exist or do not work as written.",
+    "proposedSolution": "Reproduce on current master, correct the docs to match the real commands."
+  },
+  "issue:443": {
+    "explanation": "Top priority fix. Batch link inserts silently drop rows when slugs or context contain braces, quotes, or commas.",
+    "proposedSolution": "Reproduce on current master, fix the batch insert so special characters are safe, and add a test."
+  },
+  "pr:434": {
+    "explanation": "A test runs real CLI commands and writes to your actual brain config folder. It can overwrite your real database settings. This is urgent and can cause data loss.",
+    "proposedSolution": "Give the test its own fake home folder so it never touches real config, then add a test to prove that."
+  },
+  "issue:160": {
+    "explanation": "A helper reads random text and creates people or company pages with no check. Bad or untrusted input can fill your brain with junk pages. This is urgent.",
+    "proposedSolution": "Add a gate before writing pages — confirm, allow-list, or review queue — and test it on current master."
+  },
+  "issue:159": {
+    "explanation": "Skill files load at runtime with no check that they were changed. A tampered skill could control how every agent acts. This is urgent.",
+    "proposedSolution": "Add integrity checks when skills load, then reproduce and test on current master."
+  },
+  "pr:2820": {
+    "explanation": "This PR bundles many gateway and tool-loop fixes from 15 older PRs into one tested change. It looks ready to review. Priority is high but not emergency.",
+    "proposedSolution": "Read the diff, confirm the test plan passes, and merge through the normal ship path."
+  },
+  "pr:2801": {
+    "explanation": "A doctor test sometimes passes and sometimes fails depending on which tests ran first. The test hardcodes one vector size but the schema uses another. This PR pins the size to stop the flake.",
+    "proposedSolution": "Read the diff, confirm the test plan passes, and merge through the normal ship path."
+  },
+  "pr:2632": {
+    "explanation": "The release notes tell users to turn on Life Chronicle with a config command, but that setting name is not recognized. People cannot enable the feature the way the docs say.",
+    "proposedSolution": "Add the missing setting names, then merge through the normal release process."
+  },
+  "pr:2440": {
+    "explanation": "When importing many pages, the app parses every page for code blocks even when there are none. On large pages this uses too much memory and can crash.",
+    "proposedSolution": "Skip parsing on pages without code fences, then merge through the normal release process."
+  },
+  "pr:2068": {
+    "explanation": "The orphans check flags pages in auto-generated folders like raw/, atoms/, and skills/ as broken links. Those folders are not meant to be linked to, so the report is noisy and wrong.",
+    "proposedSolution": "Exclude those generated roots from orphan reports, then merge through the normal release process."
+  },
+  "pr:472": {
+    "explanation": "File sizes from Postgres come back as a special big number type that breaks JSON output and math in the CLI. The fix turns those sizes into normal numbers before showing them.",
+    "proposedSolution": "Land the size normalization fix, then merge through the normal release process."
+  },
+  "pr:2799": {
+    "explanation": "Two new AI models are in use but missing from the price table. Cost tracking and budget limits do not work right when those models are selected.",
+    "proposedSolution": "Add the missing model prices, then merge through the normal release process."
+  },
+  "pr:2798": {
+    "explanation": "After a release, some help docs were out of date and did not match how the app actually works. This update brings the docs in line with current behavior.",
+    "proposedSolution": "Skim the doc edits for accuracy, then merge through the normal release process."
+  },
+  "pr:2638": {
+    "explanation": "When building takes on a large brain, each run only looks at the newest 1000 pages and skips older ones. The job never finishes the full set and keeps redoing the same recent pages.",
+    "proposedSolution": "Make bootstrap runs move forward through the full corpus, then merge through the normal release process."
+  },
+  "pr:2615": {
+    "explanation": "Atom extraction ignored which page types the active pack marked as extractable. Some pages, like notes, never produced atoms even when the pack said they should.",
+    "proposedSolution": "Read extractable types from the pack manifest, then merge through the normal release process."
+  },
+  "pr:2524": {
+    "explanation": "Pages often cite sources with a date in brackets, but the timeline extractor did not read that format. Dated facts in those citations were missed.",
+    "proposedSolution": "Teach timeline extraction to read inline source citations, then merge through the normal release process."
+  },
+  "pr:2482": {
+    "explanation": "Atom extraction sometimes creates two pages for the same content because slugs differ by a trailing dash or by date. Duplicate atoms pile up over time.",
+    "proposedSolution": "Make atom slugs consistent and stable, then merge through the normal release process."
+  },
+  "pr:2270": {
+    "explanation": "Book mirror pages used markdown tables that render with bad vertical alignment in most viewers. HTML tables keep text aligned at the top and are easier to read.",
+    "proposedSolution": "Switch mirror output to HTML tables, then merge through the normal release process."
+  },
+  "pr:1707": {
+    "explanation": "The schema command only let you pick one built-in pack by name even though several ship with the app. Other bundled packs could not be selected the way users expect.",
+    "proposedSolution": "Let schema use resolve every bundled pack by name, then merge through the normal release process."
+  },
+  "pr:1448": {
+    "explanation": "A long upgrade from an old version surfaced bugs and features that were hard to find. This document records what broke and what was missing so operators know what to fix.",
+    "proposedSolution": "Review the audit for actionable follow-ups, then merge through the normal release process."
+  },
+  "pr:477": {
+    "explanation": "If autopilot crashes, its lock file can stay behind and block new runs until it gets old enough. The fix checks whether the process that held the lock is still alive before giving up.",
+    "proposedSolution": "Verify the lock holder process is alive before exiting, then merge through the normal release process."
+  }
+}

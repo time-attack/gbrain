@@ -148,3 +148,26 @@ describe('extractTestEvidence', () => {
     expect(lines.some((l) => /foo\.test\.ts/.test(l))).toBe(true);
   });
 });
+
+import { isActionable, simpleExplain } from '../lib/simple-explain.mjs';
+
+describe('simpleExplain', () => {
+  test('duplicate uses canonical number', () => {
+    const r = simpleExplain({
+      id: 'issue:2',
+      title: 'same bug',
+      disposition: 'duplicate',
+      canonical: { kind: 'issue', number: 1 },
+    });
+    expect(r.explanation).toContain('#1');
+  });
+});
+
+describe('isActionable', () => {
+  test('filters junk buckets', () => {
+    expect(isActionable({ disposition: 'fix_needed' })).toBe(true);
+    expect(isActionable({ disposition: 'low_value' })).toBe(false);
+    expect(isActionable({ disposition: 'proprietary' })).toBe(false);
+    expect(isActionable({ disposition: 'duplicate' })).toBe(false);
+  });
+});

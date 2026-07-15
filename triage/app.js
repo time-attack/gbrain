@@ -22,6 +22,8 @@ const state = {
     kind: 'all',
     disposition: 'all',
     priority: 'all',
+    actionable: true,
+    wave1: false,
     dup: false,
     low: false,
     prop: false,
@@ -78,11 +80,14 @@ function renderStats() {
   const cells = [
     ['Issues', c.issues],
     ['PRs', c.prs],
+    ['Actionable', c.actionable || 0],
+    ['Filtered out', c.filteredOut || 0],
     ['P0', c.byPriority?.P0 || 0],
     ['Merge cand.', c.byDisposition?.merge_candidate || 0],
     ['Duplicates', c.byDisposition?.duplicate || 0],
     ['Proprietary', c.proprietary || 0],
     ['Low-value', c.byDisposition?.low_value || 0],
+    ['Already fixed', c.byDisposition?.already_fixed || 0],
     ['Green+CLEAN', c.greenCleanPrs || 0],
   ];
   document.getElementById('statGrid').innerHTML = cells
@@ -109,6 +114,8 @@ function bind() {
     });
   }
   for (const [id, key] of [
+    ['fActionable', 'actionable'],
+    ['fWave1', 'wave1'],
     ['fDup', 'dup'],
     ['fLow', 'low'],
     ['fProp', 'prop'],
@@ -139,6 +146,16 @@ function filtered() {
   if (f.kind !== 'all') rows = rows.filter((r) => r.kind === f.kind);
   if (f.disposition !== 'all') rows = rows.filter((r) => r.disposition === f.disposition);
   if (f.priority !== 'all') rows = rows.filter((r) => r.priority === f.priority);
+  const junkFilter = f.dup || f.low || f.prop;
+  if (f.actionable && !junkFilter && !f.wave1) rows = rows.filter((r) => r.actionable !== false);
+  if (f.wave1) {
+    rows = rows.filter(
+      (r) =>
+        r.priority === 'P0' ||
+        r.disposition === 'merge_candidate' ||
+        (r.flags || []).includes('curated_strong'),
+    );
+  }
   if (f.dup) rows = rows.filter((r) => r.disposition === 'duplicate' || r.flags?.includes('duplicate'));
   if (f.low) rows = rows.filter((r) => r.disposition === 'low_value' || r.flags?.includes('low_value'));
   if (f.prop) rows = rows.filter((r) => r.proprietary || r.disposition === 'proprietary');

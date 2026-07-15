@@ -2,51 +2,46 @@
 
 Read-only checklist UI for the huge open-issue / open-PR backlog on `garrytan/gbrain`.
 
-**This page never comments, labels, closes, or merges on GitHub.** Selections live in your browser `localStorage`. Export a JSON approval manifest and apply actions only after an explicit human OK.
+**This page never comments, labels, closes, or merges on GitHub.** Selections live in browser `localStorage`. Export a JSON approval manifest and apply actions only after an explicit human OK.
 
-## What’s in here
+## Maps to the maintainer ask
 
-| Path | Role |
-|---|---|
-| `index.html` + `app.js` + `styles.css` | Checkbox dashboard (filters, simple explanations, claimed tests, proposed solutions) |
-| `data/snapshot.json` | GitHub facts (title, author, snippet, PR merge/CI signals) |
-| `data/analysis.json` | Disposition / priority / explanation / solution per item |
-| `lib/classify.mjs` | Pure heuristics (duplicates, proprietary, P0 signals, green PRs) |
-| `lib/curated.mjs` | Hand overrides from the audit (P0s + strongest merge candidates) |
-| `scripts/build-dataset.mjs` | Rebuilds `data/*` from `/tmp` audit caches or live `gh` (read-only) |
+| # | Ask | Where it lives |
+|---|---|---|
+| 1 | Duplicates & consolidations | Disposition `duplicate`, `data/consolidations.json`, filter **Duplicates** |
+| 2 | Stupid / useless PRs | Disposition `low_value` (+ already_fixed), filter **Low-value / junk** |
+| 3 | Proprietary / non-mainstream APIs | Disposition `proprietary`, filter **Proprietary** |
+| 4 | Priorities for what’s left | `P0`–`P3`, default **Actionable only**, **Wave 1 (P0 + merge cand.)** |
+| 5 | Extra testing | `data/testing-notes.json` + “What was tested” column (local re-runs of overlapping tests for merge candidates) |
+| 6 | Simple explanations | Plain templates + small-model rewrites in `data/simple-overrides.json` |
+| 7 | Checkbox web dashboard | `index.html` / `app.js` |
+
+## Snapshot (committed data)
+
+Rebuild refreshes these numbers:
+
+- ~1335 open items
+- Filtered out (dup / junk / proprietary / already-fixed): see `meta.counts.filteredOut`
+- Actionable remainder: see `meta.counts.actionable`
+- Green+CLEAN PRs and merge candidates are called out in the rail
 
 ## View locally
 
 ```bash
-# from repo root
-bun triage/scripts/build-dataset.mjs          # uses /tmp caches if present
-# or:
-bun triage/scripts/build-dataset.mjs --live   # gh issue/pr list only
+bun triage/scripts/build-dataset.mjs          # uses caches /tmp or triage/data
+# or: bun triage/scripts/build-dataset.mjs --live
 
 cd triage && python3 -m http.server 8765
-# open http://127.0.0.1:8765/
+# http://127.0.0.1:8765/
 ```
-
-## Filters that match the maintainer ask
-
-1. **Duplicates** — exact title clusters + soft TF-IDF neighbors  
-2. **Low-value** — chore/dep bumps, draft+DIRTY stacks, thin AI bodies, high-volume noise  
-3. **Proprietary** — niche/non-mainstream integrations (recipes for single vendors, Takeout, chat apps, etc.). Generic OpenAI-compatible gateway bugs that merely *mention* DeepSeek/llama-server as repro stay out of this bucket.  
-4. **Priority** — P0 security/data-loss first; green+CLEAN PRs as merge candidates  
-5. **What was tested** — parsed from PR bodies (author-claimed, not re-executed here)  
-6. **Proposed solution** — one-line next step per row  
-7. **Export selected JSON** — approval manifest draft for a later human-gated ops pass
 
 ## Tests
 
 ```bash
-bun test triage/test/classify.test.mjs
+bun test --cwd triage
+bun triage/scripts/deep-test-merge-candidates.mjs   # optional; needs node_modules + /tmp/gbrain-pr-deep
 ```
 
-## Refresh policy
+## Privacy / safety
 
-Rebuild before a triage session if the backlog moved. Prefer `--live` when `gh` auth works. The committed `data/*.json` is a snapshot so the UI works offline in review PRs.
-
-## Privacy
-
-Do not paste real contact/portfolio names into curated explanations. Upstream GitHub titles may still contain reporter-chosen text; this tool does not rewrite GitHub.
+Do not paste real contact names into curated copy. Do not mutate GitHub from this tool.
