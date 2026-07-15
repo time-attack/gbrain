@@ -179,6 +179,16 @@ scripts in `package.json`, test tiers in `docs/TESTING.md`, engines in `docs/ENG
   Most E2E value is covered by the PGLite in-memory suites that run in the normal unit loop.
   Follow the DB lifecycle in `docs/TESTING.md` if you install Docker.
 
+- **Two known, non-blocking unit failures in this VM** (the other ~14,170 pass). Neither is
+  caused by a normal edit — don't chase them:
+  1. `test/fuzz/filesystem-validators.test.ts > shaped traversal probes: explicit '..'
+     patterns rejected` — fails only because the repo is checked out at `/workspace` (a
+     top-level dir): the probe is passed as the confinement `root`, and `realpathSync('..')`
+     resolves to `/`, which is an ancestor of the `/tmp` temp box, so confinement isn't
+     violated. Checkout-location artifact, not a product defect.
+  2. `test/retrieval-reflex.test.ts > logDeliveredReflexPointers logs channel=reflex events
+     through the drained sink` — pre-existing failure on `master` as well (0 rows written).
+
 ---
 
 ## CLAUDE.md
