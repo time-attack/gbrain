@@ -1,0 +1,586 @@
+[
+  {
+    "id": "issue:11",
+    "number": 11,
+    "kind": "issue",
+    "action": "left_open",
+    "evidence": "needs_human: Org-mode feature request; master #11 hits are codex finding numbers, not this issue",
+    "comment": ""
+  },
+  {
+    "id": "issue:14",
+    "number": 14,
+    "kind": "issue",
+    "action": "left_open",
+    "evidence": "needs_human: Identity schema proposal; master #14 hits are Codex review findings, not this issue",
+    "comment": ""
+  },
+  {
+    "id": "issue:202",
+    "number": 202,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "closes #202 (pruneDir walker)",
+    "comment": "Closing as fixed on master (see 4446e9f9). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:223",
+    "number": 223,
+    "kind": "issue",
+    "action": "left_open",
+    "evidence": "still_broken: Historical pin/hint references only; macOS WASM crash not clearly fixed on master",
+    "comment": ""
+  },
+  {
+    "id": "pr:517",
+    "number": 517,
+    "kind": "pr",
+    "action": "closed",
+    "evidence": "obsolete \u2014 HOME/GBRAIN_HOME isolation already in scripts/run-e2e.sh",
+    "comment": "Closing as obsolete \u2014 fix already on master (see scripts/run-e2e.sh HOME isolation on master). Please reopen if still needed."
+  },
+  {
+    "id": "pr:555",
+    "number": 555,
+    "kind": "pr",
+    "action": "left_open",
+    "evidence": "superseded_keep_for_review: ./enrichment still missing from package.json exports; PR still applies",
+    "comment": ""
+  },
+  {
+    "id": "pr:591",
+    "number": 591,
+    "kind": "pr",
+    "action": "closed",
+    "evidence": "obsolete \u2014 graceful stdio cleanup landed in v0.31.3 (supersedes #591)",
+    "comment": "Closing as obsolete \u2014 fix already on master (see 9c60b3a0 Supersedes #591). Please reopen if still needed."
+  },
+  {
+    "id": "issue:699",
+    "number": 699,
+    "kind": "issue",
+    "action": "left_open",
+    "evidence": "needs_human: Only mentioned as historical lineage in bootstrap TODOs; provider_id migrate-only crash not clearly closed",
+    "comment": ""
+  },
+  {
+    "id": "issue:820",
+    "number": 820,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Issues closed: #820 in bootstrap wave",
+    "comment": "Closing as fixed on master (see 4446e9f9). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:978",
+    "number": 978,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "closes #978 source-id routing",
+    "comment": "Closing as fixed on master (see 1bc57991). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1078",
+    "number": 1078,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "closes #1078 FK integrity",
+    "comment": "Closing as fixed on master (see 1bc57991). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1144",
+    "number": 1144,
+    "kind": "issue",
+    "action": "left_open",
+    "evidence": "still_broken: No intentional fix commit for brain_score composition bias",
+    "comment": ""
+  },
+  {
+    "id": "pr:1159",
+    "number": 1159,
+    "kind": "pr",
+    "action": "closed",
+    "evidence": "obsolete \u2014 git-aware walker / respect-gitignore behavior landed in #2128",
+    "comment": "Closing as obsolete \u2014 fix already on master (see 7c27fa12 Addresses #1159). Please reopen if still needed."
+  },
+  {
+    "id": "issue:1172",
+    "number": 1172,
+    "kind": "issue",
+    "action": "left_open",
+    "evidence": "still_broken: Only cross-referenced; sync still strips .md from slugs",
+    "comment": ""
+  },
+  {
+    "id": "issue:1249",
+    "number": 1249,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "empty-string env clobber fix",
+    "comment": "Closing as fixed on master (see a25209bb / #2627). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1250",
+    "number": 1250,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "resolveNativeBaseUrl",
+    "comment": "Closing as fixed on master (see a25209bb / #2627). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1269",
+    "number": 1269,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Closes #1269 PGLite hang",
+    "comment": "Closing as fixed on master (see 27b0e14a / #1405). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1290",
+    "number": 1290,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Closes #1290 PGLite hang",
+    "comment": "Closing as fixed on master (see 27b0e14a / #1405). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1292",
+    "number": 1292,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "litellm dims-presence / isAvailable",
+    "comment": "Closing as fixed on master (see a25209bb / #2627). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1309",
+    "number": 1309,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "duplicate page identity guard",
+    "comment": "Closing as fixed on master (see f56cc619 / #1456). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "pr:1331",
+    "number": 1331,
+    "kind": "pr",
+    "action": "left_open",
+    "evidence": "superseded_keep_for_review: RESOLVER drift class addressed structurally in #1458; leave PR for review of remaining trigger wording",
+    "comment": ""
+  },
+  {
+    "id": "issue:1336",
+    "number": 1336,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Closes #1336 legacy token source_id",
+    "comment": "Closing as fixed on master (see 1eb430a2 / #1999). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1353",
+    "number": 1353,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "DCR defaults to authorization_code",
+    "comment": "Closing as fixed on master (see dde1132a / #2399). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1371",
+    "number": 1371,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Closes #1371 OAuth source scope",
+    "comment": "Closing as fixed on master (see 1eb430a2 / #1999). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1385",
+    "number": 1385,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "BYPASSRLS check fix",
+    "comment": "Closing as fixed on master (see dde1132a / #2399). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1393",
+    "number": 1393,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Closes #1393 get_page source_id",
+    "comment": "Closing as fixed on master (see 1eb430a2 / #1999). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1404",
+    "number": 1404,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "module-singleton connect() fix",
+    "comment": "Closing as fixed on master (see f3ade6c0 / #1805). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1422",
+    "number": 1422,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "dream connectEngine error surface",
+    "comment": "Closing as fixed on master (see f56cc619 / #1456). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1433",
+    "number": 1433,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "sync metafile skip-failed",
+    "comment": "Closing as fixed on master (see f56cc619 / #1456). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1434",
+    "number": 1434,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "sole_non_default source resolver",
+    "comment": "Closing as fixed on master (see f56cc619 / #1456). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1436",
+    "number": 1436,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "resolveSlugs source scope",
+    "comment": "Closing as fixed on master (see f56cc619 / #1456). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "pr:1483",
+    "number": 1483,
+    "kind": "pr",
+    "action": "closed",
+    "evidence": "obsolete \u2014 exclusion via git ls-files + pruneDir landed in #2128",
+    "comment": "Closing as obsolete \u2014 fix already on master (see 7c27fa12 Addresses #1483). Please reopen if still needed."
+  },
+  {
+    "id": "issue:1569",
+    "number": 1569,
+    "kind": "issue",
+    "action": "left_open",
+    "evidence": "still_broken: v0.41.37.0 commit explicitly says ~3100-file wedge root cause remains open",
+    "comment": ""
+  },
+  {
+    "id": "issue:1581",
+    "number": 1581,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "grandfather chunked rewrite",
+    "comment": "Closing as fixed on master (see 6f26d5e4 / #1665). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1603",
+    "number": 1603,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Closes #1603 getConfig retry",
+    "comment": "Closing as fixed on master (see 1eb430a2 / #1999). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1605",
+    "number": 1605,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "in-process migrate-only",
+    "comment": "Closing as fixed on master (see 6f26d5e4 / #1665). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1621",
+    "number": 1621,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "add-only tag reconciliation",
+    "comment": "Closing as fixed on master (see 6f26d5e4 / #1665). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1633",
+    "number": 1633,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "sync orphan-pileup watchdog",
+    "comment": "Closing as fixed on master (see bde11bb1 / #1807). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1647",
+    "number": 1647,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "schema-lint hardening migration",
+    "comment": "Closing as fixed on master (see dde1132a / #2399). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1658",
+    "number": 1658,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Closes #1658 content-sanity title guard",
+    "comment": "Closing as fixed on master (see 1eb430a2 / #1999). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1663",
+    "number": 1663,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "autocut feature landed",
+    "comment": "Closing as fixed on master (see d9eadfec / #1682). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1698",
+    "number": 1698,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "think never persists empty synthesis",
+    "comment": "Closing as fixed on master (see 5911072a / #1736). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1699",
+    "number": 1699,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "content-quality gate on sync",
+    "comment": "Closing as fixed on master (see 0bfe0d0c / #1756). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1700",
+    "number": 1700,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "gbrain enrich --thin",
+    "comment": "Closing as fixed on master (see 662a6e27 / #1757). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1737",
+    "number": 1737,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "long-job abort + attempt accounting",
+    "comment": "Closing as fixed on master (see 613da940 / #1943 + bb2e88c4 / #2287). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1738",
+    "number": 1738,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "trailing --detach recognition",
+    "comment": "Closing as fixed on master (see bb2e88c4 / #2287). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1745",
+    "number": 1745,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Postgres reconnect race",
+    "comment": "Closing as fixed on master (see ec5fed29 / #1810). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1762",
+    "number": 1762,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "PGLite capture lock-pin",
+    "comment": "Closing as fixed on master (see ec5fed29 / #1810). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1764",
+    "number": 1764,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "jsonSchema() tool wrap",
+    "comment": "Closing as fixed on master (see 3d2add15 / #1809). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1768",
+    "number": 1768,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "links-lag \u00b5s stamp",
+    "comment": "Closing as fixed on master (see bde11bb1 / #1807). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1775",
+    "number": 1775,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "search embed-hang / disconnect",
+    "comment": "Closing as fixed on master (see ec5fed29 / #1810). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1782",
+    "number": 1782,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "AI SDK v6 schema is not a function",
+    "comment": "Closing as fixed on master (see 3d2add15 / #1809). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1840",
+    "number": 1840,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Closes #1840 frontmatter hook regex",
+    "comment": "Closing as fixed on master (see 1eb430a2 / #1999). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1859",
+    "number": 1859,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "same root cause as #1861; jsonb_to_recordset batch inserts",
+    "comment": "Closing as fixed on master (see f7f8512b / #1927). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1861",
+    "number": 1861,
+    "kind": "issue",
+    "action": "skipped",
+    "evidence": "already CLOSED on GitHub",
+    "comment": "skip \u2014 already closed"
+  },
+  {
+    "id": "issue:1941",
+    "number": 1941,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "link-add / open link_source",
+    "comment": "Closing as fixed on master (see f401d740 / #1957). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1946",
+    "number": 1946,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Closes #1946 embed --catch-up timer",
+    "comment": "Closing as fixed on master (see 1eb430a2 / #1999). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1950",
+    "number": 1950,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "progress-aware stall watchdog",
+    "comment": "Closing as fixed on master (see bb2e88c4 / #2287). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1963",
+    "number": 1963,
+    "kind": "issue",
+    "action": "left_open",
+    "evidence": "still_broken: Explicitly deferred in #2128 triage TODOS",
+    "comment": ""
+  },
+  {
+    "id": "issue:1984",
+    "number": 1984,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "status --deadline-ms budget",
+    "comment": "Closing as fixed on master (see bb2e88c4 / #2287). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:1994",
+    "number": 1994,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "supervisor degraded retry",
+    "comment": "Closing as fixed on master (see bb2e88c4 / #2287). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:2018",
+    "number": 2018,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "write-through local_path fix",
+    "comment": "Closing as fixed on master (see 7c27fa12 / #2128). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:2034",
+    "number": 2034,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "reconnect() required lifecycle",
+    "comment": "Closing as fixed on master (see 7c27fa12 / #2128). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:2038",
+    "number": 2038,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "timeline dedup self-heal",
+    "comment": "Closing as fixed on master (see 7c27fa12 / #2128). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:2050",
+    "number": 2050,
+    "kind": "issue",
+    "action": "left_open",
+    "evidence": "still_broken: Explicitly deferred in #2128 triage TODOS",
+    "comment": ""
+  },
+  {
+    "id": "issue:2057",
+    "number": 2057,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Date-batch timeline round-trip",
+    "comment": "Closing as fixed on master (see 7c27fa12 / #2128). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:2058",
+    "number": 2058,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "pglite-lock heartbeat + steal-grace",
+    "comment": "Closing as fixed on master (see 7c27fa12 / #2128). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:2165",
+    "number": 2165,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "tutorial spam link fixed",
+    "comment": "Closing as fixed on master (see 090bb532 / #2171). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:2200",
+    "number": 2200,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "federated read scope on get_page/think",
+    "comment": "Closing as fixed on master (see c023a604 / #2239 + 010847c0 / #2739). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:2209",
+    "number": 2209,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "litellm /v1 setup_hint",
+    "comment": "Closing as fixed on master (see a25209bb / #2627). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:2227",
+    "number": 2227,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "dueling supervisor / split HOME",
+    "comment": "Closing as fixed on master (see bb2e88c4 / #2287). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:2348",
+    "number": 2348,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "never steal live pglite lock + 58P01 recovery",
+    "comment": "Closing as fixed on master (see 058f448b / #2400). Please reopen if still reproducible on current HEAD."
+  },
+  {
+    "id": "issue:2388",
+    "number": 2388,
+    "kind": "issue",
+    "action": "closed",
+    "evidence": "Life Chronicle landed via #2390",
+    "comment": "Closing as fixed on master (see 64617904 / #2533). Please reopen if still reproducible on current HEAD."
+  }
+]

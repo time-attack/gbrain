@@ -118,12 +118,16 @@
   },
   "pr:2836": {
     "testsEvidence": [
-      "PR files changed: 2",
-      "Touches tests: test/sync-reconcile-mass-delete.test.ts",
-      "Upstream checks: none visible"
+      "Fetched fork branch fix/windows-reconcile-mass-delete into /tmp/verify-2836/repo",
+      "bun test test/sync-reconcile-mass-delete.test.ts → 13 pass / 0 fail",
+      "bun test test/sync-delete-batch.test.ts test/performfullsync-source-id.test.ts → 12 pass / 0 fail",
+      "path.win32.relative simulation reproduced #2828 fingerprint; 1224-page corpus stale 1215→0 after fix",
+      "Mass-delete valve blocks >50% wipe; GBRAIN_ALLOW_MASS_RECONCILE=1 override verified",
+      "Artifacts: triage/findings/verify-2836/"
     ],
-    "note": "Could not re-run PR tests here (paths missing on checkout or PR has no tests). Author claims + CI signals only.",
-    "deepTestStatus": "skipped"
+    "note": "No real Windows host available in cloud env. Bug is separator string mismatch; path.win32 on Linux is valid verify. Recommendation: merge.",
+    "deepTestStatus": "pass",
+    "recommendation": "merge"
   },
   "pr:2638": {
     "testsEvidence": [
@@ -171,5 +175,14 @@
     ],
     "note": "Could not re-run PR tests here (paths missing on checkout or PR has no tests). Author claims + CI signals only.",
     "deepTestStatus": "skipped"
+  },
+  "pr:2730": {
+    "testsEvidence": [
+      "Open PR still targets Fixes #1745; issue #1745 was incorrectly closed as already-fixed and reopened",
+      "Retagged from low-value → p1 + merge-candidate + fix-needed"
+    ],
+    "note": "Review together with reopened #1745. Do not treat as junk.",
+    "deepTestStatus": "skipped",
+    "recommendation": "review"
   }
 }

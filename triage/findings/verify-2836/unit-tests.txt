@@ -1,0 +1,21 @@
+bun test v1.3.14 (0d9b296a)
+
+test/sync-reconcile-mass-delete.test.ts:
+(pass) planReconcileDeletes — separator normalization (#2828) > backslash working-tree paths match forward-slash stored source_path [0.30ms]
+(pass) planReconcileDeletes — separator normalization (#2828) > forward-slash working-tree paths match backslash stored source_path [0.03ms]
+(pass) planReconcileDeletes — separator normalization (#2828) > a genuinely removed file is the only stale slug, regardless of separator [0.04ms]
+(pass) planReconcileDeletes — separator normalization (#2828) > null source_path rows are never reconcilable (manual / put_page pages) [0.03ms]
+(pass) planReconcileDeletes — separator normalization (#2828) > the strategy predicate excludes wrong-strategy pages from both stale set and denominator [0.04ms]
+(pass) planReconcileDeletes — mass-delete safety valve (#2828) > trips when > 50% of a > 20-page source would be deleted [0.20ms]
+(pass) planReconcileDeletes — mass-delete safety valve (#2828) > holds at exactly 50% (threshold is strictly greater) [0.08ms]
+(pass) planReconcileDeletes — mass-delete safety valve (#2828) > ignores small sources (<= 20 pages) even at 100% stale [0.11ms]
+(pass) planReconcileDeletes — mass-delete safety valve (#2828) > trips just past the min-pages boundary with a majority stale [0.03ms]
+(pass) planReconcileDeletes — mass-delete safety valve (#2828) > thresholds are the documented constants
+(pass) massReconcileAllowed — GBRAIN_ALLOW_MASS_RECONCILE escape hatch (#2828) > =1 restores the old behavior [0.03ms]
+(pass) massReconcileAllowed — GBRAIN_ALLOW_MASS_RECONCILE escape hatch (#2828) > unset or any other value keeps the valve active [0.02ms]
+(pass) massReconcileAllowed — GBRAIN_ALLOW_MASS_RECONCILE escape hatch (#2828) > effective gate: the valve blocks the delete unless the override is set [0.05ms]
+
+ 13 pass
+ 0 fail
+ 24 expect() calls
+Ran 13 tests across 1 file. [200.00ms]

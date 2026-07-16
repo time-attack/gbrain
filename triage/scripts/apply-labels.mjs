@@ -16,7 +16,13 @@ const LABELS = [
   { name: 'proprietary', color: 'd4c5f9', description: 'Niche / non-mainstream API or tool integration' },
   { name: 'low-value', color: 'fbca04', description: 'Low signal: conflicts, no CI, noise — not Wave 1' },
   { name: 'p0', color: 'b60205', description: 'P0: security or data-loss risk' },
+  { name: 'p1', color: 'e99695', description: 'P1: important bug / high-priority fix' },
+  { name: 'p2', color: 'f9d0c4', description: 'P2: feature or medium priority' },
+  { name: 'p3', color: 'fef2c0', description: 'P3: low priority / needs glance' },
   { name: 'merge-candidate', color: '1d76db', description: 'Promising PR to skim for merge' },
+  { name: 'fix-needed', color: 'd93f0b', description: 'Confirmed/likely bug worth fixing' },
+  { name: 'needs-review', color: 'bfd4f2', description: 'Needs a human skim to classify' },
+  { name: 'feature-consider', color: '5319e7', description: 'Feature/proposal to consider' },
 ];
 
 function gh(args, { ignoreFail = false } = {}) {
@@ -60,15 +66,27 @@ function ensureLabels() {
 function labelsFor(item, opts = {}) {
   /** @type {string[]} */
   const out = [];
-  if (item.disposition === 'duplicate') out.push('duplicate');
+  const d = item.disposition;
+  if (d === 'duplicate') out.push('duplicate');
   // Only tag already-fixed when verify agent closed it (or no verify log yet).
-  if (item.disposition === 'already_fixed' && !opts.skipAlreadyFixed?.has(item.id)) {
+  if (d === 'already_fixed' && !opts.skipAlreadyFixed?.has(item.id)) {
     out.push('already-fixed');
   }
-  if (item.disposition === 'proprietary' || item.proprietary) out.push('proprietary');
-  if (item.disposition === 'low_value') out.push('low-value');
+  if (d === 'proprietary' || item.proprietary) out.push('proprietary');
+  if (d === 'low_value') out.push('low-value');
+  if (d === 'merge_candidate') out.push('merge-candidate');
+  if (d === 'fix_needed') out.push('fix-needed');
+  if (d === 'needs_review') out.push('needs-review');
+  if (d === 'feature_consider') out.push('feature-consider');
+  if (d === 'close_wontfix') out.push('low-value');
+
   if (item.priority === 'P0') out.push('p0');
-  if (item.disposition === 'merge_candidate') out.push('merge-candidate');
+  else if (item.priority === 'P1') out.push('p1');
+  else if (item.priority === 'P2') out.push('p2');
+  else if (item.priority === 'P3') out.push('p3');
+
+  // Every item must get at least a disposition or priority label.
+  if (!out.length) out.push('needs-review');
   return [...new Set(out)];
 }
 

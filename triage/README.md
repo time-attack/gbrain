@@ -42,6 +42,15 @@ bun test --cwd triage
 bun triage/scripts/deep-test-merge-candidates.mjs   # optional; needs node_modules + /tmp/gbrain-pr-deep
 ```
 
+## Session findings (saved to disk)
+
+Durable notes from the maintainer triage session (closes, reopens, Windows verify, Wave-1 checklist):
+
+- [`findings/FINDINGS.md`](findings/FINDINGS.md) — full narrative
+- [`findings/NEXT_ACTIONS.md`](findings/NEXT_ACTIONS.md) — ordered todo
+- [`findings/audits/`](findings/audits/) — JSON audits of already-fixed + duplicate waves
+- [`findings/verify-2836/`](findings/verify-2836/) — PR #2836 Windows path verification transcripts
+
 ## Privacy / safety
 
-Do not paste real contact names into curated copy. Do not mutate GitHub from this tool.
+Do not paste real contact names into curated copy. Do not mutate GitHub from this tool unless a human explicitly approves.

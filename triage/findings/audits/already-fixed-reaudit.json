@@ -1,0 +1,130 @@
+{
+  "suspicious": [
+    {
+      "number": 978,
+      "state": "closed",
+      "title": "sync --source X attributes pages to source_id='default' instead of X",
+      "labels": [
+        "already-fixed"
+      ],
+      "is_pr": false,
+      "evidence": "closes #978 source-id routing",
+      "pre_residual_hits": [
+        {
+          "user": "kyledeanjackson",
+          "snippet": "**Partial-fix update (2026-05-14 \u2014 testing on v0.33.2 SHA 1a6b543):**  After upgrading dev-server to v0.33.2, source attribution is **partially fixed for new ingestion** but pre-up"
+        }
+      ],
+      "post_complaints": [],
+      "pre_comment_count": 2
+    },
+    {
+      "number": 1404,
+      "state": "closed",
+      "title": "gbrain dream \u2014 all DB-dependent phases fail with \"connect() has not been called\"",
+      "labels": [
+        "bug",
+        "already-fixed"
+      ],
+      "is_pr": false,
+      "evidence": "module-singleton connect() fix",
+      "pre_residual_hits": [
+        {
+          "user": "seaneoliver",
+          "snippet": "Still reproduces on **v0.41.14.0** (latest master), so this is not fully resolved by #1413 / PR #1415 (that helped \u2014 the crash went from ~3.6s to ~16.8s and far fewer lost batches "
+        },
+        {
+          "user": "Mr-B-1",
+          "snippet": "Another repro on gbrain v0.41.14.0 via systemd timer cron at 02:00 PST (nightly).   The 4-second exit signature with 7 MB memory peak made this hard to diagnose \u2014 the cycle starts,"
+        }
+      ],
+      "post_complaints": [],
+      "pre_comment_count": 2
+    },
+    {
+      "number": 1434,
+      "state": "open",
+      "title": "`gbrain sync` without `--source` flag silently fails edits to existing pages",
+      "labels": [
+        "p1",
+        "fix-needed"
+      ],
+      "is_pr": false,
+      "evidence": "sole_non_default source resolver",
+      "pre_residual_hits": [
+        {
+          "user": "spotshare-nick",
+          "snippet": "Filed the residual as #2229 \u2014 this still reproduces on v0.42.37.0 after #1456.  Short version: #1456's fix (source-resolver tier 5.5) only auto-routes a flag-less invocation when *"
+        }
+      ],
+      "post_complaints": [
+        {
+          "user": "spotshare-nick",
+          "snippet": "> Closing as fixed on master (see [f56cc61](https://github.com/garrytan/gbrain/commit/f56cc619ba1b91a66e8a90e1ebee139b5bc3b16e) / [#1456](https://github.com/garrytan/gbrain/pull/14"
+        }
+      ],
+      "pre_comment_count": 2
+    },
+    {
+      "number": 1633,
+      "state": "closed",
+      "title": "gbrain sync --source <id> spins indefinitely (busy loop, SIGTERM ignored) \u2192 orph",
+      "labels": [
+        "already-fixed"
+      ],
+      "is_pr": false,
+      "evidence": "sync orphan-pileup watchdog",
+      "pre_residual_hits": [
+        {
+          "user": "garrytan",
+          "snippet": "Partial fix shipping in #1807 (v0.42.13.0).  **What's fixed: the orphan-pileup / unkillable symptom.** A spinning sync starves its own event loop, so the SIGTERM handler and `--tim"
+        }
+      ],
+      "post_complaints": [],
+      "pre_comment_count": 1
+    },
+    {
+      "number": 1745,
+      "state": "closed",
+      "title": "\"connect() has not been called\" still reproduces on 0.41.28 \u2014 concurrent minion-",
+      "labels": [
+        "already-fixed"
+      ],
+      "is_pr": false,
+      "evidence": "Postgres reconnect race",
+      "pre_residual_hits": [
+        {
+          "user": "dkmasterson-re",
+          "snippet": "Independent repro that **extends this to 0.42.1.0 on self-hosted direct Postgres (no pooler)** and adds a controlled before/after that rules out the env hypothesis.  ### Environmen"
+        },
+        {
+          "user": "AbebaCo",
+          "snippet": "### Still reproduces on **0.42.1.0** (`eefe8b5`) \u2014 same `reconnect()` \u2192 module-singleton null path, now also taking down the in-cycle `sync` phase  Confirming this is still open on"
+        }
+      ],
+      "post_complaints": [],
+      "pre_comment_count": 2
+    },
+    {
+      "number": 1762,
+      "state": "closed",
+      "title": "CLI_ONLY commands (e.g. `gbrain capture`) hang after completing on multi-chunk p",
+      "labels": [
+        "already-fixed"
+      ],
+      "is_pr": false,
+      "evidence": "PGLite capture lock-pin",
+      "pre_residual_hits": [
+        {
+          "user": "ElliotDrel",
+          "snippet": "**Update (2026-06-02) \u2014 corrected root cause.** Deeper instrumentation (`MARK` probes + `/proc` CPU sampling) disproved the original analysis above. Posting the correction for anyo"
+        }
+      ],
+      "post_complaints": [],
+      "pre_comment_count": 1
+    }
+  ],
+  "ok_count": 55,
+  "error_count": 0,
+  "errors": []
+}

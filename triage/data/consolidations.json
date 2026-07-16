@@ -1,7 +1,7 @@
 {
   "meta": {
-    "generatedAt": "2026-07-15T20:31:20.292Z",
-    "count": 60
+    "generatedAt": "2026-07-16T19:43:47.554Z",
+    "count": 50
   },
   "items": [
     {
@@ -42,109 +42,11 @@
       "proposedSolution": "Close this. Put any extra details on PR #2817."
     },
     {
-      "id": "issue:2815",
-      "canonical": {
-        "kind": "issue",
-        "number": 2811
-      },
-      "related": [
-        {
-          "kind": "issue",
-          "number": 2811
-        }
-      ],
-      "explanation": "Exact duplicate of grade_takes placeholder retriever (#2811).",
-      "proposedSolution": "Close as duplicate of #2811."
-    },
-    {
-      "id": "issue:2814",
-      "canonical": {
-        "kind": "issue",
-        "number": 2810
-      },
-      "related": [
-        {
-          "kind": "issue",
-          "number": 2810
-        }
-      ],
-      "explanation": "Exact duplicate of extract_atoms trailing-hyphen slug bug (#2810).",
-      "proposedSolution": "Close as duplicate of #2810."
-    },
-    {
-      "id": "issue:2813",
-      "canonical": {
-        "kind": "issue",
-        "number": 2809
-      },
-      "related": [
-        {
-          "kind": "issue",
-          "number": 2809
-        }
-      ],
-      "explanation": "Exact duplicate of dream tick-level budget cap (#2809).",
-      "proposedSolution": "Close as duplicate of #2809."
-    },
-    {
-      "id": "issue:2812",
-      "canonical": {
-        "kind": "issue",
-        "number": 2808
-      },
-      "related": [
-        {
-          "kind": "issue",
-          "number": 2808
-        }
-      ],
-      "explanation": "Exact duplicate of synthesize_concepts / extract_atoms concepts field (#2808).",
-      "proposedSolution": "Close as duplicate of #2808."
-    },
-    {
       "id": "pr:2802",
       "canonical": null,
       "related": [],
       "explanation": "This is a duplicate of another open item. Keep one thread.",
       "proposedSolution": "Close as duplicate after a quick glance."
-    },
-    {
-      "id": "issue:2774",
-      "canonical": {
-        "kind": "issue",
-        "number": 2772
-      },
-      "related": [
-        {
-          "kind": "issue",
-          "number": 2772
-        },
-        {
-          "kind": "issue",
-          "number": 2773
-        }
-      ],
-      "explanation": "Exact duplicate of book-mirror dispatcher unreachable (#2772).",
-      "proposedSolution": "Close as duplicate of #2772."
-    },
-    {
-      "id": "issue:2773",
-      "canonical": {
-        "kind": "issue",
-        "number": 2772
-      },
-      "related": [
-        {
-          "kind": "issue",
-          "number": 2772
-        },
-        {
-          "kind": "issue",
-          "number": 2774
-        }
-      ],
-      "explanation": "Exact duplicate of book-mirror dispatcher unreachable (#2772).",
-      "proposedSolution": "Close as duplicate of #2772."
     },
     {
       "id": "pr:2751",
@@ -243,21 +145,6 @@
       "proposedSolution": "Close as duplicate after a quick glance."
     },
     {
-      "id": "pr:2492",
-      "canonical": {
-        "kind": "pr",
-        "number": 2440
-      },
-      "related": [
-        {
-          "kind": "pr",
-          "number": 2440
-        }
-      ],
-      "explanation": "This is the same problem as PR #2440. Keep one thread.",
-      "proposedSolution": "Close this. Put any extra details on PR #2440."
-    },
-    {
       "id": "pr:2491",
       "canonical": {
         "kind": "issue",
@@ -293,36 +180,6 @@
       ],
       "explanation": "This is the same problem as issue #2447. Keep one thread.",
       "proposedSolution": "Close this. Put any extra details on issue #2447."
-    },
-    {
-      "id": "issue:2390",
-      "canonical": {
-        "kind": "issue",
-        "number": 2388
-      },
-      "related": [
-        {
-          "kind": "issue",
-          "number": 2388
-        }
-      ],
-      "explanation": "Exact duplicate of Life Chronicle feature proposal (#2388).",
-      "proposedSolution": "Close as duplicate of #2388."
-    },
-    {
-      "id": "pr:2381",
-      "canonical": {
-        "kind": "pr",
-        "number": 1202
-      },
-      "related": [
-        {
-          "kind": "pr",
-          "number": 1202
-        }
-      ],
-      "explanation": "This is the same problem as PR #1202. Keep one thread.",
-      "proposedSolution": "Close this. Put any extra details on PR #1202."
     },
     {
       "id": "pr:2378",
@@ -556,21 +413,6 @@
       ],
       "explanation": "This is the same problem as issue #1741. Keep one thread.",
       "proposedSolution": "Close this. Put any extra details on issue #1741."
-    },
-    {
-      "id": "issue:2198",
-      "canonical": {
-        "kind": "issue",
-        "number": 2196
-      },
-      "related": [
-        {
-          "kind": "issue",
-          "number": 2196
-        }
-      ],
-      "explanation": "Exact duplicate of dream migration v0.32.2 wedge (#2196).",
-      "proposedSolution": "Close as duplicate of #2196."
     },
     {
       "id": "pr:2161",
