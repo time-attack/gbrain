@@ -34,6 +34,15 @@
 - Already-fixed wave + #1434-class reopens
 - Labels applied across open backlog
 
+## Close-candidate buckets: VERIFIED 2026-07-16 — do not batch-close
+
+All 310 `duplicate`/`already-fixed`/`low_value`/`proprietary` items were adversarially
+verified (see `audits/close-verify-summary.md`). Only **13 confirmed safe to close**:
+PRs #2767 #2766 #2765 #2648 #2548 #2513 #2485 #2432 #2159 #1051 #1331, issues #1569 #699.
+Everything else is rescued — treat those labels as review-priority hints only.
+The `duplicate` label on open fix PRs (whose paired issue wave-3 closed) actively
+misleads; relabel to `fix-needed` when touched.
+
 ## Ignore until Wave 1 clears
 
 - Bulk `p1` / `p3` / `needs-review` browsing
