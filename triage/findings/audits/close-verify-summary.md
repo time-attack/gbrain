@@ -62,3 +62,9 @@ never be batch-closed.
    as niche. Bucket needs re-scoring before any future use.
 4. Before any close wave: adversarial verify + this human gate. No exceptions
    (now confirmed twice, at 51% and 95% false-positive rates).
+
+## Executed 2026-07-16
+
+All 13 verified items were closed with explanatory comments (11 PRs: #2767 #2766
+#2765 #2648 #2548 #2513 #2485 #2432 #2159 #1051 #1331; 2 issues: #1569 #699).
+States confirmed CLOSED via live fetch. The remaining 275 rescued items stay open.
