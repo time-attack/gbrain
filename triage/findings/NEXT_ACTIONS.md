@@ -1,54 +1,45 @@
-# Next actions (ordered)
+# Next actions (ordered) — updated 2026-07-16 (evening)
+
+## Done today (verified + executed)
+
+- **Merged 9 PRs:** #2836 (Windows mass-delete P0), #2820 (fix-wave A: tool-loop resume +
+  provider fixes, deep-reviewed line-by-line, 542 local tests green), #2698 (P0 #2684
+  takes source-scope), #2718 (P0 #2706 image source routing), #2440 (marked.lexer OOM),
+  #2801 (shard-flake pin), #472 (BigInt serialization), #2068 (orphan exclusions),
+  #2632 (chronicle config keys).
+- **Closed 25:** 13 verified close-candidates (see audits/close-verify-summary.md),
+  #2730 (superseded on master; loud-stamp re-roll invited), and 11 PRs superseded by
+  merged #2820 (#2062 #2065 #2274 #2487 #2336 #2257 #2491 #2614 #2806 #2617 #2572).
+- P0 issues #2828, #2684, #2706 resolved via the merges above.
 
 ## Do now
 
-1. **Merge** https://github.com/garrytan/gbrain/pull/2836  
-   - Fixes https://github.com/garrytan/gbrain/issues/2828  
-   - Local verification saved in `verify-2836/` (unit + path.win32 sim)  
-   - After merge: ask Windows reporter on #2828 to re-run `gbrain sync --full`
+1. **Fix #2825** (query_cache ignores hard-excludes — cross-process leak, NO PR exists).
+   Triage-verified plan: fold sorted hard-exclude/include prefixes into knobsHash
+   (`src/core/search/hybrid.ts` ~1573 + `mode.ts` KnobsHashContext), bump
+   KNOBS_HASH_VERSION 11→12, add drift-guard regression test. Size S.
+2. **Ship a release** (`/ship`) — 9 merged fixes are sitting unreleased on master;
+   #2820 deliberately left the VERSION bump to the release flow.
+3. **#2112**: cherry-pick or ask for re-roll of its uncovered doctor.ts hunk
+   (explicit models.subagent check) — the rest was superseded by #2820.
+   **#2063**: review on its own merits (independent gateway refactor, NOT superseded).
+4. **#1745**: main bug fixed on master; keep open only for the loud cycle-stamp
+   residual (updateSourceConfig boolean unchecked at cycle.ts stamp site).
 
-2. **Skim / merge** these merge-candidates (local overlapping tests already noted in `../data/testing-notes.json` where applicable):
-   - https://github.com/garrytan/gbrain/pull/2730 — fix for reopened #1745 (retagged off low-value)
-   - https://github.com/garrytan/gbrain/pull/2440
-   - https://github.com/garrytan/gbrain/pull/2801
-   - https://github.com/garrytan/gbrain/pull/472
-   - https://github.com/garrytan/gbrain/pull/2068
-   - https://github.com/garrytan/gbrain/pull/2632
-   - https://github.com/garrytan/gbrain/pull/2820
+## Then: work the queue
 
-3. **P0 issues without an obvious green PR yet** (triage / assign):
-   - https://github.com/garrytan/gbrain/issues/2825 — query_cache hard-exclude leak
-   - https://github.com/garrytan/gbrain/issues/2684 — CLI take-writes slug-only
-   - https://github.com/garrytan/gbrain/issues/2706 — image pages `source_id='default'`
+`REVIEW_QUEUE.md` — 141 clusters, 757 queued items, leverage-ordered, one
+"start here" item per cluster. Top clusters: gateway-misc (3 P0s incl. #160),
+PGLite WASM crashes, facts/extract+release-CI chain, multi-source scoping.
 
 ## Keep open (do not re-close)
 
-- https://github.com/garrytan/gbrain/issues/1434 (+ https://github.com/garrytan/gbrain/issues/2229)
-- https://github.com/garrytan/gbrain/issues/1633
-- https://github.com/garrytan/gbrain/issues/1745
+- #1434 (+#2229), #1633, #1745 (residual only)
 
-## Already done
+## Standing rules
 
-- #2625 merged (admin bootstrap token leak)
-- Duplicate same-kind closes + wave-3 issue↔PR cleanup
-- Already-fixed wave + #1434-class reopens
-- Labels applied across open backlog
-
-## Close-candidate buckets: VERIFIED 2026-07-16 — do not batch-close
-
-All 310 `duplicate`/`already-fixed`/`low_value`/`proprietary` items were adversarially
-verified (see `audits/close-verify-summary.md`). Only **13 confirmed safe to close**:
-PRs #2767 #2766 #2765 #2648 #2548 #2513 #2485 #2432 #2159 #1051 #1331, issues #1569 #699.
-Everything else is rescued — treat those labels as review-priority hints only.
-The `duplicate` label on open fix PRs (whose paired issue wave-3 closed) actively
-misleads; relabel to `fix-needed` when touched.
-
-## Ignore until Wave 1 clears
-
-- Bulk `p1` / `p3` / `needs-review` browsing
-- Another mass `already-fixed` close pass (unless residual-safe)
-
-## Optional hardening
-
-- Add a `windows-latest` CI job that runs `bun test test/sync-reconcile-mass-delete.test.ts`
-- Refresh snapshot: `bun triage/scripts/build-dataset.mjs --live`
+- Close-candidate buckets are review-priority hints, NEVER close lists
+  (adversarially verified 2026-07-16: only 13/310 were safe — audits/close-verify-summary.md).
+- Relabel rescued `duplicate` fix PRs to `fix-needed` when touched.
+- `proprietary` auto-label is broken (flags mainstream providers as niche); re-score before use.
+- Optional hardening: windows-latest CI job running test/sync-reconcile-mass-delete.test.ts.
