@@ -1,0 +1,3129 @@
+{
+ "generatedAt": "2026-07-16",
+ "method": "13 parallel adversarial verifiers (Sonnet), forced to refute each close reason, default-to-rescue; live gh state + diffs + origin/master@bb3376e3 code checks",
+ "totals": {
+  "rescue": 275,
+  "safe_close": 13,
+  "already_closed": 22
+ },
+ "byBucket": {
+  "already_fixed": {
+   "safe_close": 3,
+   "rescue": 8
+  },
+  "duplicate": {
+   "rescue": 30,
+   "already_closed": 19
+  },
+  "low_value": {
+   "safe_close": 10,
+   "rescue": 203
+  },
+  "proprietary": {
+   "rescue": 34,
+   "already_closed": 3
+  }
+ },
+ "items": [
+  {
+   "id": "issue:2050",
+   "kind": "issue",
+   "number": 2050,
+   "title": "autopilot: drain-worker runs at concurrency=1, self-deadlocking any cycle phase that spawns a subagent (patterns, synthesize)",
+   "bucket": "already_fixed",
+   "closeReason": "Master already mentions this. It may already be fixed.",
+   "verdict": "rescue",
+   "verifyReason": "autopilot spawns worker w/o --concurrency (jobs.ts default still 1); patterns.ts/synthesize.ts still block via waitForCompletion on same queue \u2014 deadlock unfixed."
+  },
+  {
+   "id": "issue:1963",
+   "kind": "issue",
+   "number": 1963,
+   "title": "reindex-frontmatter always times out on PGLite after upgrade to 0.42.32.0",
+   "bucket": "already_fixed",
+   "closeReason": "Master already mentions this. It may already be fixed.",
+   "verdict": "rescue",
+   "verifyReason": "backfill-effective-date.ts still gates SET LOCAL statement_timeout='600s' on engine.kind==='postgres' only; PGLite still hits 30s default, exact bug persists."
+  },
+  {
+   "id": "issue:1569",
+   "kind": "issue",
+   "number": 1569,
+   "title": "sync wedges deterministically at ~3100 files on large brain (56k files) \u2014 two hang signatures",
+   "bucket": "already_fixed",
+   "closeReason": "Master already mentions this. It may already be fixed.",
+   "verdict": "safe_close",
+   "verifyReason": "CHANGELOG '#1569 ReDoS hardening'; redos-guard.ts adds MAX_REGEX_INPUT_CHARS cap, link-inference.ts now routes through runRegexBounded (was unbounded)."
+  },
+  {
+   "id": "pr:1331",
+   "kind": "pr",
+   "number": 1331,
+   "title": "resolver: broaden skillpack-harvest triggers to match shipped fixtures",
+   "bucket": "already_fixed",
+   "closeReason": "Master already mentions this. It may already be fixed.",
+   "verdict": "safe_close",
+   "verifyReason": "commit 08cba39f already merged kylma-code's PR#1331 design into skillpack-harvest/SKILL.md frontmatter (10 triggers matching all fixtures)."
+  },
+  {
+   "id": "issue:1172",
+   "kind": "issue",
+   "number": 1172,
+   "title": "sync flattens file extensions in page slugs (docs/auth.md \u2192 docs/auth)",
+   "bucket": "already_fixed",
+   "closeReason": "Master already mentions this. It may already be fixed.",
+   "verdict": "rescue",
+   "verifyReason": "slugifyPath/slugifyCodePath in sync.ts unchanged: still strips .md, flattens code paths to dashes; no extension/mime_type column on pages."
+  },
+  {
+   "id": "issue:1144",
+   "kind": "issue",
+   "number": 1144,
+   "title": "brain_score is composition-biased \u2014 treats code/calendar pages as entity-narrative pages (orphans, links, timeline)",
+   "bucket": "already_fixed",
+   "closeReason": "Master already mentions this. It may already be fixed.",
+   "verdict": "rescue",
+   "verifyReason": "postgres-engine.ts getHealth() orphan/link/timeline SQL still counts all pages uniformly, no type='code'/'calendar-index' exclusion."
+  },
+  {
+   "id": "issue:699",
+   "kind": "issue",
+   "number": 699,
+   "title": "init --migrate-only crashes on pre-v36 brains: column \"provider_id\" does not exist",
+   "bucket": "already_fixed",
+   "closeReason": "Master already mentions this. It may already be fixed.",
+   "verdict": "safe_close",
+   "verifyReason": "applyForwardReferenceBootstrap (both engines) now adds subagent_messages/tool_executions.provider_id + pages.effective_date, covering issue + follow-up comment's column."
+  },
+  {
+   "id": "pr:555",
+   "kind": "pr",
+   "number": 555,
+   "title": "feat(exports): add ./enrichment to package.json exports map",
+   "bucket": "already_fixed",
+   "closeReason": "Master already mentions this. It may already be fixed.",
+   "verdict": "rescue",
+   "verifyReason": "package.json exports map on master has no './enrichment' entry; PR unmerged, change absent."
+  },
+  {
+   "id": "issue:223",
+   "kind": "issue",
+   "number": 223,
+   "title": "PGLite WASM crash on macOS 26.3 with Bun 1.3.11",
+   "bucket": "already_fixed",
+   "closeReason": "Master already mentions this. It may already be fixed.",
+   "verdict": "rescue",
+   "verifyReason": "only partial mitigation (pin pglite 0.4.3, flagged 'unverified' in CHANGELOG); comment thread through Jun 2026 on master 0.42.37.0 still reports crash."
+  },
+  {
+   "id": "issue:14",
+   "kind": "issue",
+   "number": 14,
+   "title": "Proposal: identity schema as runtime specification layer above AGENTS.md",
+   "bucket": "already_fixed",
+   "closeReason": "Master already mentions this. It may already be fixed.",
+   "verdict": "rescue",
+   "verifyReason": "speculative feature proposal, no corresponding identity-schema code found; default to rescue per uncertainty."
+  },
+  {
+   "id": "issue:11",
+   "kind": "issue",
+   "number": 11,
+   "title": "Feature request: Org-mode (.org) ingestion and sync support",
+   "bucket": "already_fixed",
+   "closeReason": "Master already mentions this. It may already be fixed.",
+   "verdict": "rescue",
+   "verifyReason": "no .org ingestion support found in sync.ts/import-file.ts; feature not implemented."
+  },
+  {
+   "id": "pr:2853",
+   "kind": "pr",
+   "number": 2853,
+   "title": "fix(budget): price non-Anthropic chat models via canonical fallback",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as PR #2127. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "PR #2853 already closed (unmerged); no live thread to act on."
+  },
+  {
+   "id": "pr:2819",
+   "kind": "pr",
+   "number": 2819,
+   "title": "fix(doctor,config): categorize timeline_coverage and register auto_chronicle",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as PR #2817. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "PR #2819 already closed (unmerged); no live thread to act on."
+  },
+  {
+   "id": "pr:2802",
+   "kind": "pr",
+   "number": 2802,
+   "title": "fix(gateway,subagent): persist tool results per turn, drop null-text blocks on conversion",
+   "bucket": "duplicate",
+   "closeReason": "This is a duplicate of another open item. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "PR #2802 already closed (unmerged); no live thread to act on."
+  },
+  {
+   "id": "pr:2751",
+   "kind": "pr",
+   "number": 2751,
+   "title": "fix(sync): refresh freshness on no-op sync",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as PR #1197. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "PR #2751 already closed (unmerged); no live thread to act on."
+  },
+  {
+   "id": "pr:2690",
+   "kind": "pr",
+   "number": 2690,
+   "title": "fix(db): chunk-row model label falls back to live gateway model, not build-time constant",
+   "bucket": "duplicate",
+   "closeReason": "This is a duplicate of another open item. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "PR #2690 already closed (unmerged); no live thread to act on."
+  },
+  {
+   "id": "pr:2572",
+   "kind": "pr",
+   "number": 2572,
+   "title": "fix: map openrouter_api_key through buildGatewayConfig into gateway env",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2571. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2571 was closed as duplicate of this open fix PR; closing #2572 too kills the only live thread."
+  },
+  {
+   "id": "pr:2568",
+   "kind": "pr",
+   "number": 2568,
+   "title": "feat(import): seed a brain from AI chat exports (ChatGPT/Claude) via memvelope envelopes",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2567. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2567 was closed as duplicate of this open fix PR; closing #2568 too kills the only live thread."
+  },
+  {
+   "id": "pr:2534",
+   "kind": "pr",
+   "number": 2534,
+   "title": "Prevent MCP facts fallback from tripping extract_facts guard",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as PR #2532. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "PR #2534 already closed (unmerged); no live thread to act on."
+  },
+  {
+   "id": "pr:2521",
+   "kind": "pr",
+   "number": 2521,
+   "title": "fix(README): Broken link fix",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as PR #2026. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "PR #2521 already closed (unmerged); no live thread to act on."
+  },
+  {
+   "id": "pr:2499",
+   "kind": "pr",
+   "number": 2499,
+   "title": "fix(gateway): reliable tool-loop resume + Date-safe tool output on non-Anthropic providers (#2256 #2273 #2110 #2433)",
+   "bucket": "duplicate",
+   "closeReason": "This is a duplicate of another open item. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "PR #2499 already closed (unmerged); no live thread to act on."
+  },
+  {
+   "id": "pr:2494",
+   "kind": "pr",
+   "number": 2494,
+   "title": "fix(cli): BigInt-safe JSON serialization so local-op output normalization doesn't crash (#2450)",
+   "bucket": "duplicate",
+   "closeReason": "This is a duplicate of another open item. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "PR #2494 already closed (unmerged); no live thread to act on."
+  },
+  {
+   "id": "pr:2491",
+   "kind": "pr",
+   "number": 2491,
+   "title": "fix(ai): serialize Date in tool-result json output so Postgres timestamps don't crash multi-tool loops (#2433)",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2433. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2433 was closed as duplicate of this open fix PR; closing #2491 too kills the only live thread."
+  },
+  {
+   "id": "pr:2456",
+   "kind": "pr",
+   "number": 2456,
+   "title": "fix(serve): lazy-connect stdio MCP engine",
+   "bucket": "duplicate",
+   "closeReason": "This is a duplicate of another open item. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "PR #2456 already closed (unmerged); no live thread to act on."
+  },
+  {
+   "id": "pr:2448",
+   "kind": "pr",
+   "number": 2448,
+   "title": "[codex] Support DashScope text-embedding-v4 config",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2447. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2447 was closed as duplicate of this open fix PR; closing #2448 too kills the only live thread."
+  },
+  {
+   "id": "pr:2378",
+   "kind": "pr",
+   "number": 2378,
+   "title": "feat(ai): add Moonshot Kimi provider recipe",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1219. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #1219 was closed as duplicate of this open fix PR; closing #2378 too kills the only live thread."
+  },
+  {
+   "id": "pr:2329",
+   "kind": "pr",
+   "number": 2329,
+   "title": "release.yml: run verify before bun build",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2222. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2222 was closed as duplicate of this open fix PR; closing #2329 too kills the only live thread."
+  },
+  {
+   "id": "pr:2286",
+   "kind": "pr",
+   "number": 2286,
+   "title": "feat(dream): orchestrator-owned transcript metadata + transcriptSource discovery field",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2285. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2285 was closed as duplicate of this open fix PR; closing #2286 too kills the only live thread."
+  },
+  {
+   "id": "pr:2284",
+   "kind": "pr",
+   "number": 2284,
+   "title": "feat(dream): synthesize backfill loop hardening \u2014 configured zeros, bigint child ids, orchestrator-owned frontmatter, stderr heartbeats",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2283. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2283 was closed as duplicate of this open fix PR; closing #2284 too kills the only live thread."
+  },
+  {
+   "id": "pr:2282",
+   "kind": "pr",
+   "number": 2282,
+   "title": "feat(jobs): same-day prune via --older-than 0d + optional --status filter",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2281. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2281 was closed as duplicate of this open fix PR; closing #2282 too kills the only live thread."
+  },
+  {
+   "id": "pr:2279",
+   "kind": "pr",
+   "number": 2279,
+   "title": "fix(dream): drop ANTHROPIC_API_KEY gate from patterns phase",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2278. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2278 was closed as duplicate of this open fix PR; closing #2279 too kills the only live thread."
+  },
+  {
+   "id": "pr:2277",
+   "kind": "pr",
+   "number": 2277,
+   "title": "feat(ai): claude-cli recipe for native gateway-based subagent dispatch",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2276. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2276 was closed as duplicate of this open fix PR; closing #2277 too kills the only live thread."
+  },
+  {
+   "id": "pr:2274",
+   "kind": "pr",
+   "number": 2274,
+   "title": "fix(subagent): persist + reconcile tool-result turns in the gateway loop",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2273. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2273 was closed as duplicate of this open fix PR; closing #2274 too kills the only live thread."
+  },
+  {
+   "id": "pr:2257",
+   "kind": "pr",
+   "number": 2257,
+   "title": "fix(subagent): reliable gateway tool-loop for non-Anthropic providers (persist tool-result messages + JSON-normalize outputs)",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2256. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2256 was closed as duplicate of this open fix PR; closing #2257 too kills the only live thread."
+  },
+  {
+   "id": "pr:2253",
+   "kind": "pr",
+   "number": 2253,
+   "title": "fix(queue): dead/cancelled jobs no longer block idempotency re-submission",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2252. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2252 was closed as duplicate of this open fix PR; closing #2253 too kills the only live thread."
+  },
+  {
+   "id": "pr:2216",
+   "kind": "pr",
+   "number": 2216,
+   "title": "feat(orphans): user-extensible exclude prefixes via brain config (#2215)",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2215. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2215 was closed as duplicate of this open fix PR; closing #2216 too kills the only live thread."
+  },
+  {
+   "id": "pr:2210",
+   "kind": "pr",
+   "number": 2210,
+   "title": "docs(ai/recipes/litellm): document /v1 suffix in setup_hint (#2209)",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2209. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2209 closed COMPLETED but its only linked fix PR (#2210 itself) is unmerged/open \u2014 issue\u2194PR pair, not dup."
+  },
+  {
+   "id": "pr:2208",
+   "kind": "pr",
+   "number": 2208,
+   "title": "feat(ai/recipes/litellm): declare chat + expansion touchpoints (#2207)",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2207. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2207 closed NOT_PLANNED; sole linked fix PR #2208 still open/unmerged \u2014 dead canonical, this is the pair's live fix."
+  },
+  {
+   "id": "issue:2204",
+   "kind": "issue",
+   "number": 2204,
+   "title": "diagnoseEmbedding() falsely returns user_provided_model_unset when modelId is parsed from config string",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1516. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "Issue #2204 is already closed (COMPLETED) on GitHub; no action needed."
+  },
+  {
+   "id": "issue:2202",
+   "kind": "issue",
+   "number": 2202,
+   "title": "OpenAI-compatible providers with default thinking (e.g. DeepSeek) waste ~50% tokens on non-reasoning calls",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1741. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "Issue #2202 is already closed (COMPLETED) on GitHub; no action needed."
+  },
+  {
+   "id": "pr:2161",
+   "kind": "pr",
+   "number": 2161,
+   "title": "fix(onboard): stop dropping onboard-check remediations on the --apply --auto path",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2160. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2160 closed NOT_PLANNED; its only fix PR #2161 remains open/unmerged \u2014 issue\u2194PR pair, not a duplicate."
+  },
+  {
+   "id": "pr:2124",
+   "kind": "pr",
+   "number": 2124,
+   "title": "fix(cycle): extract_atoms stamps concepts so synthesize_concepts has material (#2123)",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #2123. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #2123 closed NOT_PLANNED; fix PR #2124 (Closes #2123) still open/unmerged \u2014 dead canonical."
+  },
+  {
+   "id": "pr:1993",
+   "kind": "pr",
+   "number": 1993,
+   "title": "fix(cycle): stamp last_full_cycle_at for the source resolved from brainDir",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1992. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #1992 closed NOT_PLANNED; only linked fix PR #1993 is unmerged/open \u2014 issue\u2194PR pair."
+  },
+  {
+   "id": "pr:1965",
+   "kind": "pr",
+   "number": 1965,
+   "title": "fix(takes): resolve chat model via facts.extraction_model, not hardcoded Haiku (#1857)",
+   "bucket": "duplicate",
+   "closeReason": "This is a duplicate of another open item. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "PR #1965 itself is already closed (merged:false) on GitHub; no action needed."
+  },
+  {
+   "id": "pr:1962",
+   "kind": "pr",
+   "number": 1962,
+   "title": "fix(embed): don't arm wall-clock timer in --catch-up (#1946)",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1946. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #1946 closed COMPLETED but its linked fix PR #1962 is unmerged/open \u2014 likely dead/mis-closed canonical."
+  },
+  {
+   "id": "pr:1898",
+   "kind": "pr",
+   "number": 1898,
+   "title": "fix(conversation-parser): read raw_transcript sidecar + parse plain Speaker A/B lines",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1897. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #1897 closed NOT_PLANNED; its only fix PR #1898 (Closes #1897) remains open/unmerged."
+  },
+  {
+   "id": "pr:1896",
+   "kind": "pr",
+   "number": 1896,
+   "title": "fix(extract): recognize plain-bullet timeline format (- YYYY-MM-DD \u2014 Summary)",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1895. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #1895 closed NOT_PLANNED; sole fix PR #1896 is unmerged/open \u2014 issue\u2194PR pair, not dup."
+  },
+  {
+   "id": "pr:1858",
+   "kind": "pr",
+   "number": 1858,
+   "title": "fix(takes): honor facts.extraction_model in takes extract --from-pages",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1857. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #1857 closed NOT_PLANNED; only fix PR #1858 still open/unmerged \u2014 dead canonical, real fix lives here."
+  },
+  {
+   "id": "pr:1839",
+   "kind": "pr",
+   "number": 1839,
+   "title": "fix: register missing doctor check names in doctor-categories to stop unknown-check warnings",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1715. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #1715 closed NOT_PLANNED; fix PR #1839 (only linked closer) remains open/unmerged."
+  },
+  {
+   "id": "pr:1838",
+   "kind": "pr",
+   "number": 1838,
+   "title": "fix: merge parent page_types through schema-pack extends/borrow_from chain",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1749. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #1749 closed NOT_PLANNED; two competing fix PRs (#1838, #2856) both open/unmerged \u2014 don't close either without picking a winner."
+  },
+  {
+   "id": "issue:1740",
+   "kind": "issue",
+   "number": 1740,
+   "title": "embedding preflight: user_provided_model_unset rejects valid user-specified modelId",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1516. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "Issue #1740 is already closed (COMPLETED, via unrelated PR #2107) on GitHub; no action needed."
+  },
+  {
+   "id": "issue:1739",
+   "kind": "issue",
+   "number": 1739,
+   "title": "Non-Anthropic subagent tool loops fail with 'schema is not a function'",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1487. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "Issue #1739 is already closed (COMPLETED) on GitHub; no action needed."
+  },
+  {
+   "id": "pr:1706",
+   "kind": "pr",
+   "number": 1706,
+   "title": "query: filter since/until on effective date instead of updated_at",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1520. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #1520 closed NOT_PLANNED; only linked fix PR #1706 is unmerged/open \u2014 issue\u2194PR pair, not dup."
+  },
+  {
+   "id": "pr:1694",
+   "kind": "pr",
+   "number": 1694,
+   "title": "perf(config): batch + cache engine.getConfig to kill ~85 round-trips per query",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1693. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #1693 closed NOT_PLANNED; sole fix PR #1694 remains open/unmerged \u2014 dead canonical."
+  },
+  {
+   "id": "pr:1679",
+   "kind": "pr",
+   "number": 1679,
+   "title": "docs: clarify HTTP localOnly boundary",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1612. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #1612 closed NOT_PLANNED; only fix PR #1679 (Closes #1612) still open/unmerged."
+  },
+  {
+   "id": "issue:1672",
+   "kind": "issue",
+   "number": 1672,
+   "title": "llama-server embedding always returns user_provided_model_unset even when model name is configured",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #1516. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "Issue #1672 is already closed (COMPLETED) on GitHub; no action needed."
+  },
+  {
+   "id": "issue:1638",
+   "kind": "issue",
+   "number": 1638,
+   "title": "CJK (Chinese/Japanese/Korean) entity names not extracted by mention scanner",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as PR #1637. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "Issue #1638 is already closed (NOT_PLANNED) on GitHub; no action needed."
+  },
+  {
+   "id": "issue:1041",
+   "kind": "issue",
+   "number": 1041,
+   "title": "Please enable Private Vulnerability Reporting (SECURITY.md references it but the endpoint 404s)",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #579. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "Issue #1041 is already closed (COMPLETED) on GitHub; no action needed."
+  },
+  {
+   "id": "issue:457",
+   "kind": "issue",
+   "number": 457,
+   "title": "bug: code indexing doesn't work as expected (or at all)",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #456. Keep one thread.",
+   "verdict": "already_closed",
+   "verifyReason": "Issue #457 is already closed (COMPLETED) on GitHub; no action needed."
+  },
+  {
+   "id": "pr:127",
+   "kind": "pr",
+   "number": 127,
+   "title": "feat: replace split Google recipes with unified google-tools-mcp",
+   "bucket": "duplicate",
+   "closeReason": "This is the same problem as issue #126. Keep one thread.",
+   "verdict": "rescue",
+   "verifyReason": "Issue #126 closed NOT_PLANNED; only linked fix PR #127 remains open/unmerged \u2014 issue\u2194PR pair, not dup."
+  },
+  {
+   "id": "pr:2867",
+   "kind": "pr",
+   "number": 2867,
+   "title": "write-through: honor GBRAIN_REPO_PATH env override + warn on skipped writes",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: write-through: honor GBRAIN_REPO_PATH env override + warn on skipped writes. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real multi-machine write-through bug; env-override idea not on master. Diff stale/conflicting but fixable, not noise."
+  },
+  {
+   "id": "pr:2767",
+   "kind": "pr",
+   "number": 2767,
+   "title": "feat(skills): last30days + gstack curated 27",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(skills): last30days + gstack curated 27. Not worth first-pass review time.",
+   "verdict": "safe_close",
+   "verifyReason": "427-file dump of unrelated curated skill packs (ads, ai-trader, crypto, polymarket) \u2014 off-mission mass content, not a fix."
+  },
+  {
+   "id": "pr:2766",
+   "kind": "pr",
+   "number": 2766,
+   "title": "feat(skills): context-engineering collection (curated 10)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(skills): context-engineering collection (curated 10). Not worth first-pass review time.",
+   "verdict": "safe_close",
+   "verifyReason": "172-file duplicate-flavor mass skill dump overlapping 2767/2765, unrelated to core product."
+  },
+  {
+   "id": "pr:2765",
+   "kind": "pr",
+   "number": 2765,
+   "title": "feat(skills): core marketingskills (Corey Haines) + mesh",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(skills): core marketingskills (Corey Haines) + mesh. Not worth first-pass review time.",
+   "verdict": "safe_close",
+   "verifyReason": "114-file unfocused skill dump (marketing/ai-trader/crypto/playwright), same pattern as 2767/2766."
+  },
+  {
+   "id": "pr:2732",
+   "kind": "pr",
+   "number": 2732,
+   "title": "Guarantee complete anchor evidence in think prompts",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Guarantee complete anchor evidence in think prompts. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real think-anchor truncation/evidence bug with 11+136 passing regression tests."
+  },
+  {
+   "id": "pr:2730",
+   "kind": "pr",
+   "number": 2730,
+   "title": "fix(#1745): atomic module-singleton rebuild \u2014 no null window on reconnect; loud cycle stamp",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(#1745): atomic module-singleton rebuild \u2014 no null window on reconnect; loud cycle stamp. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real #1745 concurrency reconnect bug; rebuildConnection not on master; live 6-worker repro included."
+  },
+  {
+   "id": "pr:2727",
+   "kind": "pr",
+   "number": 2727,
+   "title": "fix: give autopilot a shared wedge watchdog",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: give autopilot a shared wedge watchdog. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real wedged-but-alive autopilot gap; shared watchdog not on master; has tests."
+  },
+  {
+   "id": "pr:2721",
+   "kind": "pr",
+   "number": 2721,
+   "title": "v0.42.59.0 fix(cycle): keep propose_takes dry runs read-only",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.59.0 fix(cycle): keep propose_takes dry runs read-only. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real dry-run persistence/lock bug in propose_takes; confirmed no dry-run guard exists on master."
+  },
+  {
+   "id": "pr:2696",
+   "kind": "pr",
+   "number": 2696,
+   "title": "v0.42.58.0 fix(doctor): flag embed backfills without a worker (#2557)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.58.0 fix(doctor): flag embed backfills without a worker (#2557). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real doctor queue_health no-worker gap fix; addresses #2557 with passing regression test."
+  },
+  {
+   "id": "pr:2672",
+   "kind": "pr",
+   "number": 2672,
+   "title": "fix(search): rerank docs >512 tokens & allow 1024-dim embedders",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(search): rerank docs >512 tokens & allow 1024-dim embedders. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real reranker truncation + Ollama dims fix, self-contained and correct-looking."
+  },
+  {
+   "id": "pr:2670",
+   "kind": "pr",
+   "number": 2670,
+   "title": "fix(gateway): use providerOptions[recipe.id] for thinking disable + add retry loop",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(gateway): use providerOptions[recipe.id] for thinking disable + add retry loop. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real P1 bug: wrong providerOptions key silently kept thinking on, causing 300s hangs for DeepSeek."
+  },
+  {
+   "id": "pr:2669",
+   "kind": "pr",
+   "number": 2669,
+   "title": "v0.42.58.0 fix(cycle): make dream lint audit-only (#2661)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.58.0 fix(cycle): make dream lint audit-only (#2661). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Confirmed master's lint phase still hardcodes fix:true; PR makes it audit-only, addresses #2661."
+  },
+  {
+   "id": "pr:2668",
+   "kind": "pr",
+   "number": 2668,
+   "title": "v0.42.59.0 test(build): guard schema-embedded.ts freshness against schema.sql",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.59.0 test(build): guard schema-embedded.ts freshness against schema.sql. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Confirmed check-schema-embedded-fresh.sh absent on master; closes real schema-drift gap in every compiled binary."
+  },
+  {
+   "id": "pr:2659",
+   "kind": "pr",
+   "number": 2659,
+   "title": "Fix propose_takes proposal identity",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Fix propose_takes proposal identity. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real data-correctness fix (multi-claim extraction loss); take_proposal_scans/claim_hash absent on master; has migration+tests."
+  },
+  {
+   "id": "pr:2648",
+   "kind": "pr",
+   "number": 2648,
+   "title": "v0.42.58.1 fix: pre-v121 PGLite brains crash migrating to v0.42.x",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.58.1 fix: pre-v121 PGLite brains crash migrating to v0.42.x. Not worth first-pass review time.",
+   "verdict": "safe_close",
+   "verifyReason": "Duplicate: master already has timeline_entries.event_page_id in bootstrap coverage (pglite/postgres-engine.ts + test)."
+  },
+  {
+   "id": "pr:2642",
+   "kind": "pr",
+   "number": 2642,
+   "title": "fix(embedding): per-model native dims for Ollama + explicit dims for \u2026",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(embedding): per-model native dims for Ollama + explicit dims for \u2026. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real embedding-dims bug (Ollama per-model, llama-server/litellm); model_dims/effectiveDefaultDims absent on master."
+  },
+  {
+   "id": "pr:2634",
+   "kind": "pr",
+   "number": 2634,
+   "title": "v0.42.58.0 fix(cli): show dream source help (#2356)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.58.0 fix(cli): show dream source help (#2356). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small real CLI help-routing fix for #2356 with passing regression test."
+  },
+  {
+   "id": "pr:2618",
+   "kind": "pr",
+   "number": 2618,
+   "title": "v0.42.57.0 fix(think): persist --take rows (#2556)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.57.0 fix(think): persist --take rows (#2556). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "persistThinkTake absent on master; real feature/fix for #2556 with 43 passing tests."
+  },
+  {
+   "id": "pr:2614",
+   "kind": "pr",
+   "number": 2614,
+   "title": "fix(ai): raise gateway default max output tokens 4096 -> 32000",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(ai): raise gateway default max output tokens 4096 -> 32000. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Confirmed master still defaults maxTokens to 4096; real silent-empty-output bug on always-thinking models."
+  },
+  {
+   "id": "pr:2593",
+   "kind": "pr",
+   "number": 2593,
+   "title": "v0.42.57.0 fix(sync): full-sync reconcile spares out-of-repo imports \u2014 ingest_log provenance guard + mass-delete breaker",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.57.0 fix(sync): full-sync reconcile spares out-of-repo imports \u2014 ingest_log provenance guard + mass-delete breaker. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "P0 data-loss bug: full sync could delete out-of-repo imported pages; guard confirmed absent on master."
+  },
+  {
+   "id": "pr:2592",
+   "kind": "pr",
+   "number": 2592,
+   "title": "fix(recipes): per-model embedding dims \u2014 unblocks ollama mxbai/all-minilm/bge-m3",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(recipes): per-model embedding dims \u2014 unblocks ollama mxbai/all-minilm/bge-m3. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real Ollama embedding-dims catch-22 bug (bge-m3/mxbai/all-minilm); not fixed on master."
+  },
+  {
+   "id": "pr:2587",
+   "kind": "pr",
+   "number": 2587,
+   "title": "fix schema pack resolution for compiled cli",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix schema pack resolution for compiled cli. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real schema-pack CLI resolution inconsistency fix with tests."
+  },
+  {
+   "id": "pr:2586",
+   "kind": "pr",
+   "number": 2586,
+   "title": "v0.42.57.0 fix(sync): pin PGLite code sync imports (#2189)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.57.0 fix(sync): pin PGLite code sync imports (#2189). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real regression test + misdiagnosis-copy fix for #2189, not cosmetic."
+  },
+  {
+   "id": "pr:2566",
+   "kind": "pr",
+   "number": 2566,
+   "title": "fix(embed): allow user-provided-model recipes (llama-server, litellm) to pass dim validation and preflight",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(embed): allow user-provided-model recipes (llama-server, litellm) to pass dim validation and preflight. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real embedding bug blocking llama-server/litellm entirely; fix not present on master."
+  },
+  {
+   "id": "pr:2549",
+   "kind": "pr",
+   "number": 2549,
+   "title": "v0.42.57.0 fix(cycle): stamp path-derived dream sources (#1869)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.57.0 fix(cycle): stamp path-derived dream sources (#1869). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real freshness-stamp bug for #1869 (--dir runs not stamping), with tests."
+  },
+  {
+   "id": "pr:2548",
+   "kind": "pr",
+   "number": 2548,
+   "title": "fix(schema): bootstrap timeline_entries.event_page_id (v121) forward-reference",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(schema): bootstrap timeline_entries.event_page_id (v121) forward-reference. Not worth first-pass review time.",
+   "verdict": "safe_close",
+   "verifyReason": "Duplicate: same event_page_id bootstrap fix as 2648, already landed on master."
+  },
+  {
+   "id": "pr:2542",
+   "kind": "pr",
+   "number": 2542,
+   "title": "v0.42.54.0 feat(ingest): office-format ingest (PDF/DOCX/PPTX/XLSX) via supervised Docling sidecar",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.54.0 feat(ingest): office-format ingest (PDF/DOCX/PPTX/XLSX) via supervised Docling sidecar. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Large but coherent, well-tested office-ingest feature (design doc, engine parity, tests) \u2014 not a noise dump."
+  },
+  {
+   "id": "pr:2531",
+   "kind": "pr",
+   "number": 2531,
+   "title": "v0.42.54.0 fix(cli): honor search --json output (#2042)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.54.0 fix(cli): honor search --json output (#2042). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: --json now honored for search/query CLI output; well tested."
+  },
+  {
+   "id": "pr:2530",
+   "kind": "pr",
+   "number": 2530,
+   "title": "fix(sync,sources,autopilot,jobs): repo paths absolute at ingress; refuse stored relative anchors",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(sync,sources,autopilot,jobs): repo paths absolute at ingress; refuse stored relative anchors. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: enforces absolute repo paths at ingress across sync/autopilot/jobs/import; sync-correctness class."
+  },
+  {
+   "id": "pr:2519",
+   "kind": "pr",
+   "number": 2519,
+   "title": "v0.42.54.0 fix(cli): supersede active takes (#2078)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.54.0 fix(cli): supersede active takes (#2078). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug: supersede read active:false should be active:true; fixed with regression test."
+  },
+  {
+   "id": "pr:2513",
+   "kind": "pr",
+   "number": 2513,
+   "title": "Fix cjk slug validate",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Fix cjk slug validate. Not worth first-pass review time.",
+   "verdict": "safe_close",
+   "verifyReason": "Diff dominated by unrelated deletion of 5 CI workflow files; the slug fix itself is a regression for mixed CJK+Latin slugs, no test/body."
+  },
+  {
+   "id": "pr:2510",
+   "kind": "pr",
+   "number": 2510,
+   "title": "v0.42.54.0 fix(schema): skip unsupported large-dim HNSW indexes (#1734)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.54.0 fix(schema): skip unsupported large-dim HNSW indexes (#1734). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: handles halfvec's higher HNSW dim cap so migrations don't fail on large-dim configs; new code, not on master."
+  },
+  {
+   "id": "pr:2509",
+   "kind": "pr",
+   "number": 2509,
+   "title": "v0.42.57.0 fix(cli): whoknows --explain renders per-result factor breakdown",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.57.0 fix(cli): whoknows --explain renders per-result factor breakdown. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug: whoknows --explain was a silent no-op; fixed with shared formatter + CHANGELOG."
+  },
+  {
+   "id": "pr:2508",
+   "kind": "pr",
+   "number": 2508,
+   "title": "v0.42.54.0 fix(verify): macOS `bun run verify` false-failures (fallback rc + BSD grep)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.54.0 fix(verify): macOS `bun run verify` false-failures (fallback rc + BSD grep). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real macOS verify-script fixes: BSD grep double-slash + exit-code captured before watchdog kill."
+  },
+  {
+   "id": "pr:2502",
+   "kind": "pr",
+   "number": 2502,
+   "title": "v0.42.54.0 feat(facts): durable extraction \u2014 recovery phase + intra-page resume + enforced deadline",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.54.0 feat(facts): durable extraction \u2014 recovery phase + intra-page resume + enforced deadline. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial durable fact-extraction fix addressing real data-loss (facts silently dropped); well documented."
+  },
+  {
+   "id": "pr:2500",
+   "kind": "pr",
+   "number": 2500,
+   "title": "fix(extract-timeline-from-meetings): bump pages.updated_at for touched entities",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(extract-timeline-from-meetings): bump pages.updated_at for touched entities. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug: timeline_coverage_score computed from wrong ratio; fixed plus new baseline backfill op, tested."
+  },
+  {
+   "id": "pr:2498",
+   "kind": "pr",
+   "number": 2498,
+   "title": "v0.42.54.0 feat(ai): local-provider custom embedding dims + broaden Ollama catalog (#2170 #2271 #2051)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.54.0 feat(ai): local-provider custom embedding dims + broaden Ollama catalog (#2170 #2271 #2051). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: local embedding custom dims + broadened Ollama catalog; well documented and code is new vs master."
+  },
+  {
+   "id": "pr:2497",
+   "kind": "pr",
+   "number": 2497,
+   "title": "fix(cycle): extract_facts guard requires live backing page, not just non-NULL entity_slug (#2484)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(cycle): extract_facts guard requires live backing page, not just non-NULL entity_slug (#2484). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug: guard was jamming the extract_facts cycle forever on unfenceable rows; fixed with two regression tests."
+  },
+  {
+   "id": "pr:2496",
+   "kind": "pr",
+   "number": 2496,
+   "title": "v0.42.54.0 fix(ai): embedding preflight accepts user-named models on litellm/llama-server (#1716)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.54.0 fix(ai): embedding preflight accepts user-named models on litellm/llama-server (#1716). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug: preflight rejected named litellm/llama-server models, silently degrading hybrid search; fixed + tested."
+  },
+  {
+   "id": "pr:2495",
+   "kind": "pr",
+   "number": 2495,
+   "title": "fix(import): fall back to body H1 for title when frontmatter lacks title: instead of slug-derived junk (#2446)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(import): fall back to body H1 for title when frontmatter lacks title: instead of slug-derived junk (#2446). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug: missing frontmatter title fell back to junk slug-derived title instead of body H1; thoroughly tested."
+  },
+  {
+   "id": "pr:2493",
+   "kind": "pr",
+   "number": 2493,
+   "title": "fix(schema-pack): narrow stats catch-all so masked errors surface, not fake 0 pages (#2466)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(schema-pack): narrow stats catch-all so masked errors surface, not fake 0 pages (#2466). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug: bare catch{} masked all engine errors as fake 0-page counts; narrowed to missing-table only, well tested."
+  },
+  {
+   "id": "pr:2485",
+   "kind": "pr",
+   "number": 2485,
+   "title": "feat: OpenRouter baseURL + hybrid search perf instrumentation",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: OpenRouter baseURL + hybrid search perf instrumentation. Not worth first-pass review time.",
+   "verdict": "safe_close",
+   "verifyReason": "Unfocused 29-file dump mixing a small real fix with unrelated personal debug scripts (auto_link.py, booster.js, etc.)."
+  },
+  {
+   "id": "pr:2481",
+   "kind": "pr",
+   "number": 2481,
+   "title": "feat: Railway deployment support (Dockerfile + railway.toml + setup guide)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: Railway deployment support (Dockerfile + railway.toml + setup guide). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Focused, real Railway deployment config/docs (4 files); draft status alone isn't disqualifying."
+  },
+  {
+   "id": "pr:2480",
+   "kind": "pr",
+   "number": 2480,
+   "title": "Fix takes search and think vector recall",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Fix takes search and think vector recall. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real search improvement: adds full-text recall fallback to takes search across both engines in lockstep, tested."
+  },
+  {
+   "id": "pr:2474",
+   "kind": "pr",
+   "number": 2474,
+   "title": "docs: add retrieval routing hints to search/query help text",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: docs: add retrieval routing hints to search/query help text. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real, focused CLI help/routing-hint improvement with dedicated tests."
+  },
+  {
+   "id": "pr:2472",
+   "kind": "pr",
+   "number": 2472,
+   "title": "fix(ai): honor base_urls override for native-anthropic chat/expansion",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(ai): honor base_urls override for native-anthropic chat/expansion. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small real fix: base_urls override parity for native-anthropic chat/expansion, matches existing pattern."
+  },
+  {
+   "id": "pr:2457",
+   "kind": "pr",
+   "number": 2457,
+   "title": "v0.42.54.0 fix(security): views enforce caller RLS via security_invoker",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.54.0 fix(security): views enforce caller RLS via security_invoker. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real security fix: view now uses security_invoker to enforce RLS; migration + tests included."
+  },
+  {
+   "id": "pr:2452",
+   "kind": "pr",
+   "number": 2452,
+   "title": "fix(calibration,takes,cli): model resolution, source-scoped takes reads, BigInt-safe output, calibration CLI reachability",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(calibration,takes,cli): model resolution, source-scoped takes reads, BigInt-safe output, calibration CLI reachabilit. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial, focused fix set (calibration/takes/cli, BigInt-safe output) with extensive tests across engines."
+  },
+  {
+   "id": "pr:2449",
+   "kind": "pr",
+   "number": 2449,
+   "title": "[codex] Exclude resolved non-bets from calibration metrics",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: [codex] Exclude resolved non-bets from calibration metrics. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug: resolved non-bet takes were contaminating calibration metrics; fixed with strong regression tests."
+  },
+  {
+   "id": "pr:2442",
+   "kind": "pr",
+   "number": 2442,
+   "title": "v0.42.27.0 fix(ai-gateway): fix silent no-op in Anthropic prompt caching; wire OpenAI prompt_cache_key",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.27.0 fix(ai-gateway): fix silent no-op in Anthropic prompt caching; wire OpenAI prompt_cache_key. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug: Anthropic prompt caching was a silent no-op due to marker placement; matches known cost-bug flagged elsewhere; tested."
+  },
+  {
+   "id": "pr:2432",
+   "kind": "pr",
+   "number": 2432,
+   "title": "Fork entry 10 runtime relink",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Fork entry 10 runtime relink. Not worth first-pass review time.",
+   "verdict": "safe_close",
+   "verifyReason": "Dominated by private fork bookkeeping (FORK_ACTIVITY.md session notes, .serena config, personal Windows paths), not upstream-appropriate."
+  },
+  {
+   "id": "pr:2430",
+   "kind": "pr",
+   "number": 2430,
+   "title": "v0.42.58.0 fix(config): harden gateway config adapter boundary",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.58.0 fix(config): harden gateway config adapter boundary. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real refactor: extracts buildGatewayConfig into its own module for testability; tests updated accordingly."
+  },
+  {
+   "id": "pr:2429",
+   "kind": "pr",
+   "number": 2429,
+   "title": "v0.42.57.0 fix(embedding): accept configured user-provided dimensions",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.57.0 fix(embedding): accept configured user-provided dimensions. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real refactor/fix: shared embedding-provider-contract for dim/preflight checks; focused, tested."
+  },
+  {
+   "id": "pr:2428",
+   "kind": "pr",
+   "number": 2428,
+   "title": "fix(op-checkpoint): write completed_keys as a jsonb array, not a double-encoded scalar (#2328)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(op-checkpoint): write completed_keys as a jsonb array, not a double-encoded scalar (#2328). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix for the JSONB double-encode bug class (#2328) on op_checkpoints; matches known critical invariant, tested."
+  },
+  {
+   "id": "pr:2425",
+   "kind": "pr",
+   "number": 2425,
+   "title": "fix(search): honor source recency policy in queries",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(search): honor source recency policy in queries. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: per-source recency decay policy in search, threaded through knobsHash, well tested. Not noise."
+  },
+  {
+   "id": "pr:2424",
+   "kind": "pr",
+   "number": 2424,
+   "title": "feat: integrate native GBrain review and evidence fixes",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: integrate native GBrain review and evidence fixes. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Large but substantive rollup (atoms, takes, JSONB repair targets) mirroring several sibling PRs' real fixes; tested."
+  },
+  {
+   "id": "pr:2423",
+   "kind": "pr",
+   "number": 2423,
+   "title": "fix: classify enrich-thin blocked states",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: classify enrich-thin blocked states. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Adds real outcome classifier distinguishing budget_blocked vs exhausted for enrich-thin phase; well tested."
+  },
+  {
+   "id": "pr:2422",
+   "kind": "pr",
+   "number": 2422,
+   "title": "feat: attach concepts to extracted atoms",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: attach concepts to extracted atoms. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: deterministic concept-label backfill + LLM concept extraction for atoms; well tested, safety-gated."
+  },
+  {
+   "id": "pr:2421",
+   "kind": "pr",
+   "number": 2421,
+   "title": "fix: ground take grading in hybrid evidence",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: ground take grading in hybrid evidence. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Replaces stub evidence retriever with real hybrid-search-backed grading; fixes a documented placeholder bug. Tested."
+  },
+  {
+   "id": "pr:2420",
+   "kind": "pr",
+   "number": 2420,
+   "title": "feat: add native since-date repair",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: add native since-date repair. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: native since-date repair command for takes, backed by tests."
+  },
+  {
+   "id": "pr:2419",
+   "kind": "pr",
+   "number": 2419,
+   "title": "fix: parse role-blocked conversation facts natively",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: parse role-blocked conversation facts natively. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: mines session transcripts miscategorized as type=note; adds parser pattern + tests."
+  },
+  {
+   "id": "pr:2418",
+   "kind": "pr",
+   "number": 2418,
+   "title": "feat: add review-first take proposals",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: add review-first take proposals. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: review-first take-proposal workflow with atomic accept/reject, rollback-safe, extensively tested."
+  },
+  {
+   "id": "pr:2401",
+   "kind": "pr",
+   "number": 2401,
+   "title": "WS-954: add import opt-out for gitignored files",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: WS-954: add import opt-out for gitignored files. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Multi-feature bundle (import gitignore opt-out, storage backup/vacuum, local embedding recipe) all real and tested, not noise."
+  },
+  {
+   "id": "pr:2398",
+   "kind": "pr",
+   "number": 2398,
+   "title": "v0.42.54.0 fix(reliability): silent-failure wave \u2014 upload-raw persistence, PGLite setup hint, honest doctor, config merge guard (#2297 #2301 #2330 #2251)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.54.0 fix(reliability): silent-failure wave \u2014 upload-raw persistence, PGLite setup hint, honest doctor, config merg. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Fixes real silent-failure bugs (lost uploads, dishonest doctor score, JSONB merge crash); confirmed NOT on master despite older version tag."
+  },
+  {
+   "id": "pr:2384",
+   "kind": "pr",
+   "number": 2384,
+   "title": "feat(extract): PARA-numbered dirs + alias/title/basename wikilink resolution",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(extract): PARA-numbered dirs + alias/title/basename wikilink resolution. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: PARA-numbered dir support + alias/title wikilink resolution for Obsidian vaults; well documented, tested."
+  },
+  {
+   "id": "pr:2379",
+   "kind": "pr",
+   "number": 2379,
+   "title": "v0.42.53.0 fix(extract): pack-gate body-verb inference so packs that omit a verb don't get it",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.53.0 fix(extract): pack-gate body-verb inference so packs that omit a verb don't get it. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: gates regex-inferred link verbs against active schema pack; confirmed NOT on master, tested."
+  },
+  {
+   "id": "pr:2353",
+   "kind": "pr",
+   "number": 2353,
+   "title": "docs(schema): list all 7 bundled read-only packs, not just 2",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: docs(schema): list all 7 bundled read-only packs, not just 2. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Docs-only but content correction is partly inaccurate (claims 7 read-only packs; master's actual PACK_READONLY set has only 3) - needs review, not noise."
+  },
+  {
+   "id": "pr:2326",
+   "kind": "pr",
+   "number": 2326,
+   "title": "feat(recipes): add bge-m3 to ollama embedding recipe + dims_options",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(recipes): add bge-m3 to ollama embedding recipe + dims_options. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Tiny correct addition: registers bge-m3 model + dims_options for ollama recipe. Real, harmless improvement."
+  },
+  {
+   "id": "pr:2319",
+   "kind": "pr",
+   "number": 2319,
+   "title": "fix(search): make no-embedding early-return multimodal-aware so multimodal-only installs still route image/unified queries",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(search): make no-embedding early-return multimodal-aware so multimodal-only installs still route image/unified queri. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: multimodal-only installs no longer silently degrade to keyword search; regression test included."
+  },
+  {
+   "id": "pr:2318",
+   "kind": "pr",
+   "number": 2318,
+   "title": "feat(tags): native gbrain tags command for tag-vocabulary hygiene (list/audit/merge)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(tags): native gbrain tags command for tag-vocabulary hygiene (list/audit/merge). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real, well-built new command (gbrain tags list/audit/merge) for tag hygiene; no automated tests but functionally sound."
+  },
+  {
+   "id": "pr:2317",
+   "kind": "pr",
+   "number": 2317,
+   "title": "test(import-file): isolate GBRAIN_AUDIT_DIR so oversize fixtures don't pollute the operator's real audit log",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: test(import-file): isolate GBRAIN_AUDIT_DIR so oversize fixtures don't pollute the operator's real audit log. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Tiny, correct test-hygiene fix isolating GBRAIN_AUDIT_DIR so tests don't pollute real audit logs."
+  },
+  {
+   "id": "pr:2316",
+   "kind": "pr",
+   "number": 2316,
+   "title": "fix(files): persist small raw uploads into a per-page .raw/ git sidecar (closes #2297)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(files): persist small raw uploads into a per-page .raw/ git sidecar (closes #2297). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: small raw uploads were previously not persisted at all; now copied into a page .raw sidecar and DB-recorded."
+  },
+  {
+   "id": "pr:2315",
+   "kind": "pr",
+   "number": 2315,
+   "title": "fix(import): walker skips SYNC_SKIP_FILES metafiles so import and sync agree (closes #345)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(import): walker skips SYNC_SKIP_FILES metafiles so import and sync agree (closes #345). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix closing #345: bulk import walker now skips README/index/log/schema/RESOLVER metafiles like sync does; well tested."
+  },
+  {
+   "id": "pr:2314",
+   "kind": "pr",
+   "number": 2314,
+   "title": "fix(doctor): serialize onboard checks + add timeout to avoid connection-pool deadlock on remote engines",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(doctor): serialize onboard checks + add timeout to avoid connection-pool deadlock on remote engines. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real reliability fix: serializes onboard checks + adds timeout to prevent connection-pool deadlock on remote engines; documented root cause."
+  },
+  {
+   "id": "pr:2313",
+   "kind": "pr",
+   "number": 2313,
+   "title": "fix(entities): resolver fallback preserves directory prefix instead of collapsing the slash",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(entities): resolver fallback preserves directory prefix instead of collapsing the slash. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: entity slug fallback now preserves directory prefix instead of mangling the slash; well tested."
+  },
+  {
+   "id": "pr:2268",
+   "kind": "pr",
+   "number": 2268,
+   "title": "fix(autopilot): resilience + hot-memory hardening (per-phase timeout, dispatch probe, op-checkpoint, facts visibility)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(autopilot): resilience + hot-memory hardening (per-phase timeout, dispatch probe, op-checkpoint, facts visibility). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial reliability wave: autopilot probe timeout, git-commit phase, and a JSONB double-encode fix matching a known landmine class. Well tested."
+  },
+  {
+   "id": "pr:2248",
+   "kind": "pr",
+   "number": 2248,
+   "title": "feat(auth): federated_write \u2014 per-write source authorization (write-side mirror of federated_read)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(auth): federated_write \u2014 per-write source authorization (write-side mirror of federated_read). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real security feature: federated_write (write-side mirror of federated_read) with migrations, fail-closed authorization, extensive tests."
+  },
+  {
+   "id": "pr:2246",
+   "kind": "pr",
+   "number": 2246,
+   "title": "Diagnose & recover unclean PGLite data dirs (refs #223)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Diagnose & recover unclean PGLite data dirs (refs #223). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: diagnose/rebuild broken PGLite data dirs with proper locking; well tested, addresses filed issue #223."
+  },
+  {
+   "id": "pr:2232",
+   "kind": "pr",
+   "number": 2232,
+   "title": "fix: serialize PGLite MCP dispatch",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: serialize PGLite MCP dispatch. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: serializes PGLite MCP dispatch to prevent WAL corruption from concurrent handlers; well tested."
+  },
+  {
+   "id": "pr:2219",
+   "kind": "pr",
+   "number": 2219,
+   "title": "fix(cycle): add autopilot budget seatbelts",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(cycle): add autopilot budget seatbelts. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: default-off gating for paid calibration phases + budget=0 hard-skip + circuit breaker; extensively tested."
+  },
+  {
+   "id": "pr:2218",
+   "kind": "pr",
+   "number": 2218,
+   "title": "fix(provider): honor provider_base_urls for native OpenAI and providers test",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(provider): honor provider_base_urls for native OpenAI and providers test. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: honors provider_base_urls for native OpenAI chat/embedding/expansion; may overlap with PR 2401's similar change."
+  },
+  {
+   "id": "pr:2212",
+   "kind": "pr",
+   "number": 2212,
+   "title": "v0.42.53.0 docs: consolidate GBrain operational documentation (#2211)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.53.0 docs: consolidate GBrain operational documentation (#2211). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real docs consolidation + regenerated fingerprints; coherent scope, not cosmetic churn."
+  },
+  {
+   "id": "pr:2197",
+   "kind": "pr",
+   "number": 2197,
+   "title": "fix(facts): end facts:absorb sync abort race + 2 related synthesis-tier fixes",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(facts): end facts:absorb sync abort race + 2 related synthesis-tier fixes. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: misclassified abort-race error miscategorized as pipeline_error; has tests."
+  },
+  {
+   "id": "pr:2192",
+   "kind": "pr",
+   "number": 2192,
+   "title": "[codex] Fix search date filters to use event dates",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: [codex] Fix search date filters to use event dates. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: adds normalizeUntilExclusive so date 'until' filter includes full day; not on master."
+  },
+  {
+   "id": "pr:2191",
+   "kind": "pr",
+   "number": 2191,
+   "title": "[codex] Expose query type filters",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: [codex] Expose query type filters. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Adds real 'types' filter param to query op + e2e test; confirmed absent from master."
+  },
+  {
+   "id": "pr:2181",
+   "kind": "pr",
+   "number": 2181,
+   "title": "feat: support flexible embedding providers",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: support flexible embedding providers. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial embedding-provider flexibility feature (new chunkers/clean.ts, provider env vars) with tests."
+  },
+  {
+   "id": "pr:2172",
+   "kind": "pr",
+   "number": 2172,
+   "title": "v0.43.0.0 feat(mcp): MEMORY_VERBS v1 \u2014 frozen five-verb memory protocol + conformance kit (cathedral 1)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.43.0.0 feat(mcp): MEMORY_VERBS v1 \u2014 frozen five-verb memory protocol + conformance kit (cathedral 1). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Coherent MEMORY_VERBS protocol feature with conformance kit + tests; aligns with project's memory-protocol goals."
+  },
+  {
+   "id": "pr:2159",
+   "kind": "pr",
+   "number": 2159,
+   "title": "fix(sync): let tokenmax cost gates proceed",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(sync): let tokenmax cost gates proceed. Not worth first-pass review time.",
+   "verdict": "safe_close",
+   "verifyReason": "Empty diff: PR tree identical to its own merge-base; the merge commit discarded the fix commit's changes."
+  },
+  {
+   "id": "pr:2158",
+   "kind": "pr",
+   "number": 2158,
+   "title": "v0.44.0.0 feat(eval): BrainBench \u2014 cross-harness memory conformance suite (Cathedral 2)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.44.0.0 feat(eval): BrainBench \u2014 cross-harness memory conformance suite (Cathedral 2). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "BrainBench cross-harness eval suite directly implements CLAUDE.md's named north-star eval; large but coherent."
+  },
+  {
+   "id": "pr:2157",
+   "kind": "pr",
+   "number": 2157,
+   "title": "feat(sources): persist + honor --include / --exclude globs across sync and lint (#2156)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(sources): persist + honor --include / --exclude globs across sync and lint (#2156). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: persist/honor include/exclude globs across sync+lint, with fixture + config tests."
+  },
+  {
+   "id": "pr:2154",
+   "kind": "pr",
+   "number": 2154,
+   "title": "fix(pglite): fail closed on stale live lock heartbeat (#2058)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(pglite): fail closed on stale live lock heartbeat (#2058). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix to stale-lock heartbeat logic (#2058) with updated lock tests."
+  },
+  {
+   "id": "pr:2153",
+   "kind": "pr",
+   "number": 2153,
+   "title": "fix(markdown): treat `#` lines inside closed frontmatter as YAML comments, not headings",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(markdown): treat `#` lines inside closed frontmatter as YAML comments, not headings. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real markdown parser fix: '#' inside closed frontmatter no longer misread as heading; has test."
+  },
+  {
+   "id": "pr:2151",
+   "kind": "pr",
+   "number": 2151,
+   "title": "fix(doctor): stop claiming \"Brain is at target\" when the target is unreachable",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(doctor): stop claiming \"Brain is at target\" when the target is unreachable. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: doctor no longer claims target reached when unreachable; refactor + new render test."
+  },
+  {
+   "id": "pr:2135",
+   "kind": "pr",
+   "number": 2135,
+   "title": "fix(cli): GBRAIN_EXIT_DRAIN_MS exit-drain knob + arm disconnect watchdog after drain (#2108)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(cli): GBRAIN_EXIT_DRAIN_MS exit-drain knob + arm disconnect watchdog after drain (#2108). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Adds GBRAIN_EXIT_DRAIN_MS knob + disconnect watchdog with unit test; real CLI behavior change."
+  },
+  {
+   "id": "pr:2133",
+   "kind": "pr",
+   "number": 2133,
+   "title": "feat(security): '*' wildcard in federated_read for all-sources read scope",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(security): '*' wildcard in federated_read for all-sources read scope. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Security feature: '*' wildcard federated_read scope, with source-scope tests; touches core operations.ts."
+  },
+  {
+   "id": "pr:2131",
+   "kind": "pr",
+   "number": 2131,
+   "title": "feat: add Upstage Solar embeddings recipe",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: add Upstage Solar embeddings recipe. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Adds Upstage Solar embeddings recipe with dedicated tests; real provider integration."
+  },
+  {
+   "id": "pr:2130",
+   "kind": "pr",
+   "number": 2130,
+   "title": "docs: route non-project correspondence out of issues",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: docs: route non-project correspondence out of issues. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Adds SUPPORT.md + issue templates + routing test; small but real contributor-facing change."
+  },
+  {
+   "id": "pr:2125",
+   "kind": "pr",
+   "number": 2125,
+   "title": "fix(jobs): refresh gateway config for queued AI work",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(jobs): refresh gateway config for queued AI work. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: refresh gateway config for queued AI jobs, with handler + propose-takes tests."
+  },
+  {
+   "id": "pr:2112",
+   "kind": "pr",
+   "number": 2112,
+   "title": "Fix gateway subagent replay reconciliation",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Fix gateway subagent replay reconciliation. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real gateway subagent replay reconciliation fix with new gateway-tool-loop test."
+  },
+  {
+   "id": "pr:2107",
+   "kind": "pr",
+   "number": 2107,
+   "title": "fix: allow user-provided llama-server embedding model",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: allow user-provided llama-server embedding model. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small real fix: allow user-provided llama-server embedding model, with test update."
+  },
+  {
+   "id": "pr:2101",
+   "kind": "pr",
+   "number": 2101,
+   "title": "fix(eval): route LongMemEval models through gateway",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(eval): route LongMemEval models through gateway. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix routing LongMemEval models through gateway, touches eval harness + tests."
+  },
+  {
+   "id": "pr:2096",
+   "kind": "pr",
+   "number": 2096,
+   "title": "feat(oauth): opt-in Google Workspace login gate for the browser authorization_code flow",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(oauth): opt-in Google Workspace login gate for the browser authorization_code flow. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial new OAuth Google Workspace login-gate feature with large dedicated test suite."
+  },
+  {
+   "id": "pr:2092",
+   "kind": "pr",
+   "number": 2092,
+   "title": "fix(serve): answer the MCP initialize handshake before the engine connects \u2014 lazy PGLite boot, retryable lock contention (#2091)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(serve): answer the MCP initialize handshake before the engine connects \u2014 lazy PGLite boot, retryable lock contention. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real MCP fix: lazy PGLite boot before initialize handshake, retryable lock contention; new engine-provider + test."
+  },
+  {
+   "id": "pr:2070",
+   "kind": "pr",
+   "number": 2070,
+   "title": "fix(rerank): classify missing auth before fallback",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(rerank): classify missing auth before fallback. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: classify missing rerank auth before fallback, with doctor + rerank tests."
+  },
+  {
+   "id": "pr:2065",
+   "kind": "pr",
+   "number": 2065,
+   "title": "fix: persist gateway tool-result turns",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: persist gateway tool-result turns. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix persisting gateway tool-result turns in subagent handler, with new e2e test."
+  },
+  {
+   "id": "pr:2063",
+   "kind": "pr",
+   "number": 2063,
+   "title": "test(ai): pin gateway tool schema conversion",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: test(ai): pin gateway tool schema conversion. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Test-pinning PR for gateway tool schema conversion; real assertions changed, not noise."
+  },
+  {
+   "id": "pr:2062",
+   "kind": "pr",
+   "number": 2062,
+   "title": "fix(gateway): reconcile dangling tool-call replay",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(gateway): reconcile dangling tool-call replay. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix reconciling dangling tool-call replay in gateway, with new tests."
+  },
+  {
+   "id": "pr:2054",
+   "kind": "pr",
+   "number": 2054,
+   "title": "fix(doctor): avoid misleading PGLite and gateway-loop warnings",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(doctor): avoid misleading PGLite and gateway-loop warnings. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix removing misleading PGLite/gateway-loop doctor warnings, with new test file."
+  },
+  {
+   "id": "pr:2048",
+   "kind": "pr",
+   "number": 2048,
+   "title": "fix(dream,minions): allow-list-derived paths + config-aware subagent auth \u2014 dream cycle on custom schema packs",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(dream,minions): allow-list-derived paths + config-aware subagent auth \u2014 dream cycle on custom schema packs. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: subagent auth honors gbrain config, CLI drain-timeout tuning; addresses documented production dream-cycle failures with tests."
+  },
+  {
+   "id": "pr:2041",
+   "kind": "pr",
+   "number": 2041,
+   "title": "fix(cli): update post-install advisory to suggest 'scaffold' instead \u2026",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(cli): update post-install advisory to suggest 'scaffold' instead \u2026. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: updates post-install advisory to the current 'scaffold' command instead of removed 'install', with tests."
+  },
+  {
+   "id": "pr:2040",
+   "kind": "pr",
+   "number": 2040,
+   "title": "feat(extract): --frontmatter-only \u2014 schema-pack-driven link extraction without legacy typed inference",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(extract): --frontmatter-only \u2014 schema-pack-driven link extraction without legacy typed inference. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: adds --frontmatter-only flag for schema-pack-driven extraction, well scoped, not duplicated on master."
+  },
+  {
+   "id": "pr:2030",
+   "kind": "pr",
+   "number": 2030,
+   "title": "feat(extract): schema-pack frontmatter_links drive extraction, with D4 fail-empty semantics",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(extract): schema-pack frontmatter_links drive extraction, with D4 fail-empty semantics. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: correct D4 fail-empty semantics for schema-pack frontmatter link extraction; feature not present on master."
+  },
+  {
+   "id": "pr:2025",
+   "kind": "pr",
+   "number": 2025,
+   "title": "fix(minions): reconnect worker after promote connection loss",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(minions): reconnect worker after promote connection loss. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: worker reconnects after promoteDelayed connection loss instead of looping forever; has regression test, closes #1491."
+  },
+  {
+   "id": "pr:2024",
+   "kind": "pr",
+   "number": 2024,
+   "title": "fix: route Windows PGLite init diagnostics",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: route Windows PGLite init diagnostics. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: routes Windows PGLite init diagnostics correctly instead of falling through to unrelated macOS hint; well tested."
+  },
+  {
+   "id": "pr:2023",
+   "kind": "pr",
+   "number": 2023,
+   "title": "fix(cli): route thin-client CLI-only commands before DB connect",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(cli): route thin-client CLI-only commands before DB connect. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: routes thin-client CLI-only commands before DB connect, preventing false 'missing database_url' errors."
+  },
+  {
+   "id": "pr:2010",
+   "kind": "pr",
+   "number": 2010,
+   "title": "Keep Rockaway brain MCP canonical while QMD runs natively",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Keep Rockaway brain MCP canonical while QMD runs natively. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Functional MCP feature but hardcodes real fund names/IPs/hostnames into shared repo \u2014 privacy concern, not simple noise; needs scrub not close."
+  },
+  {
+   "id": "pr:2000",
+   "kind": "pr",
+   "number": 2000,
+   "title": "fix: accept explicit LiteLLM embedding models",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: accept explicit LiteLLM embedding models. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: accepts explicit LiteLLM/llama-server embedding model IDs previously wrongly rejected; has regression tests."
+  },
+  {
+   "id": "pr:1990",
+   "kind": "pr",
+   "number": 1990,
+   "title": "Fix source-scoped FS extraction and add readonly pilot eval",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Fix source-scoped FS extraction and add readonly pilot eval. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: propagates --source-id through FS extraction so writes aren't mis-stamped to 'default'; adds coherence guard + tests."
+  },
+  {
+   "id": "pr:1953",
+   "kind": "pr",
+   "number": 1953,
+   "title": "fix(ai): litellm proxy unusable for chat \u2014 add chat touchpoint + fold proxy api keys",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(ai): litellm proxy unusable for chat \u2014 add chat touchpoint + fold proxy api keys. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: adds missing chat touchpoint + API key folding so litellm-proxy chat isn't silently unusable."
+  },
+  {
+   "id": "pr:1940",
+   "kind": "pr",
+   "number": 1940,
+   "title": "v0.42.27.0 feat(idea-lineage): first-class idea_lineage op + feature eval + skill hardening",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.42.27.0 feat(idea-lineage): first-class idea_lineage op + feature eval + skill hardening. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial feature: lifts idea_lineage to MCP with real source-isolation/IDOR fixes across backlinks/timeline/take-search; security-adjacent."
+  },
+  {
+   "id": "pr:1931",
+   "kind": "pr",
+   "number": 1931,
+   "title": "bug fix: multiple proposals for a page are silently dropped after extraction",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: bug fix: multiple proposals for a page are silently dropped after extraction. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: unique index silently dropped multiple page proposals; includes migration and code fix."
+  },
+  {
+   "id": "pr:1930",
+   "kind": "pr",
+   "number": 1930,
+   "title": "Add Jina local embedding provider",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Add Jina local embedding provider. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: adds Jina local embedding provider, well documented, tested, follows existing recipe pattern."
+  },
+  {
+   "id": "pr:1904",
+   "kind": "pr",
+   "number": 1904,
+   "title": "docs(skills): standardize timeline/back-link format on plain bullet",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: docs(skills): standardize timeline/back-link format on plain bullet. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Docs fix correcting a real mismatch: skills documented a timeline format the extractor silently fails to parse."
+  },
+  {
+   "id": "pr:1903",
+   "kind": "pr",
+   "number": 1903,
+   "title": "fix(doctor): drop dead llm_fallback_enabled recommendation from conversation_format_coverage",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(doctor): drop dead llm_fallback_enabled recommendation from conversation_format_coverage. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small real fix: removes dead/misleading doctor recommendation for a config key that's never read."
+  },
+  {
+   "id": "pr:1900",
+   "kind": "pr",
+   "number": 1900,
+   "title": "feat(reference): reference-only entity flag, exempt from coverage metrics",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(reference): reference-only entity flag, exempt from coverage metrics. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: opt-in reference-only entity flag exempting canon pages from coverage metrics; well designed with tests/docs."
+  },
+  {
+   "id": "pr:1891",
+   "kind": "pr",
+   "number": 1891,
+   "title": "fix(retry): reconnect on null instance pool in non-batch config reads (#1593 follow-up)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(retry): reconnect on null instance pool in non-batch config reads (#1593 follow-up). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: prevents production crash-loop from unhandled null-pool error in non-batch config reads; confirmed in production by another user."
+  },
+  {
+   "id": "pr:1884",
+   "kind": "pr",
+   "number": 1884,
+   "title": "fix(config): generic DATABASE_URL silently overrides a configured brain",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(config): generic DATABASE_URL silently overrides a configured brain. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: prevents generic DATABASE_URL from silently overriding configured brain, a wrong-database data-safety bug."
+  },
+  {
+   "id": "pr:1860",
+   "kind": "pr",
+   "number": 1860,
+   "title": "feat(auth): enforce bound_slug_prefixes on the READ side \u2014 per-prefix\u2026",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(auth): enforce bound_slug_prefixes on the READ side \u2014 per-prefix\u2026. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real security feature: enforces bound_slug_prefixes on read side, completing existing write-side auth binding."
+  },
+  {
+   "id": "pr:1826",
+   "kind": "pr",
+   "number": 1826,
+   "title": "feat(gateway): Amazon Bedrock provider \u2014 embedding, reranker, chat",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(gateway): Amazon Bedrock provider \u2014 embedding, reranker, chat. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: adds native Amazon Bedrock provider (embed/rerank/chat) with docs and lockfile updates."
+  },
+  {
+   "id": "pr:1814",
+   "kind": "pr",
+   "number": 1814,
+   "title": "fix(code-graph): cross-file edge resolution + arrow-const defs + bash calls",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(code-graph): cross-file edge resolution + arrow-const defs + bash calls. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: cross-file code-graph edge resolution plus arrow-const definition detection; well tested."
+  },
+  {
+   "id": "pr:1800",
+   "kind": "pr",
+   "number": 1800,
+   "title": "fix(agent): consume `agent run` flags that appear after the prompt (#1738)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(agent): consume `agent run` flags that appear after the prompt (#1738). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: flags placed after the prompt in 'agent run' were silently swallowed into the prompt text; regression tests added."
+  },
+  {
+   "id": "pr:1778",
+   "kind": "pr",
+   "number": 1778,
+   "title": "fix(db-lock): bind release to lock acquisition ownership",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(db-lock): bind release to lock acquisition ownership. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: binds DB lock release to acquisition timestamp, preventing a same-PID takeover race from deleting a live lock."
+  },
+  {
+   "id": "pr:1769",
+   "kind": "pr",
+   "number": 1769,
+   "title": "[codex] fix init schema-pack validation",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: [codex] fix init schema-pack validation. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: validates --schema-pack at init before persisting a broken config; adds structured JSON error and tests."
+  },
+  {
+   "id": "pr:1733",
+   "kind": "pr",
+   "number": 1733,
+   "title": "Add local iPhone backup importer",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Add local iPhone backup importer. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial real feature: local iPhone backup importer with path containment, symlink rejection, privacy fixture checks, and tests."
+  },
+  {
+   "id": "pr:1731",
+   "kind": "pr",
+   "number": 1731,
+   "title": "fix(import): make checkpoints staging-first (#1728)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(import): make checkpoints staging-first (#1728). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: import checkpoints now capture the canonical resolved target path instead of caller CWD, preventing a data-loss class bug."
+  },
+  {
+   "id": "pr:1719",
+   "kind": "pr",
+   "number": 1719,
+   "title": "fix(extract): thread source id through fs-walk path (closes #1503 defect 1)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(extract): thread source id through fs-walk path (closes #1503 defect 1). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real source-isolation bug: fs-walk extractors never threaded source_id, silently dropping links on non-default brains."
+  },
+  {
+   "id": "pr:1703",
+   "kind": "pr",
+   "number": 1703,
+   "title": "fix(links): exclude soft-deleted endpoints from getLinks/getBacklinks (closes #1702, sibling of #1021)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(links): exclude soft-deleted endpoints from getLinks/getBacklinks (closes #1702, sibling of #1021). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Confirmed still broken on master; getLinks/getBacklinks leak soft-deleted endpoints, sibling of already-accepted PR #1033 pattern."
+  },
+  {
+   "id": "pr:1691",
+   "kind": "pr",
+   "number": 1691,
+   "title": "fix: mark clean local imports as synced",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: mark clean local imports as synced. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Plausible fix: non-git local sources never advanced last_sync_at; small, scoped, low risk."
+  },
+  {
+   "id": "pr:1690",
+   "kind": "pr",
+   "number": 1690,
+   "title": "fix(extract): parse simple timeline bullets",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(extract): parse simple timeline bullets. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small correct regex addition for a real timeline-format coverage gap, tested, no overlap with existing formats."
+  },
+  {
+   "id": "pr:1686",
+   "kind": "pr",
+   "number": 1686,
+   "title": "fix(migrations): avoid concurrent index drop inside DO blocks",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(migrations): avoid concurrent index drop inside DO blocks. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Fixes real Postgres error: DROP INDEX CONCURRENTLY cannot run inside a DO block transaction."
+  },
+  {
+   "id": "pr:1680",
+   "kind": "pr",
+   "number": 1680,
+   "title": "fix: allow gateway loop config flag",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: allow gateway loop config flag. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Trivial correct fix: registers missing config key so gbrain config set stops rejecting it; verified absent on master."
+  },
+  {
+   "id": "pr:1654",
+   "kind": "pr",
+   "number": 1654,
+   "title": "fix(autopilot): put the gbrain CLI dir on PATH in the generated wrapper",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(autopilot): put the gbrain CLI dir on PATH in the generated wrapper. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Plausible autopilot PATH bug under launchd/systemd/cron; small, well-tested fix."
+  },
+  {
+   "id": "pr:1646",
+   "kind": "pr",
+   "number": 1646,
+   "title": "fix(search): keyword search ignores pages.search_vector, exact-title queries return No results",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(search): keyword search ignores pages.search_vector, exact-title queries return No results. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real search bug (exact-title queries return no results); core retrieval area, well-tested addition."
+  },
+  {
+   "id": "pr:1601",
+   "kind": "pr",
+   "number": 1601,
+   "title": "v0.41.29.0 feat(admin): Sources tab + federation management UI (stacked on #1592)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.41.29.0 feat(admin): Sources tab + federation management UI (stacked on #1592). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantive admin-dashboard feature (16 focused files), stacked cleanly on #1592, with test/verification evidence."
+  },
+  {
+   "id": "pr:1600",
+   "kind": "pr",
+   "number": 1600,
+   "title": "fix: let large page embeddings recover",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: let large page embeddings recover. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Coherent theme (content-sanity threshold + collateral test-infra fixes found during validation), extensive test evidence (11930 pass)."
+  },
+  {
+   "id": "pr:1596",
+   "kind": "pr",
+   "number": 1596,
+   "title": "fix(synthesize): promote subagent timeouts to config keys (#1594)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(synthesize): promote subagent timeouts to config keys (#1594). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Clean, scoped config-key promotion with full test coverage; no regression risk (defaults preserved)."
+  },
+  {
+   "id": "pr:1592",
+   "kind": "pr",
+   "number": 1592,
+   "title": "v0.41.28.0 feat(auth): grant-read / revoke-read / set-federated-read / list-clients (atomic SQL race-safe)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.41.28.0 feat(auth): grant-read / revoke-read / set-federated-read / list-clients (atomic SQL race-safe). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantive auth/federation CLI feature with documented race-condition security fix and 72 tests."
+  },
+  {
+   "id": "pr:1584",
+   "kind": "pr",
+   "number": 1584,
+   "title": "fix(sources): stop double-encoding source config on Postgres",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(sources): stop double-encoding source config on Postgres. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Fixes the exact JSONB double-encoding bug class documented as a cross-cutting invariant in this repo; confirmed still present on master."
+  },
+  {
+   "id": "pr:1565",
+   "kind": "pr",
+   "number": 1565,
+   "title": "feat: add opt-in plain-text entity extraction for auto-link",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: add opt-in plain-text entity extraction for auto-link. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small opt-in feature reusing existing entity-extraction helpers; default off, zero regression risk, tested."
+  },
+  {
+   "id": "pr:1553",
+   "kind": "pr",
+   "number": 1553,
+   "title": "fix(doctor): emit accurate --break-lock hint for non-sync stale locks",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(doctor): emit accurate --break-lock hint for non-sync stale locks. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small operator-UX fix avoiding a misleading --break-lock hint for unsupported lock kinds."
+  },
+  {
+   "id": "pr:1529",
+   "kind": "pr",
+   "number": 1529,
+   "title": "fix(autopilot): translate positional subcommands (closes #1525)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(autopilot): translate positional subcommands (closes #1525). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real UX bug: `gbrain autopilot status` silently started the daemon instead of reporting status; thorough tests."
+  },
+  {
+   "id": "pr:1497",
+   "kind": "pr",
+   "number": 1497,
+   "title": "feat: server-enforced memory groups (v93)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: server-enforced memory groups (v93). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial fail-closed access-control feature (memory groups); security-class change, coherent file set, tested."
+  },
+  {
+   "id": "pr:1476",
+   "kind": "pr",
+   "number": 1476,
+   "title": "fix(cli): wire gbrain bench publish dispatcher (closes #1474)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(cli): wire gbrain bench publish dispatcher (closes #1474). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Confirmed real dead-code bug: bench-publish.ts handler existed but was never wired into the CLI dispatcher."
+  },
+  {
+   "id": "pr:1424",
+   "kind": "pr",
+   "number": 1424,
+   "title": "fix(import): body-keyed embedding reuse + --force + no-hash sentinel",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(import): body-keyed embedding reuse + --force + no-hash sentinel. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real, tested core fix (body-keyed embedding reuse, --force flag, no-hash sentinel); includes some scratch debug scripts with hardcoded paths that review should strip, but core substance is legitimate."
+  },
+  {
+   "id": "pr:1423",
+   "kind": "pr",
+   "number": 1423,
+   "title": "fix(ai): route Ollama chat through native API",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(ai): route Ollama chat through native API. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Focused, well-tested fix routing Ollama chat through its native API for reliable thinking-control; matches known gateway architecture gaps."
+  },
+  {
+   "id": "pr:1419",
+   "kind": "pr",
+   "number": 1419,
+   "title": "fix(extract): opt-in skipMetaFiles so meta-file wikilinks get harvested",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(extract): opt-in skipMetaFiles so meta-file wikilinks get harvested. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small opt-in change (skipMetaFiles) preserving default behavior everywhere except explicit call site; low risk."
+  },
+  {
+   "id": "pr:1396",
+   "kind": "pr",
+   "number": 1396,
+   "title": "fix(cli): support file input for stdin-backed ops",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(cli): support file input for stdin-backed ops. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Fixes real Windows compatibility bug (/dev/stdin doesn't exist on Windows); adds --file convenience; tested."
+  },
+  {
+   "id": "pr:1372",
+   "kind": "pr",
+   "number": 1372,
+   "title": "Clamp remote source overrides",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Clamp remote source overrides. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Security/source-isolation fix preventing header-based write-scope widening on ingest; P0/P1 class, engine parity, well tested."
+  },
+  {
+   "id": "pr:1316",
+   "kind": "pr",
+   "number": 1316,
+   "title": "fix: harden multi-agent MCP access",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: harden multi-agent MCP access. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Large but coherent multi-agent MCP/RLS hardening pass with PRD doc and extensive tests; security-class change."
+  },
+  {
+   "id": "pr:1310",
+   "kind": "pr",
+   "number": 1310,
+   "title": "fix: thread voyage_api_key from config.json to gateway env",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: thread voyage_api_key from config.json to gateway env. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Trivial low-risk parallel-wiring fix mirroring an established pattern (zeroentropy_api_key); confirmed absent on master."
+  },
+  {
+   "id": "pr:1282",
+   "kind": "pr",
+   "number": 1282,
+   "title": "feat(subagent): honor subagent_def at runtime \u2014 load def.body + def.allowed_tools",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(subagent): honor subagent_def at runtime \u2014 load def.body + def.allowed_tools. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Backward-compatible, fail-open feature closing a real doctrine-vs-implementation gap in subagent def resolution."
+  },
+  {
+   "id": "pr:1280",
+   "kind": "pr",
+   "number": 1280,
+   "title": "feat(jobs): --poll-interval flag for `jobs work` subcommand",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(jobs): --poll-interval flag for `jobs work` subcommand. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small, purely additive, bounded CLI flag with thorough test coverage; zero regression risk."
+  },
+  {
+   "id": "pr:1263",
+   "kind": "pr",
+   "number": 1263,
+   "title": "v0.37.6.0 fix: dynamic embedding column write target (closes #1262)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.37.6.0 fix: dynamic embedding column write target (closes #1262). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: embedding write path ignored dynamic column, now symmetric with reads. Has e2e tests."
+  },
+  {
+   "id": "pr:1231",
+   "kind": "pr",
+   "number": 1231,
+   "title": "Improve facts extraction observability",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Improve facts extraction observability. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Adds real observability logging for silent facts-extraction failures, with new integration test assertions."
+  },
+  {
+   "id": "pr:1218",
+   "kind": "pr",
+   "number": 1218,
+   "title": "fix(cycle): cache empty propose_takes scans",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(cycle): cache empty propose_takes scans. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real cost fix: caches zero-proposal scans to stop re-spending LLM tokens; schema migration + tests included."
+  },
+  {
+   "id": "pr:1181",
+   "kind": "pr",
+   "number": 1181,
+   "title": "fix(integrations): support alternative secret groups",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(integrations): support alternative secret groups. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fixes: alt secret groups for recipes, PGLite-aware doctor checks, CLI hang workaround; has new tests."
+  },
+  {
+   "id": "pr:1180",
+   "kind": "pr",
+   "number": 1180,
+   "title": "fix(embed): per-batch token cap for OpenAI + opt-in for LiteLLM",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(embed): per-batch token cap for OpenAI + opt-in for LiteLLM. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: OpenAI/LiteLLM embed batches lacked token cap causing dropped pages; extensive new tests."
+  },
+  {
+   "id": "pr:1177",
+   "kind": "pr",
+   "number": 1177,
+   "title": "feat: --lock-duration and --low-pri-rate-cap flags on gbrain jobs work",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: --lock-duration and --low-pri-rate-cap flags on gbrain jobs work. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: configurable lock duration + rate cap for minion jobs to avoid API rate-limit collisions; tested."
+  },
+  {
+   "id": "pr:1135",
+   "kind": "pr",
+   "number": 1135,
+   "title": "Allow explicit expansion_model to fall back to chat-capable providers",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Allow explicit expansion_model to fall back to chat-capable providers. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: lets explicit expansion_model reuse chat-capable providers; well tested, CHANGELOG diff noise is base drift."
+  },
+  {
+   "id": "pr:1112",
+   "kind": "pr",
+   "number": 1112,
+   "title": "Respect public URL for HTTP server links",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Respect public URL for HTTP server links. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small plausible fix: HTTP server now respects public URL/env vars for reverse-proxy deployments instead of hardcoding localhost."
+  },
+  {
+   "id": "pr:1109",
+   "kind": "pr",
+   "number": 1109,
+   "title": "v0.35.3.2 docs(designs): MERGE_PHANTOMS retrospective + future-implementation guide",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: v0.35.3.2 docs(designs): MERGE_PHANTOMS retrospective + future-implementation guide. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantive 482-line design retrospective doc for a real stripped feature; not cosmetic churn, not a duplicate."
+  },
+  {
+   "id": "pr:1107",
+   "kind": "pr",
+   "number": 1107,
+   "title": "orphan-metric: align find_orphans surfaces with get_health and tighten exclusions",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: orphan-metric: align find_orphans surfaces with get_health and tighten exclusions. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real alignment fix: orphans command now matches get_health's islanded-page predicate; large tested change across both engines."
+  },
+  {
+   "id": "pr:1060",
+   "kind": "pr",
+   "number": 1060,
+   "title": "fix(init): seed resolveAIOptions from loadConfig() (closes #203)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(init): seed resolveAIOptions from loadConfig() (closes #203). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real DX fix: seeds AI options from persisted config.json, closes upstream #203; extensive new tests."
+  },
+  {
+   "id": "pr:1051",
+   "kind": "pr",
+   "number": 1051,
+   "title": "Make embedding vector dimension configurable + add LM Studio recipe",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Make embedding vector dimension configurable + add LM Studio recipe. Not worth first-pass review time.",
+   "verdict": "safe_close",
+   "verifyReason": "Hardcodes default schema.sql embedding column to vector(768), breaking default OpenAI 1536-dim installs; opposite of 'configurable'. Unrelated personal .gitignore paths leaked in."
+  },
+  {
+   "id": "pr:1030",
+   "kind": "pr",
+   "number": 1030,
+   "title": "Fix upgrade fails to find package.json ",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Fix upgrade fails to find package.json . Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: bun upgrade ran from wrong cwd causing silent no-op; well tested."
+  },
+  {
+   "id": "pr:1016",
+   "kind": "pr",
+   "number": 1016,
+   "title": "fix(ai/recipes): declare max_batch_tokens on google embedding recipe",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(ai/recipes): declare max_batch_tokens on google embedding recipe. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real fix: declares max_batch_tokens for Google embedding recipe closing a warning/safety gap; tests updated."
+  },
+  {
+   "id": "pr:1013",
+   "kind": "pr",
+   "number": 1013,
+   "title": "Route dream synthesis through gateway and add embedding dim migration",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Route dream synthesis through gateway and add embedding dim migration. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial draft feature: embedding-dim migration command + dream synthesis routed through AI gateway; real code and tests despite draft status."
+  },
+  {
+   "id": "pr:1011",
+   "kind": "pr",
+   "number": 1011,
+   "title": "feat(sync): repo-local code index filters",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(sync): repo-local code index filters. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: repo-local include/exclude glob filters for code sync via gbrain.yml; well tested."
+  },
+  {
+   "id": "pr:1006",
+   "kind": "pr",
+   "number": 1006,
+   "title": "fix(connection-manager): skip direct URL derivation for Session Pooler (port 6543) \u2014 fixes IPv6-only ECONNREFUSED",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(connection-manager): skip direct URL derivation for Session Pooler (port 6543) \u2014 fixes IPv6-only ECONNREFUSED. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: avoids deriving IPv6-only direct URL for Supabase Session Pooler causing ECONNREFUSED; tested."
+  },
+  {
+   "id": "pr:984",
+   "kind": "pr",
+   "number": 984,
+   "title": "fix(connection-manager): cancel in-flight init on disconnect to stop pool resurrection",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(connection-manager): cancel in-flight init on disconnect to stop pool resurrection. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: closes a disconnect/init race that could resurrect a closed pool and leak a socket; thorough regression test."
+  },
+  {
+   "id": "pr:977",
+   "kind": "pr",
+   "number": 977,
+   "title": "feat: support Codex OAuth for dream synthesis",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: support Codex OAuth for dream synthesis. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Large but real feature: Codex OAuth support for dream synthesis subagents, with substantial new test coverage."
+  },
+  {
+   "id": "pr:975",
+   "kind": "pr",
+   "number": 975,
+   "title": "feat: legacy SSE MCP transport (GET /sse + POST /messages)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: legacy SSE MCP transport (GET /sse + POST /messages). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature (draft): adds legacy SSE MCP transport for clients pinned to older SDK; shares auth/scope logic, has e2e tests."
+  },
+  {
+   "id": "pr:942",
+   "kind": "pr",
+   "number": 942,
+   "title": "fix: configure AI gateway for hybrid search in LongMemEval benchmark",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: configure AI gateway for hybrid search in LongMemEval benchmark. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small real fix: LongMemEval harness now configures AI gateway from user config so vector search actually runs instead of silently falling back to keyword-only."
+  },
+  {
+   "id": "pr:900",
+   "kind": "pr",
+   "number": 900,
+   "title": "docs: fix incorrect sources add --strategy code command",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: docs: fix incorrect sources add --strategy code command. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "1-line README fix corrects an invalid CLI invocation to the actual sources add + sync --strategy code usage; verified against real CLI code."
+  },
+  {
+   "id": "pr:894",
+   "kind": "pr",
+   "number": 894,
+   "title": "feat(auth): add --redirect-uri + --token-endpoint-auth-method to register-client",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(auth): add --redirect-uri + --token-endpoint-auth-method to register-client. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: adds --redirect-uri/--token-endpoint-auth-method to register-client, needed for Claude.ai/ChatGPT OAuth clients; tested."
+  },
+  {
+   "id": "pr:856",
+   "kind": "pr",
+   "number": 856,
+   "title": "Support put --file and reject unknown op flags",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Support put --file and reject unknown op flags. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: put --file support + unknown-flag rejection in CLI arg parsing; well tested."
+  },
+  {
+   "id": "pr:855",
+   "kind": "pr",
+   "number": 855,
+   "title": "Normalize mixed-case slugs during imports",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Normalize mixed-case slugs during imports. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real consistency fix: normalizes mixed-case slugs in importFromContent/upsertChunks to match putPage; tested in both engines."
+  },
+  {
+   "id": "pr:854",
+   "kind": "pr",
+   "number": 854,
+   "title": "Keep dream JSON dry runs clean",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Keep dream JSON dry runs clean. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix: suppresses stdout noise so `dream --dry-run --json` emits clean JSON; tested."
+  },
+  {
+   "id": "pr:853",
+   "kind": "pr",
+   "number": 853,
+   "title": "Fall back to npm for check-update",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Fall back to npm for check-update. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real resiliency fix: falls back to npm registry when GitHub releases API is unavailable for check-update; tested."
+  },
+  {
+   "id": "pr:852",
+   "kind": "pr",
+   "number": 852,
+   "title": "Honor positional check-backlinks directory",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Honor positional check-backlinks directory. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: positional dir arg for check-backlinks, with new test coverage. Not on master."
+  },
+  {
+   "id": "pr:817",
+   "kind": "pr",
+   "number": 817,
+   "title": "feat(serve-http): GBRAIN_TRUST_PROXY env var + Supabase deploy docs",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(serve-http): GBRAIN_TRUST_PROXY env var + Supabase deploy docs. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Adds GBRAIN_TRUST_PROXY env var + Supabase deploy docs; small, real, plausible ops fix. Not on master."
+  },
+  {
+   "id": "pr:789",
+   "kind": "pr",
+   "number": 789,
+   "title": "feat: per-OIDC-user MCP access tiers + dispatch boundary",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: per-OIDC-user MCP access tiers + dispatch boundary. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial OIDC access-tier security feature with 2000+ lines of dedicated tests (access-tier, oidc, oauth, e2e enforce). Security-relevant, well engineered."
+  },
+  {
+   "id": "pr:782",
+   "kind": "pr",
+   "number": 782,
+   "title": "fix: Unicode slug support across all 4 validators (closes #738, generalizes #115)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: Unicode slug support across all 4 validators (closes #738, generalizes #115). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real data-loss bug fix: CJK/Unicode slugs previously collapsed and silently overwrote each other; fixed across 4 validators with regression tests."
+  },
+  {
+   "id": "pr:774",
+   "kind": "pr",
+   "number": 774,
+   "title": "feat(sync): --src-subpath + --exclude for monorepo subdir-source support",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(sync): --src-subpath + --exclude for monorepo subdir-source support. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real sync feature (subdir source + exclude) with 281-line dedicated test file; not duplicated on master."
+  },
+  {
+   "id": "pr:717",
+   "kind": "pr",
+   "number": 717,
+   "title": "feat(search): graph-hop wikilink rerank + query-token disambiguation in hybridSearch",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(search): graph-hop wikilink rerank + query-token disambiguation in hybridSearch. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real search rerank feature using source-isolation-aware buildVisibilityClause; well-commented, plausible improvement."
+  },
+  {
+   "id": "pr:594",
+   "kind": "pr",
+   "number": 594,
+   "title": "Add GraphBrain REST engine: Neo4j-native backend (beats Postgres on BrainBench)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Add GraphBrain REST engine: Neo4j-native backend (beats Postgres on BrainBench). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial new engine implementation (620 lines) with unit + live test files; real code, not noise."
+  },
+  {
+   "id": "pr:582",
+   "kind": "pr",
+   "number": 582,
+   "title": "feat(cli): add 'gbrain reindex-search-vector' command (3/3)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(cli): add 'gbrain reindex-search-vector' command (3/3). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature (configurable FTS language, part 3/3) with input validation and dedicated tests across both engines."
+  },
+  {
+   "id": "pr:581",
+   "kind": "pr",
+   "number": 581,
+   "title": "feat(schema): v116 migration recreates FTS triggers with configurable language (2/3)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat(schema): v116 migration recreates FTS triggers with configurable language (2/3). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Same FTS-language feature (part 2/3) with 200+ lines of tests; real, parity-respecting change."
+  },
+  {
+   "id": "pr:573",
+   "kind": "pr",
+   "number": 573,
+   "title": "feat: page versioning, soft deletes, and read audit (provenance & derivative state)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: page versioning, soft deletes, and read audit (provenance & derivative state). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Large, well-structured feature (page versioning/soft-delete/read-audit) with careful backfill migration, both-engine parity, and dedicated tests."
+  },
+  {
+   "id": "pr:570",
+   "kind": "pr",
+   "number": 570,
+   "title": "[codex] support OpenAI API key files",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: [codex] support OpenAI API key files. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: OpenAI API key file support with path expansion/parsing and two dedicated test files."
+  },
+  {
+   "id": "pr:557",
+   "kind": "pr",
+   "number": 557,
+   "title": "fix(embed): clamp chunks to 8100 tokens before OpenAI call",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(embed): clamp chunks to 8100 tokens before OpenAI call. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real bug fix for OpenAI's 8192-token embedding limit causing HTTP 400s; careful UTF-8-safe token truncation, not on master."
+  },
+  {
+   "id": "pr:520",
+   "kind": "pr",
+   "number": 520,
+   "title": "feat: extract doc comments at chunk time (Cathedral II A4)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: extract doc comments at chunk time (Cathedral II A4). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real chunker feature (doc-comment extraction) that correctly bumps CHUNKER_VERSION per project invariant; well tested."
+  },
+  {
+   "id": "pr:509",
+   "kind": "pr",
+   "number": 509,
+   "title": "Add compounding-engine recipe \u2014 7th-phase LLM semantic improvement to dream cycle",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: Add compounding-engine recipe \u2014 7th-phase LLM semantic improvement to dream cycle. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Substantial recipe addition (scripts+docs); not core code so no unit tests expected. Note: hardcodes a personal Telegram chat_id, needs genericizing before merge but isn't noise."
+  },
+  {
+   "id": "pr:495",
+   "kind": "pr",
+   "number": 495,
+   "title": "fix(backlinks): rewrite-not-append idempotent fix path",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(backlinks): rewrite-not-append idempotent fix path. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real idempotency bug fix (rewrite-not-append for backlinks) with substantial refactor and new tests."
+  },
+  {
+   "id": "pr:493",
+   "kind": "pr",
+   "number": 493,
+   "title": "perf(auto-link): skip per-candidate addLink loop when state matches desired set",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: perf(auto-link): skip per-candidate addLink loop when state matches desired set. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real perf optimization for auto-link with rigorous tests proving both the skip-path and the drift-detection path still work."
+  },
+  {
+   "id": "pr:470",
+   "kind": "pr",
+   "number": 470,
+   "title": "fix(search): respect source federation visibility",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(search): respect source federation visibility. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Fixes source federation visibility, a P0 source-isolation class bug per repo invariants; new dedicated test file, not on master."
+  },
+  {
+   "id": "pr:438",
+   "kind": "pr",
+   "number": 438,
+   "title": "fix: MCP put_page semantic parity + DB\u2192markdown reconciliation",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: MCP put_page semantic parity + DB\u2192markdown reconciliation. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real security fix: restricts remote MCP auto-link to frontmatter-only to close a prompt-injection outbound-link vector; tested."
+  },
+  {
+   "id": "pr:385",
+   "kind": "pr",
+   "number": 385,
+   "title": "feat: auto-register gbrain MCP server in OpenClaw config during setup",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: feat: auto-register gbrain MCP server in OpenClaw config during setup. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real feature: atomic OpenClaw MCP config registration, well-tested (132 lines), not duplicated."
+  },
+  {
+   "id": "pr:353",
+   "kind": "pr",
+   "number": 353,
+   "title": "fix: add 'sources' (plural) to wikilink DIR_PATTERN whitelist",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: add 'sources' (plural) to wikilink DIR_PATTERN whitelist. Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Core commit fixes a real bug (sources/ wikilinks silently rejected, ~67% of an example brain affected); still present on master. PR bundles some unrelated local-patch commits alongside it."
+  },
+  {
+   "id": "pr:289",
+   "kind": "pr",
+   "number": 289,
+   "title": "fix(autopilot): configurable max errors + exponential backoff (#168)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(autopilot): configurable max errors + exponential backoff (#168). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real daemon resilience fix (exponential backoff instead of hard-exit after 5 failures) with dedicated unit tests."
+  },
+  {
+   "id": "pr:268",
+   "kind": "pr",
+   "number": 268,
+   "title": "fix: run migrations before schema SQL in initSchema()",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix: run migrations before schema SQL in initSchema(). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Real ordering bug fix (migrations must run before schema SQL on upgrade); same bug still present on master in both engines."
+  },
+  {
+   "id": "pr:263",
+   "kind": "pr",
+   "number": 263,
+   "title": "fix(extract): skip _-prefixed directories in FS walker (#202)",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(extract): skip _-prefixed directories in FS walker (#202). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Small real consistency fix: extract now skips _-prefixed dirs matching sync's exclusion; new regression test included."
+  },
+  {
+   "id": "pr:232",
+   "kind": "pr",
+   "number": 232,
+   "title": "fix(autopilot): reconnect crash, silent 0-chunk loop, and dirty-shutdown Aborted()",
+   "bucket": "low_value",
+   "closeReason": "Looks noisy or low value: fix(autopilot): reconnect crash, silent 0-chunk loop, and dirty-shutdown Aborted(). Not worth first-pass review time.",
+   "verdict": "rescue",
+   "verifyReason": "Multiple real bug fixes: WAL-flush-on-shutdown crash loop, silent 0-chunk embed loop, unsafe reconnect call; tests included."
+  },
+  {
+   "id": "pr:2882",
+   "kind": "pr",
+   "number": 2882,
+   "title": "fix(recipes/minimax): add resolveOpenAICompatConfig + chat touchpoint",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Fixes broken minimax recipe (#1977), follows existing recipes/ extension pattern; not a new niche add."
+  },
+  {
+   "id": "pr:2857",
+   "kind": "pr",
+   "number": 2857,
+   "title": "feat(gateway): config-driven provider_chat_options passthrough (fixes #2577)",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Touches core gateway.ts/config.ts/build-gateway-config.ts; general provider_chat_options mechanism, not vendor-specific."
+  },
+  {
+   "id": "pr:2842",
+   "kind": "pr",
+   "number": 2842,
+   "title": "feat(ai): add first-class Amazon Bedrock recipe (via LiteLLM proxy)",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "AWS Bedrock is mainstream; follows existing litellm-proxy recipe extension pattern already shipped."
+  },
+  {
+   "id": "pr:2832",
+   "kind": "pr",
+   "number": 2832,
+   "title": "feat(ai): add MiniMax M3 chat support",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Recipe registry addition following existing pattern; MiniMax recipe already exists in core."
+  },
+  {
+   "id": "pr:2768",
+   "kind": "pr",
+   "number": 2768,
+   "title": "feat(skills): Add Browser Use and n8n agent skills",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Browser Use/n8n are mainstream tools; skills/ is an existing extension point, though draft/failing tests warrant cleanup not close."
+  },
+  {
+   "id": "pr:2692",
+   "kind": "pr",
+   "number": 2692,
+   "title": "feat(embedding): Qwen3-Embedding Matryoshka dims on local openai-compat providers (ollama)",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Touches core dims.ts, explicitly mirrors existing dashscope/zhipu pattern; ollama is mainstream local runtime."
+  },
+  {
+   "id": "pr:2644",
+   "kind": "pr",
+   "number": 2644,
+   "title": "feat(ai): dashscope-rerank recipe \u2014 DashScope serves PLURAL /reranks under compatible-api",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Follows existing llama-server-reranker recipe precedent exactly; DashScope is a major cloud LLM platform."
+  },
+  {
+   "id": "pr:2643",
+   "kind": "pr",
+   "number": 2643,
+   "title": "fix(ai): enforce provider item-count batch caps (DashScope hard-limits 10 items/request)",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Core gateway.ts/types.ts fix adding general batch-size-error recovery mechanism, not vendor-locked."
+  },
+  {
+   "id": "pr:2600",
+   "kind": "pr",
+   "number": 2600,
+   "title": "fix(ai): add chat touchpoint to litellm proxy recipe",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Adds chat touchpoint to litellm-proxy, a broad multi-provider proxy, not a niche vendor."
+  },
+  {
+   "id": "pr:2455",
+   "kind": "pr",
+   "number": 2455,
+   "title": "feat(ai): add reranker touchpoint to LiteLLM proxy recipe",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Reranker touchpoint on litellm-proxy; same broad-use proxy, recipe-only pattern already established."
+  },
+  {
+   "id": "issue:2447",
+   "kind": "issue",
+   "number": 2447,
+   "title": "Support DashScope text-embedding-v4 and file-plane DashScope config",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "already_closed",
+   "verifyReason": "Issue state is CLOSED on GitHub."
+  },
+  {
+   "id": "pr:2405",
+   "kind": "pr",
+   "number": 2405,
+   "title": "feat(embedding): add max_batch_items to cap batch by item count",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Touches core gateway.ts/types.ts/build-gateway-config.ts; real batch-cap bug fix despite merge conflicts."
+  },
+  {
+   "id": "pr:2403",
+   "kind": "pr",
+   "number": 2403,
+   "title": "fix: DashScope embed batch-size cap + takes model from config",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Core gateway.ts fix plus cycle.ts takes-model-from-config bug affecting all non-Anthropic-key users."
+  },
+  {
+   "id": "issue:2383",
+   "kind": "issue",
+   "number": 2383,
+   "title": "Should the `google` embedding recipe declare a default `max_batch_tokens`?",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Concerns Google's own embedding recipe design (core provider), not a niche/non-mainstream tool."
+  },
+  {
+   "id": "pr:2373",
+   "kind": "pr",
+   "number": 2373,
+   "title": "feat(ai/gateway): structured-output opt-in + capability-aware expansion fallback (#2372)",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Core gateway.ts expand() fix for silent failures affecting all OpenAI-compatible providers broadly."
+  },
+  {
+   "id": "issue:2276",
+   "kind": "issue",
+   "number": 2276,
+   "title": "feat(ai): claude-cli recipe for native gateway-based subagent dispatch \u2014 Claude Max subscription without ANTHROPIC_API_KEY",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "already_closed",
+   "verifyReason": "Issue state is CLOSED on GitHub."
+  },
+  {
+   "id": "pr:2220",
+   "kind": "pr",
+   "number": 2220,
+   "title": "feat(ai): MiniMax full-stack \u2014 embeddings compat shim, asymmetric type, chat touchpoint",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Core gateway.ts/dims.ts fix for a real bug making MiniMax embeddings completely non-functional."
+  },
+  {
+   "id": "pr:2164",
+   "kind": "pr",
+   "number": 2164,
+   "title": "feat(recipes): add reranker touchpoint to OpenRouter",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "OpenRouter is mainstream multi-provider gateway; recipe-only reranker touchpoint follows shipped pattern."
+  },
+  {
+   "id": "issue:2103",
+   "kind": "issue",
+   "number": 2103,
+   "title": "litellm embedding recipe: the documented init invocation is always rejected (default_dims: 0 vs custom-dimension validation)",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Reports core validation defect (embedding-dim-check.ts) contradicting shipped docs, affects generic provider path."
+  },
+  {
+   "id": "pr:2006",
+   "kind": "pr",
+   "number": 2006,
+   "title": "feat(ai/litellm): add chat touchpoint for user_provided_models",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Mirrors existing embedding touchpoint pattern in shared recipe file; litellm proxies many mainstream backends, not a single niche vendor."
+  },
+  {
+   "id": "issue:2005",
+   "kind": "issue",
+   "number": 2005,
+   "title": "Proposal: standardized way to store contact info on person pages",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Not a niche tool/API at all \u2014 core schema-pack/person-page convention proposal; closeReason is a mismatch."
+  },
+  {
+   "id": "pr:1988",
+   "kind": "pr",
+   "number": 1988,
+   "title": "feat(ai): support OpenRouter prompt caching",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Also fixes an existing core test-isolation lint violation in db-lock-heartbeat-takeover.test.ts; OpenRouter is mainstream aggregator."
+  },
+  {
+   "id": "issue:1977",
+   "kind": "issue",
+   "number": 1977,
+   "title": "MiniMax recipe: embedding uses wrong request format (texts vs input) + missing chat touchpoint",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Bug fix in an already-shipped core recipe (request format + missing touchpoint), not a new bespoke integration."
+  },
+  {
+   "id": "issue:1716",
+   "kind": "issue",
+   "number": 1716,
+   "title": "Embedding: `litellm` recipe is unusable \u2014 diagnoseEmbedding rejects it unconditionally (v0.41.x)",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Real defect in core src/core/ai/gateway.ts diagnoseEmbedding logic, discovered via litellm but affects the shared gateway path."
+  },
+  {
+   "id": "pr:1714",
+   "kind": "pr",
+   "number": 1714,
+   "title": "feat: support OpenRouter API key in config",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Follows existing config-key pattern already shipped for openai/anthropic/zeroentropy keys; mainstream provider."
+  },
+  {
+   "id": "issue:1664",
+   "kind": "issue",
+   "number": 1664,
+   "title": "`provider_base_urls.llama-server-reranker` is ignored \u2014 reranker uses the recipe default, not the configured URL (docs instruct `config set`)",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Core gateway.rerank()/provider_base_urls resolution bug, same root-cause class as #919 (core config path)."
+  },
+  {
+   "id": "pr:1618",
+   "kind": "pr",
+   "number": 1618,
+   "title": "feat(zhipu): add chat/expansion support + fix expand() for openai-compat providers",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "PR body states fix affects every openai-compatible provider (Zhipu, DeepSeek, Groq, Together, Ollama) \u2014 core expand() path, not niche."
+  },
+  {
+   "id": "issue:1402",
+   "kind": "issue",
+   "number": 1402,
+   "title": "llama-server recipe is missing `dims_options` \u2014 both `reinit-pglite` and `init` refuse any custom-dim use (v0.41.0.0)",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Core embedding-dim-check.ts gap; suggested fix mirrors existing Voyage dims_options precedent, an established pattern."
+  },
+  {
+   "id": "issue:1255",
+   "kind": "issue",
+   "number": 1255,
+   "title": "Update DeepSeek recipe: deepseek-chat and deepseek-reasoner will be deprecated on 2026/07/24",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "DeepSeek is a mainstream already-supported provider; models deprecate 2026/07/24 (imminent) \u2014 time-sensitive core recipe update."
+  },
+  {
+   "id": "issue:1219",
+   "kind": "issue",
+   "number": 1219,
+   "title": "Add Kimi / Moonshot AI provider recipe",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "already_closed",
+   "verifyReason": "Issue is already CLOSED (closedAt 2026-07-16T20:28:14Z) per live gh fetch."
+  },
+  {
+   "id": "issue:1199",
+   "kind": "issue",
+   "number": 1199,
+   "title": "dashscope: text-embedding-v3 rejects batches > 10 (`InvalidParameter`) \u2014 recipe has no `max_batch_count` field",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Core data-loss bug: embedBatch silently skips files >10 chunks; suggested fix touches shared gateway sub-batching logic."
+  },
+  {
+   "id": "issue:1157",
+   "kind": "issue",
+   "number": 1157,
+   "title": "Feature: Allow configurable Anthropic-compatible provider list for subagent loop",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Requests generic config knob for core src/core/model-config.ts isAnthropicProvider(), a shared subagent-loop function."
+  },
+  {
+   "id": "pr:1071",
+   "kind": "pr",
+   "number": 1071,
+   "title": "Support DashScope embedding configuration",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Touches core gateway.ts + adds general per-provider embedding item-cap mechanism reused across other recipes."
+  },
+  {
+   "id": "issue:919",
+   "kind": "issue",
+   "number": 919,
+   "title": "native-openai recipe ignores provider_base_urls for expansion/embedding/chat",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Core gateway.ts bug affecting the `openai:` prefix itself (most mainstream provider) plus Azure/proxy setups, not niche."
+  },
+  {
+   "id": "issue:334",
+   "kind": "issue",
+   "number": 334,
+   "title": "feat: Support claude-cli as alternative to Anthropic API for Minions subagent handler",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Touches core minions subagent handler/jobs.ts; enables Claude Max users without API key, uncertain scope defaults to rescue."
+  },
+  {
+   "id": "pr:192",
+   "kind": "pr",
+   "number": 192,
+   "title": "feat: Linear and Notion live-sync recipes + fix embedding config key lookup",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Matches explicit repo extension point (recipes/ dir for integrations) plus a core embedding.ts config-fallback bug fix."
+  },
+  {
+   "id": "issue:124",
+   "kind": "issue",
+   "number": 124,
+   "title": "Recipe proposal: email-archive-to-brain (historical email import from Google Takeout)",
+   "bucket": "proprietary",
+   "closeReason": "This adds a niche / non-mainstream tool or API. Fine for a personal fork, not core gbrain.",
+   "verdict": "rescue",
+   "verifyReason": "Explicitly proposed as a recipes/ + scripts/ contribution, the repo's established extension pattern for integrations."
+  }
+ ]
+}

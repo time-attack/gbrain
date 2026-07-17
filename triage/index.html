@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GBrain backlog triage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail">
+      <div class="brand">GBrain</div>
+      <div class="rail-title">Backlog triage</div>
+      <p class="rail-note">Read-only recommendations. Nothing is sent to GitHub from this page.</p>
+      <div class="stat-grid" id="statGrid"></div>
+      <div class="rail-actions">
+        <button type="button" id="btnSelectVisible" class="btn">Select visible</button>
+        <button type="button" id="btnClearSelection" class="btn btn-ghost">Clear selection</button>
+        <button type="button" id="btnExport" class="btn btn-accent">Export selected JSON</button>
+      </div>
+      <p class="rail-meta" id="metaLine">Loading…</p>
+    </aside>
+
+    <main class="main">
+      <header class="toolbar">
+        <input id="search" type="search" placeholder="Search title, #, author, explanation…" />
+        <select id="kind">
+          <option value="all">All kinds</option>
+          <option value="issue">Issues</option>
+          <option value="pr">PRs</option>
+        </select>
+        <select id="disposition">
+          <option value="all">All dispositions</option>
+        </select>
+        <select id="priority">
+          <option value="all">All priorities</option>
+          <option value="P0">P0</option>
+          <option value="P1">P1</option>
+          <option value="P2">P2</option>
+          <option value="P3">P3</option>
+          <option value="none">none</option>
+        </select>
+        <label class="chk"><input type="checkbox" id="fActionable" checked /> Actionable only</label>
+        <label class="chk"><input type="checkbox" id="fWave1" /> Wave 1 (P0 + merge cand.)</label>
+        <label class="chk"><input type="checkbox" id="fDup" /> Duplicates</label>
+        <label class="chk"><input type="checkbox" id="fLow" /> Low-value / junk</label>
+        <label class="chk"><input type="checkbox" id="fProp" /> Proprietary</label>
+        <label class="chk"><input type="checkbox" id="fGreen" /> Green+CLEAN PRs</label>
+        <label class="chk"><input type="checkbox" id="fSelected" /> Selected only</label>
+        <select id="sort">
+          <option value="priority">Sort: priority</option>
+          <option value="number">Sort: number</option>
+          <option value="updated">Sort: updated</option>
+          <option value="confidence">Sort: confidence</option>
+        </select>
+      </header>
+
+      <div class="legend">
+        <span><b>Disposition</b> = recommended bucket</span>
+        <span><b>Explanation</b> = plain English why</span>
+        <span><b>Tests</b> = what the author claimed (not re-run here)</span>
+        <span><b>Solution</b> = proposed next step</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-check"></th>
+              <th class="col-id">ID</th>
+              <th class="col-title">Title</th>
+              <th class="col-disp">Disposition</th>
+              <th class="col-pri">Pri</th>
+              <th class="col-explain">Why (simple)</th>
+              <th class="col-tests">What was tested</th>
+              <th class="col-sol">Proposed solution</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <footer class="footer" id="footer"></footer>
+    </main>
+  </div>
+
+  <dialog id="detail">
+    <form method="dialog" class="detail-form">
+      <header>
+        <h2 id="detailTitle"></h2>
+        <button value="close" class="btn btn-ghost">Close</button>
+      </header>
+      <div id="detailBody" class="detail-body"></div>
+    </form>
+  </dialog>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

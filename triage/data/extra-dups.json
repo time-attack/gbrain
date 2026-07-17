@@ -1,0 +1,4117 @@
+{
+  "exact_body_groups": [
+    {
+      "hash": "ac43794b2ca0",
+      "members": [
+        {
+          "kind": "issue",
+          "number": 2388,
+          "title": "Feature: Life Chronicle \u2014 temporal timeline + thought diary + dynamic per-entity ontology"
+        },
+        {
+          "kind": "issue",
+          "number": 2390,
+          "title": "Feature: Life Chronicle \u2014 temporal timeline + thought diary + dynamic per-entity ontology"
+        }
+      ]
+    },
+    {
+      "hash": "e8e4c2354945",
+      "members": [
+        {
+          "kind": "issue",
+          "number": 2571,
+          "title": "buildGatewayConfig does not map openrouter_api_key into gateway env \u2014 chat-based operations fail for file-plane key users"
+        },
+        {
+          "kind": "pr",
+          "number": 2572,
+          "title": "fix: map openrouter_api_key through buildGatewayConfig into gateway env"
+        }
+      ]
+    },
+    {
+      "hash": "92b3e010cd67",
+      "members": [
+        {
+          "kind": "issue",
+          "number": 2772,
+          "title": "bug(cli): book-mirror dispatcher is unreachable in v0.42.58.0"
+        },
+        {
+          "kind": "issue",
+          "number": 2773,
+          "title": "bug(cli): book-mirror dispatcher is unreachable in v0.42.58.0"
+        },
+        {
+          "kind": "issue",
+          "number": 2774,
+          "title": "bug(cli): book-mirror dispatcher is unreachable in v0.42.58.0"
+        }
+      ]
+    },
+    {
+      "hash": "38c69ef14d6a",
+      "members": [
+        {
+          "kind": "issue",
+          "number": 2808,
+          "title": "`synthesize_concepts` produces 0 concepts because `extract_atoms` never writes the `concepts:` field it clusters on (structural)"
+        },
+        {
+          "kind": "issue",
+          "number": 2812,
+          "title": "`synthesize_concepts` produces 0 concepts because `extract_atoms` never writes the `concepts:` field it clusters on (structural)"
+        }
+      ]
+    },
+    {
+      "hash": "a72af0bd53dc",
+      "members": [
+        {
+          "kind": "issue",
+          "number": 2809,
+          "title": "No tick-level (whole-cycle) budget cap; a full `dream` tick's cost is the unbounded sum of ~19 per-phase budgets"
+        },
+        {
+          "kind": "issue",
+          "number": 2813,
+          "title": "No tick-level (whole-cycle) budget cap; a full `dream` tick's cost is the unbounded sum of ~19 per-phase budgets"
+        }
+      ]
+    },
+    {
+      "hash": "9345e89d65b0",
+      "members": [
+        {
+          "kind": "issue",
+          "number": 2810,
+          "title": "`extract_atoms` slug (`slice(0,60)`) can end in a hyphen; import's `slugifyPath` strips it \u2192 duplicate atom on export\u2192sync round-trip"
+        },
+        {
+          "kind": "issue",
+          "number": 2814,
+          "title": "`extract_atoms` slug (`slice(0,60)`) can end in a hyphen; import's `slugifyPath` strips it \u2192 duplicate atom on export\u2192sync round-trip"
+        }
+      ]
+    },
+    {
+      "hash": "5c486d73e584",
+      "members": [
+        {
+          "kind": "issue",
+          "number": 2811,
+          "title": "`grade_takes` ships a placeholder evidence retriever + `calibration_profile` defaults to a hardcoded holder name"
+        },
+        {
+          "kind": "issue",
+          "number": 2815,
+          "title": "`grade_takes` ships a placeholder evidence retriever + `calibration_profile` defaults to a hardcoded holder name"
+        }
+      ]
+    }
+  ],
+  "tfidf_pairs": [
+    {
+      "a": "issue:2811",
+      "b": "issue:2815",
+      "cosine": 1.0
+    },
+    {
+      "a": "issue:2810",
+      "b": "issue:2814",
+      "cosine": 1.0
+    },
+    {
+      "a": "issue:2809",
+      "b": "issue:2813",
+      "cosine": 1.0
+    },
+    {
+      "a": "issue:2773",
+      "b": "issue:2774",
+      "cosine": 1.0
+    },
+    {
+      "a": "issue:2772",
+      "b": "issue:2774",
+      "cosine": 1.0
+    },
+    {
+      "a": "issue:2772",
+      "b": "issue:2773",
+      "cosine": 1.0
+    },
+    {
+      "a": "issue:2388",
+      "b": "issue:2390",
+      "cosine": 0.997
+    },
+    {
+      "a": "issue:2808",
+      "b": "issue:2812",
+      "cosine": 0.996
+    },
+    {
+      "a": "issue:2196",
+      "b": "issue:2198",
+      "cosine": 0.966
+    },
+    {
+      "a": "issue:1859",
+      "b": "issue:1861",
+      "cosine": 0.954
+    },
+    {
+      "a": "issue:456",
+      "b": "issue:457",
+      "cosine": 0.901
+    },
+    {
+      "a": "issue:1487",
+      "b": "issue:1739",
+      "cosine": 0.615
+    },
+    {
+      "a": "issue:1741",
+      "b": "issue:2202",
+      "cosine": 0.614
+    },
+    {
+      "a": "issue:1672",
+      "b": "issue:2204",
+      "cosine": 0.603
+    },
+    {
+      "a": "issue:1516",
+      "b": "issue:2204",
+      "cosine": 0.578
+    },
+    {
+      "a": "issue:1672",
+      "b": "issue:1740",
+      "cosine": 0.563
+    },
+    {
+      "a": "issue:1740",
+      "b": "issue:2204",
+      "cosine": 0.559
+    },
+    {
+      "a": "issue:579",
+      "b": "issue:1041",
+      "cosine": 0.556
+    },
+    {
+      "a": "issue:1516",
+      "b": "issue:1672",
+      "cosine": 0.539
+    },
+    {
+      "a": "issue:2758",
+      "b": "issue:2759",
+      "cosine": 0.537
+    },
+    {
+      "a": "issue:1037",
+      "b": "issue:1118",
+      "cosine": 0.53
+    },
+    {
+      "a": "issue:895",
+      "b": "issue:899",
+      "cosine": 0.528
+    },
+    {
+      "a": "issue:1516",
+      "b": "issue:1740",
+      "cosine": 0.527
+    },
+    {
+      "a": "issue:2078",
+      "b": "issue:2663",
+      "cosine": 0.518
+    },
+    {
+      "a": "issue:2176",
+      "b": "issue:2675",
+      "cosine": 0.505
+    },
+    {
+      "a": "issue:2204",
+      "b": "issue:2295",
+      "cosine": 0.502
+    },
+    {
+      "a": "issue:1729",
+      "b": "issue:1954",
+      "cosine": 0.502
+    },
+    {
+      "a": "issue:1516",
+      "b": "issue:2676",
+      "cosine": 0.496
+    },
+    {
+      "a": "issue:713",
+      "b": "issue:1061",
+      "cosine": 0.493
+    },
+    {
+      "a": "issue:2673",
+      "b": "issue:2703",
+      "cosine": 0.489
+    },
+    {
+      "a": "issue:2337",
+      "b": "issue:2675",
+      "cosine": 0.477
+    },
+    {
+      "a": "issue:1487",
+      "b": "issue:1764",
+      "cosine": 0.472
+    },
+    {
+      "a": "issue:526",
+      "b": "issue:1486",
+      "cosine": 0.472
+    },
+    {
+      "a": "issue:2103",
+      "b": "issue:2675",
+      "cosine": 0.468
+    },
+    {
+      "a": "issue:1890",
+      "b": "issue:2247",
+      "cosine": 0.463
+    },
+    {
+      "a": "issue:1672",
+      "b": "issue:2676",
+      "cosine": 0.458
+    },
+    {
+      "a": "issue:2123",
+      "b": "issue:2812",
+      "cosine": 0.455
+    },
+    {
+      "a": "issue:2123",
+      "b": "issue:2808",
+      "cosine": 0.455
+    },
+    {
+      "a": "issue:1237",
+      "b": "issue:1301",
+      "cosine": 0.453
+    },
+    {
+      "a": "issue:2445",
+      "b": "issue:2546",
+      "cosine": 0.451
+    },
+    {
+      "a": "issue:2594",
+      "b": "issue:2703",
+      "cosine": 0.45
+    },
+    {
+      "a": "issue:2673",
+      "b": "issue:2775",
+      "cosine": 0.443
+    },
+    {
+      "a": "issue:2537",
+      "b": "issue:2579",
+      "cosine": 0.442
+    },
+    {
+      "a": "issue:2182",
+      "b": "issue:2272",
+      "cosine": 0.44
+    },
+    {
+      "a": "issue:303",
+      "b": "issue:2841",
+      "cosine": 0.439
+    },
+    {
+      "a": "issue:2594",
+      "b": "issue:2673",
+      "cosine": 0.434
+    },
+    {
+      "a": "issue:2537",
+      "b": "issue:2673",
+      "cosine": 0.434
+    },
+    {
+      "a": "issue:2537",
+      "b": "issue:2703",
+      "cosine": 0.426
+    },
+    {
+      "a": "issue:2103",
+      "b": "issue:2176",
+      "cosine": 0.423
+    },
+    {
+      "a": "issue:2204",
+      "b": "issue:2676",
+      "cosine": 0.422
+    },
+    {
+      "a": "issue:957",
+      "b": "issue:1641",
+      "cosine": 0.421
+    },
+    {
+      "a": "issue:1292",
+      "b": "issue:1812",
+      "cosine": 0.419
+    },
+    {
+      "a": "issue:1945",
+      "b": "issue:1971",
+      "cosine": 0.418
+    },
+    {
+      "a": "issue:1749",
+      "b": "issue:2511",
+      "cosine": 0.416
+    },
+    {
+      "a": "issue:2579",
+      "b": "issue:2594",
+      "cosine": 0.415
+    },
+    {
+      "a": "issue:1549",
+      "b": "issue:2195",
+      "cosine": 0.412
+    },
+    {
+      "a": "issue:2579",
+      "b": "issue:2775",
+      "cosine": 0.412
+    },
+    {
+      "a": "issue:1740",
+      "b": "issue:2676",
+      "cosine": 0.412
+    },
+    {
+      "a": "issue:834",
+      "b": "issue:1357",
+      "cosine": 0.411
+    },
+    {
+      "a": "issue:2594",
+      "b": "issue:2626",
+      "cosine": 0.409
+    },
+    {
+      "a": "issue:1036",
+      "b": "issue:1038",
+      "cosine": 0.405
+    },
+    {
+      "a": "issue:2537",
+      "b": "issue:2594",
+      "cosine": 0.404
+    },
+    {
+      "a": "issue:2176",
+      "b": "issue:2337",
+      "cosine": 0.403
+    },
+    {
+      "a": "issue:2667",
+      "b": "issue:2673",
+      "cosine": 0.399
+    },
+    {
+      "a": "issue:1459",
+      "b": "issue:2603",
+      "cosine": 0.396
+    },
+    {
+      "a": "issue:1716",
+      "b": "issue:2204",
+      "cosine": 0.396
+    },
+    {
+      "a": "issue:1516",
+      "b": "issue:1716",
+      "cosine": 0.395
+    },
+    {
+      "a": "issue:1237",
+      "b": "issue:1272",
+      "cosine": 0.395
+    },
+    {
+      "a": "issue:2579",
+      "b": "issue:2671",
+      "cosine": 0.395
+    },
+    {
+      "a": "issue:2594",
+      "b": "issue:2775",
+      "cosine": 0.392
+    },
+    {
+      "a": "issue:2626",
+      "b": "issue:2673",
+      "cosine": 0.389
+    },
+    {
+      "a": "issue:1099",
+      "b": "issue:1261",
+      "cosine": 0.388
+    },
+    {
+      "a": "issue:1272",
+      "b": "issue:1301",
+      "cosine": 0.387
+    },
+    {
+      "a": "issue:1739",
+      "b": "issue:1764",
+      "cosine": 0.386
+    },
+    {
+      "a": "issue:2594",
+      "b": "issue:2667",
+      "cosine": 0.384
+    },
+    {
+      "a": "issue:1516",
+      "b": "issue:2295",
+      "cosine": 0.384
+    },
+    {
+      "a": "issue:2103",
+      "b": "issue:2337",
+      "cosine": 0.384
+    },
+    {
+      "a": "issue:2579",
+      "b": "issue:2626",
+      "cosine": 0.383
+    },
+    {
+      "a": "issue:2579",
+      "b": "issue:2673",
+      "cosine": 0.382
+    },
+    {
+      "a": "issue:2537",
+      "b": "issue:2775",
+      "cosine": 0.382
+    },
+    {
+      "a": "issue:2142",
+      "b": "issue:2182",
+      "cosine": 0.38
+    },
+    {
+      "a": "issue:2667",
+      "b": "issue:2703",
+      "cosine": 0.379
+    },
+    {
+      "a": "issue:1672",
+      "b": "issue:1716",
+      "cosine": 0.378
+    },
+    {
+      "a": "issue:2579",
+      "b": "issue:2703",
+      "cosine": 0.376
+    },
+    {
+      "a": "issue:1740",
+      "b": "issue:2295",
+      "cosine": 0.375
+    },
+    {
+      "a": "issue:2529",
+      "b": "issue:2657",
+      "cosine": 0.373
+    },
+    {
+      "a": "issue:2626",
+      "b": "issue:2775",
+      "cosine": 0.369
+    },
+    {
+      "a": "issue:921",
+      "b": "issue:2198",
+      "cosine": 0.369
+    },
+    {
+      "a": "issue:1674",
+      "b": "issue:2675",
+      "cosine": 0.367
+    },
+    {
+      "a": "issue:2484",
+      "b": "issue:2763",
+      "cosine": 0.367
+    },
+    {
+      "a": "issue:1431",
+      "b": "issue:1647",
+      "cosine": 0.363
+    },
+    {
+      "a": "issue:1712",
+      "b": "issue:2289",
+      "cosine": 0.363
+    },
+    {
+      "a": "issue:1402",
+      "b": "issue:2675",
+      "cosine": 0.361
+    },
+    {
+      "a": "issue:2537",
+      "b": "issue:2671",
+      "cosine": 0.36
+    },
+    {
+      "a": "issue:1954",
+      "b": "issue:1955",
+      "cosine": 0.359
+    },
+    {
+      "a": "issue:1318",
+      "b": "issue:2295",
+      "cosine": 0.358
+    },
+    {
+      "a": "issue:2536",
+      "b": "issue:2594",
+      "cosine": 0.356
+    },
+    {
+      "a": "issue:2646",
+      "b": "issue:2763",
+      "cosine": 0.355
+    },
+    {
+      "a": "issue:2051",
+      "b": "issue:2170",
+      "cosine": 0.354
+    },
+    {
+      "a": "issue:1716",
+      "b": "issue:2676",
+      "cosine": 0.354
+    },
+    {
+      "a": "issue:328",
+      "b": "issue:1318",
+      "cosine": 0.354
+    },
+    {
+      "a": "issue:939",
+      "b": "issue:1502",
+      "cosine": 0.354
+    },
+    {
+      "a": "issue:223",
+      "b": "issue:1502",
+      "cosine": 0.349
+    },
+    {
+      "a": "issue:302",
+      "b": "issue:486",
+      "cosine": 0.349
+    },
+    {
+      "a": "issue:1852",
+      "b": "issue:2753",
+      "cosine": 0.348
+    },
+    {
+      "a": "issue:2536",
+      "b": "issue:2626",
+      "cosine": 0.345
+    },
+    {
+      "a": "issue:921",
+      "b": "issue:2196",
+      "cosine": 0.345
+    },
+    {
+      "a": "issue:1918",
+      "b": "issue:2345",
+      "cosine": 0.345
+    },
+    {
+      "a": "issue:2295",
+      "b": "issue:2301",
+      "cosine": 0.342
+    },
+    {
+      "a": "issue:2626",
+      "b": "issue:2703",
+      "cosine": 0.341
+    },
+    {
+      "a": "issue:1672",
+      "b": "issue:2295",
+      "cosine": 0.341
+    },
+    {
+      "a": "issue:939",
+      "b": "issue:2195",
+      "cosine": 0.341
+    },
+    {
+      "a": "issue:1674",
+      "b": "issue:2337",
+      "cosine": 0.339
+    },
+    {
+      "a": "issue:2537",
+      "b": "issue:2626",
+      "cosine": 0.339
+    },
+    {
+      "a": "issue:2414",
+      "b": "issue:2815",
+      "cosine": 0.337
+    },
+    {
+      "a": "issue:2414",
+      "b": "issue:2811",
+      "cosine": 0.337
+    },
+    {
+      "a": "issue:1502",
+      "b": "issue:2195",
+      "cosine": 0.337
+    },
+    {
+      "a": "issue:2703",
+      "b": "issue:2775",
+      "cosine": 0.337
+    },
+    {
+      "a": "issue:2089",
+      "b": "issue:2471",
+      "cosine": 0.337
+    },
+    {
+      "a": "issue:2537",
+      "b": "issue:2645",
+      "cosine": 0.336
+    },
+    {
+      "a": "issue:2671",
+      "b": "issue:2703",
+      "cosine": 0.336
+    },
+    {
+      "a": "issue:2667",
+      "b": "issue:2775",
+      "cosine": 0.335
+    },
+    {
+      "a": "issue:1404",
+      "b": "issue:1642",
+      "cosine": 0.334
+    },
+    {
+      "a": "issue:2119",
+      "b": "issue:2120",
+      "cosine": 0.334
+    },
+    {
+      "a": "issue:1490",
+      "b": "issue:1914",
+      "cosine": 0.333
+    },
+    {
+      "a": "issue:2256",
+      "b": "issue:2273",
+      "cosine": 0.333
+    },
+    {
+      "a": "issue:391",
+      "b": "issue:1502",
+      "cosine": 0.332
+    },
+    {
+      "a": "issue:2536",
+      "b": "issue:2579",
+      "cosine": 0.33
+    },
+    {
+      "a": "issue:1886",
+      "b": "issue:2039",
+      "cosine": 0.329
+    },
+    {
+      "a": "issue:1619",
+      "b": "issue:1752",
+      "cosine": 0.328
+    },
+    {
+      "a": "issue:2645",
+      "b": "issue:2671",
+      "cosine": 0.326
+    },
+    {
+      "a": "issue:2626",
+      "b": "issue:2667",
+      "cosine": 0.326
+    },
+    {
+      "a": "issue:1454",
+      "b": "issue:1852",
+      "cosine": 0.325
+    },
+    {
+      "a": "issue:1404",
+      "b": "issue:1422",
+      "cosine": 0.324
+    },
+    {
+      "a": "issue:1739",
+      "b": "issue:1782",
+      "cosine": 0.321
+    },
+    {
+      "a": "issue:970",
+      "b": "issue:2383",
+      "cosine": 0.32
+    },
+    {
+      "a": "issue:2039",
+      "b": "issue:2256",
+      "cosine": 0.32
+    },
+    {
+      "a": "issue:2283",
+      "b": "issue:2285",
+      "cosine": 0.32
+    },
+    {
+      "a": "issue:1716",
+      "b": "issue:1740",
+      "cosine": 0.32
+    },
+    {
+      "a": "issue:2039",
+      "b": "issue:2115",
+      "cosine": 0.319
+    },
+    {
+      "a": "issue:1492",
+      "b": "issue:1642",
+      "cosine": 0.319
+    },
+    {
+      "a": "issue:1574",
+      "b": "issue:2580",
+      "cosine": 0.319
+    },
+    {
+      "a": "issue:720",
+      "b": "issue:781",
+      "cosine": 0.319
+    },
+    {
+      "a": "issue:223",
+      "b": "issue:391",
+      "cosine": 0.317
+    },
+    {
+      "a": "issue:1867",
+      "b": "issue:2763",
+      "cosine": 0.315
+    },
+    {
+      "a": "issue:899",
+      "b": "issue:1729",
+      "cosine": 0.315
+    },
+    {
+      "a": "issue:2626",
+      "b": "issue:2645",
+      "cosine": 0.315
+    },
+    {
+      "a": "issue:1619",
+      "b": "issue:1745",
+      "cosine": 0.314
+    },
+    {
+      "a": "issue:2579",
+      "b": "issue:2645",
+      "cosine": 0.314
+    },
+    {
+      "a": "issue:1156",
+      "b": "issue:2372",
+      "cosine": 0.314
+    },
+    {
+      "a": "issue:1471",
+      "b": "issue:1499",
+      "cosine": 0.312
+    },
+    {
+      "a": "issue:1141",
+      "b": "issue:1189",
+      "cosine": 0.311
+    },
+    {
+      "a": "issue:2484",
+      "b": "issue:2646",
+      "cosine": 0.311
+    },
+    {
+      "a": "issue:2541",
+      "b": "issue:2675",
+      "cosine": 0.308
+    },
+    {
+      "a": "issue:1886",
+      "b": "issue:2256",
+      "cosine": 0.307
+    },
+    {
+      "a": "issue:1404",
+      "b": "issue:1492",
+      "cosine": 0.306
+    },
+    {
+      "a": "issue:1454",
+      "b": "issue:2753",
+      "cosine": 0.306
+    },
+    {
+      "a": "issue:2675",
+      "b": "issue:2676",
+      "cosine": 0.304
+    },
+    {
+      "a": "issue:1402",
+      "b": "issue:2176",
+      "cosine": 0.301
+    },
+    {
+      "a": "issue:912",
+      "b": "issue:2547",
+      "cosine": 0.3
+    },
+    {
+      "a": "issue:2536",
+      "b": "issue:2537",
+      "cosine": 0.3
+    },
+    {
+      "a": "issue:667",
+      "b": "issue:1868",
+      "cosine": 0.299
+    },
+    {
+      "a": "issue:1591",
+      "b": "issue:2111",
+      "cosine": 0.299
+    },
+    {
+      "a": "issue:1867",
+      "b": "issue:2646",
+      "cosine": 0.298
+    },
+    {
+      "a": "issue:430",
+      "b": "issue:2680",
+      "cosine": 0.298
+    },
+    {
+      "a": "issue:2170",
+      "b": "issue:2675",
+      "cosine": 0.298
+    },
+    {
+      "a": "issue:1402",
+      "b": "issue:2337",
+      "cosine": 0.298
+    },
+    {
+      "a": "issue:2645",
+      "b": "issue:2775",
+      "cosine": 0.296
+    },
+    {
+      "a": "issue:1768",
+      "b": "issue:2636",
+      "cosine": 0.296
+    },
+    {
+      "a": "issue:2256",
+      "b": "issue:2633",
+      "cosine": 0.295
+    },
+    {
+      "a": "issue:2536",
+      "b": "issue:2673",
+      "cosine": 0.295
+    },
+    {
+      "a": "issue:2503",
+      "b": "issue:2845",
+      "cosine": 0.295
+    },
+    {
+      "a": "issue:1368",
+      "b": "issue:1887",
+      "cosine": 0.294
+    },
+    {
+      "a": "issue:2579",
+      "b": "issue:2667",
+      "cosine": 0.294
+    },
+    {
+      "a": "issue:2103",
+      "b": "issue:2541",
+      "cosine": 0.293
+    },
+    {
+      "a": "issue:2671",
+      "b": "issue:2673",
+      "cosine": 0.293
+    },
+    {
+      "a": "issue:2176",
+      "b": "issue:2541",
+      "cosine": 0.293
+    },
+    {
+      "a": "issue:2110",
+      "b": "issue:2609",
+      "cosine": 0.293
+    },
+    {
+      "a": "issue:1887",
+      "b": "issue:2118",
+      "cosine": 0.292
+    },
+    {
+      "a": "issue:1992",
+      "b": "issue:2356",
+      "cosine": 0.292
+    },
+    {
+      "a": "issue:1470",
+      "b": "issue:1471",
+      "cosine": 0.292
+    },
+    {
+      "a": "issue:1302",
+      "b": "issue:1384",
+      "cosine": 0.291
+    },
+    {
+      "a": "issue:2170",
+      "b": "issue:2541",
+      "cosine": 0.291
+    },
+    {
+      "a": "issue:1716",
+      "b": "issue:2295",
+      "cosine": 0.29
+    },
+    {
+      "a": "issue:1384",
+      "b": "issue:2606",
+      "cosine": 0.29
+    },
+    {
+      "a": "issue:921",
+      "b": "issue:1102",
+      "cosine": 0.289
+    },
+    {
+      "a": "issue:1773",
+      "b": "issue:2504",
+      "cosine": 0.288
+    },
+    {
+      "a": "issue:1357",
+      "b": "issue:1641",
+      "cosine": 0.288
+    },
+    {
+      "a": "issue:2273",
+      "b": "issue:2633",
+      "cosine": 0.287
+    },
+    {
+      "a": "issue:2078",
+      "b": "issue:2684",
+      "cosine": 0.287
+    },
+    {
+      "a": "issue:1413",
+      "b": "issue:1619",
+      "cosine": 0.287
+    },
+    {
+      "a": "issue:677",
+      "b": "issue:678",
+      "cosine": 0.287
+    },
+    {
+      "a": "issue:2645",
+      "b": "issue:2673",
+      "cosine": 0.286
+    },
+    {
+      "a": "issue:711",
+      "b": "issue:712",
+      "cosine": 0.284
+    },
+    {
+      "a": "issue:1270",
+      "b": "issue:1607",
+      "cosine": 0.283
+    },
+    {
+      "a": "issue:1404",
+      "b": "issue:1619",
+      "cosine": 0.282
+    },
+    {
+      "a": "issue:2537",
+      "b": "issue:2667",
+      "cosine": 0.282
+    },
+    {
+      "a": "issue:1402",
+      "b": "issue:2170",
+      "cosine": 0.282
+    },
+    {
+      "a": "issue:882",
+      "b": "issue:1641",
+      "cosine": 0.282
+    },
+    {
+      "a": "issue:1152",
+      "b": "issue:2298",
+      "cosine": 0.281
+    },
+    {
+      "a": "issue:899",
+      "b": "issue:1954",
+      "cosine": 0.281
+    },
+    {
+      "a": "issue:1726",
+      "b": "issue:2464",
+      "cosine": 0.281
+    },
+    {
+      "a": "issue:365",
+      "b": "issue:390",
+      "cosine": 0.279
+    },
+    {
+      "a": "issue:2594",
+      "b": "issue:2671",
+      "cosine": 0.278
+    },
+    {
+      "a": "issue:2103",
+      "b": "issue:2170",
+      "cosine": 0.278
+    },
+    {
+      "a": "issue:1292",
+      "b": "issue:1716",
+      "cosine": 0.278
+    },
+    {
+      "a": "issue:2142",
+      "b": "issue:2272",
+      "cosine": 0.277
+    },
+    {
+      "a": "issue:1886",
+      "b": "issue:2633",
+      "cosine": 0.277
+    },
+    {
+      "a": "issue:882",
+      "b": "issue:1268",
+      "cosine": 0.277
+    },
+    {
+      "a": "issue:643",
+      "b": "issue:931",
+      "cosine": 0.276
+    },
+    {
+      "a": "issue:1266",
+      "b": "issue:1375",
+      "cosine": 0.276
+    },
+    {
+      "a": "issue:643",
+      "b": "issue:645",
+      "cosine": 0.275
+    },
+    {
+      "a": "issue:1198",
+      "b": "issue:1251",
+      "cosine": 0.274
+    },
+    {
+      "a": "issue:1812",
+      "b": "issue:2676",
+      "cosine": 0.274
+    },
+    {
+      "a": "issue:1992",
+      "b": "issue:2060",
+      "cosine": 0.274
+    },
+    {
+      "a": "issue:544",
+      "b": "issue:643",
+      "cosine": 0.273
+    },
+    {
+      "a": "issue:2626",
+      "b": "issue:2671",
+      "cosine": 0.273
+    },
+    {
+      "a": "issue:1867",
+      "b": "issue:2484",
+      "cosine": 0.273
+    },
+    {
+      "a": "issue:2170",
+      "b": "issue:2337",
+      "cosine": 0.273
+    },
+    {
+      "a": "issue:2170",
+      "b": "issue:2176",
+      "cosine": 0.272
+    },
+    {
+      "a": "issue:1389",
+      "b": "issue:1390",
+      "cosine": 0.272
+    },
+    {
+      "a": "issue:1674",
+      "b": "issue:2176",
+      "cosine": 0.272
+    },
+    {
+      "a": "issue:2109",
+      "b": "issue:2184",
+      "cosine": 0.272
+    },
+    {
+      "a": "issue:874",
+      "b": "issue:1964",
+      "cosine": 0.272
+    },
+    {
+      "a": "issue:1487",
+      "b": "issue:1782",
+      "cosine": 0.271
+    },
+    {
+      "a": "issue:2039",
+      "b": "issue:2633",
+      "cosine": 0.271
+    },
+    {
+      "a": "issue:699",
+      "b": "issue:2775",
+      "cosine": 0.271
+    },
+    {
+      "a": "issue:2039",
+      "b": "issue:2273",
+      "cosine": 0.27
+    },
+    {
+      "a": "issue:699",
+      "b": "issue:2673",
+      "cosine": 0.269
+    },
+    {
+      "a": "issue:1189",
+      "b": "issue:1734",
+      "cosine": 0.269
+    },
+    {
+      "a": "issue:2507",
+      "b": "issue:2613",
+      "cosine": 0.269
+    },
+    {
+      "a": "issue:2395",
+      "b": "issue:2511",
+      "cosine": 0.268
+    },
+    {
+      "a": "issue:1270",
+      "b": "issue:2613",
+      "cosine": 0.268
+    },
+    {
+      "a": "issue:1402",
+      "b": "issue:1674",
+      "cosine": 0.268
+    },
+    {
+      "a": "issue:1516",
+      "b": "issue:1812",
+      "cosine": 0.267
+    },
+    {
+      "a": "issue:1422",
+      "b": "issue:1642",
+      "cosine": 0.267
+    },
+    {
+      "a": "issue:1721",
+      "b": "issue:1776",
+      "cosine": 0.266
+    },
+    {
+      "a": "issue:2202",
+      "b": "issue:2577",
+      "cosine": 0.266
+    },
+    {
+      "a": "issue:630",
+      "b": "issue:1767",
+      "cosine": 0.266
+    },
+    {
+      "a": "issue:2607",
+      "b": "issue:2843",
+      "cosine": 0.266
+    },
+    {
+      "a": "issue:1715",
+      "b": "issue:1729",
+      "cosine": 0.265
+    },
+    {
+      "a": "issue:1914",
+      "b": "issue:2179",
+      "cosine": 0.265
+    },
+    {
+      "a": "issue:1515",
+      "b": "issue:1752",
+      "cosine": 0.265
+    },
+    {
+      "a": "issue:1672",
+      "b": "issue:1812",
+      "cosine": 0.264
+    },
+    {
+      "a": "issue:1603",
+      "b": "issue:1619",
+      "cosine": 0.264
+    },
+    {
+      "a": "issue:1868",
+      "b": "issue:2608",
+      "cosine": 0.264
+    },
+    {
+      "a": "issue:1292",
+      "b": "issue:1516",
+      "cosine": 0.263
+    },
+    {
+      "a": "issue:1404",
+      "b": "issue:1471",
+      "cosine": 0.263
+    },
+    {
+      "a": "issue:1422",
+      "b": "issue:1492",
+      "cosine": 0.262
+    },
+    {
+      "a": "issue:1768",
+      "b": "issue:2132",
+      "cosine": 0.262
+    },
+    {
+      "a": "issue:978",
+      "b": "issue:1587",
+      "cosine": 0.262
+    },
+    {
+      "a": "issue:939",
+      "b": "issue:2674",
+      "cosine": 0.262
+    },
+    {
+      "a": "issue:2536",
+      "b": "issue:2775",
+      "cosine": 0.262
+    },
+    {
+      "a": "issue:2198",
+      "b": "issue:2536",
+      "cosine": 0.261
+    },
+    {
+      "a": "issue:140",
+      "b": "issue:767",
+      "cosine": 0.261
+    },
+    {
+      "a": "issue:1670",
+      "b": "issue:2575",
+      "cosine": 0.261
+    },
+    {
+      "a": "issue:2536",
+      "b": "issue:2703",
+      "cosine": 0.261
+    },
+    {
+      "a": "issue:1574",
+      "b": "issue:2395",
+      "cosine": 0.26
+    },
+    {
+      "a": "issue:1764",
+      "b": "issue:1782",
+      "cosine": 0.259
+    },
+    {
+      "a": "issue:1764",
+      "b": "issue:2609",
+      "cosine": 0.259
+    },
+    {
+      "a": "issue:1292",
+      "b": "issue:2204",
+      "cosine": 0.259
+    },
+    {
+      "a": "issue:2136",
+      "b": "issue:2138",
+      "cosine": 0.258
+    },
+    {
+      "a": "issue:1886",
+      "b": "issue:2115",
+      "cosine": 0.258
+    },
+    {
+      "a": "issue:1712",
+      "b": "issue:2140",
+      "cosine": 0.258
+    },
+    {
+      "a": "issue:443",
+      "b": "issue:1859",
+      "cosine": 0.257
+    },
+    {
+      "a": "issue:2106",
+      "b": "issue:2138",
+      "cosine": 0.257
+    },
+    {
+      "a": "issue:1402",
+      "b": "issue:2541",
+      "cosine": 0.257
+    },
+    {
+      "a": "issue:939",
+      "b": "issue:1549",
+      "cosine": 0.257
+    },
+    {
+      "a": "issue:1434",
+      "b": "issue:1438",
+      "cosine": 0.256
+    },
+    {
+      "a": "issue:2256",
+      "b": "issue:2433",
+      "cosine": 0.256
+    },
+    {
+      "a": "issue:1198",
+      "b": "issue:1221",
+      "cosine": 0.256
+    },
+    {
+      "a": "issue:2671",
+      "b": "issue:2775",
+      "cosine": 0.256
+    },
+    {
+      "a": "issue:1491",
+      "b": "issue:1642",
+      "cosine": 0.255
+    },
+    {
+      "a": "issue:2594",
+      "b": "issue:2645",
+      "cosine": 0.255
+    },
+    {
+      "a": "issue:1235",
+      "b": "issue:2035",
+      "cosine": 0.255
+    },
+    {
+      "a": "issue:699",
+      "b": "issue:2537",
+      "cosine": 0.255
+    },
+    {
+      "a": "issue:1852",
+      "b": "issue:2110",
+      "cosine": 0.255
+    },
+    {
+      "a": "issue:1641",
+      "b": "issue:2731",
+      "cosine": 0.255
+    },
+    {
+      "a": "issue:1404",
+      "b": "issue:1413",
+      "cosine": 0.254
+    },
+    {
+      "a": "issue:1404",
+      "b": "issue:1515",
+      "cosine": 0.254
+    },
+    {
+      "a": "issue:2281",
+      "b": "issue:2712",
+      "cosine": 0.253
+    },
+    {
+      "a": "issue:1693",
+      "b": "issue:2105",
+      "cosine": 0.253
+    },
+    {
+      "a": "issue:2396",
+      "b": "issue:2815",
+      "cosine": 0.253
+    },
+    {
+      "a": "issue:2396",
+      "b": "issue:2811",
+      "cosine": 0.253
+    },
+    {
+      "a": "issue:443",
+      "b": "issue:1861",
+      "cosine": 0.252
+    },
+    {
+      "a": "issue:1433",
+      "b": "issue:1434",
+      "cosine": 0.252
+    },
+    {
+      "a": "issue:1491",
+      "b": "issue:1720",
+      "cosine": 0.251
+    },
+    {
+      "a": "issue:1404",
+      "b": "issue:1499",
+      "cosine": 0.251
+    },
+    {
+      "a": "issue:1422",
+      "b": "issue:1515",
+      "cosine": 0.251
+    },
+    {
+      "a": "issue:223",
+      "b": "issue:939",
+      "cosine": 0.251
+    },
+    {
+      "a": "issue:882",
+      "b": "issue:957",
+      "cosine": 0.25
+    },
+    {
+      "a": "issue:1402",
+      "b": "issue:2051",
+      "cosine": 0.25
+    },
+    {
+      "a": "pr:2817",
+      "b": "pr:2819",
+      "cosine": 0.737
+    },
+    {
+      "a": "pr:2532",
+      "b": "pr:2534",
+      "cosine": 0.709
+    },
+    {
+      "a": "pr:1202",
+      "b": "pr:2381",
+      "cosine": 0.668
+    },
+    {
+      "a": "pr:2026",
+      "b": "pr:2521",
+      "cosine": 0.573
+    },
+    {
+      "a": "pr:581",
+      "b": "pr:582",
+      "cosine": 0.529
+    },
+    {
+      "a": "pr:2092",
+      "b": "pr:2456",
+      "cosine": 0.516
+    },
+    {
+      "a": "pr:2440",
+      "b": "pr:2492",
+      "cosine": 0.509
+    },
+    {
+      "a": "pr:2376",
+      "b": "pr:2652",
+      "cosine": 0.506
+    },
+    {
+      "a": "pr:2127",
+      "b": "pr:2853",
+      "cosine": 0.501
+    },
+    {
+      "a": "pr:1858",
+      "b": "pr:1965",
+      "cosine": 0.477
+    },
+    {
+      "a": "pr:2592",
+      "b": "pr:2642",
+      "cosine": 0.462
+    },
+    {
+      "a": "pr:2022",
+      "b": "pr:2444",
+      "cosine": 0.449
+    },
+    {
+      "a": "pr:2686",
+      "b": "pr:2710",
+      "cosine": 0.442
+    },
+    {
+      "a": "pr:1240",
+      "b": "pr:2489",
+      "cosine": 0.437
+    },
+    {
+      "a": "pr:851",
+      "b": "pr:854",
+      "cosine": 0.436
+    },
+    {
+      "a": "pr:1197",
+      "b": "pr:2751",
+      "cosine": 0.435
+    },
+    {
+      "a": "pr:2548",
+      "b": "pr:2648",
+      "cosine": 0.43
+    },
+    {
+      "a": "pr:580",
+      "b": "pr:581",
+      "cosine": 0.429
+    },
+    {
+      "a": "pr:2243",
+      "b": "pr:2329",
+      "cosine": 0.418
+    },
+    {
+      "a": "pr:855",
+      "b": "pr:2695",
+      "cosine": 0.418
+    },
+    {
+      "a": "pr:2710",
+      "b": "pr:2711",
+      "cosine": 0.408
+    },
+    {
+      "a": "pr:1896",
+      "b": "pr:2352",
+      "cosine": 0.408
+    },
+    {
+      "a": "pr:472",
+      "b": "pr:2528",
+      "cosine": 0.401
+    },
+    {
+      "a": "pr:1240",
+      "b": "pr:2692",
+      "cosine": 0.4
+    },
+    {
+      "a": "pr:2632",
+      "b": "pr:2819",
+      "cosine": 0.399
+    },
+    {
+      "a": "pr:1707",
+      "b": "pr:2353",
+      "cosine": 0.398
+    },
+    {
+      "a": "pr:2067",
+      "b": "pr:2751",
+      "cosine": 0.392
+    },
+    {
+      "a": "pr:1838",
+      "b": "pr:2856",
+      "cosine": 0.386
+    },
+    {
+      "a": "pr:2257",
+      "b": "pr:2499",
+      "cosine": 0.385
+    },
+    {
+      "a": "pr:1896",
+      "b": "pr:2524",
+      "cosine": 0.385
+    },
+    {
+      "a": "pr:1961",
+      "b": "pr:2521",
+      "cosine": 0.382
+    },
+    {
+      "a": "pr:2714",
+      "b": "pr:2715",
+      "cosine": 0.38
+    },
+    {
+      "a": "pr:2284",
+      "b": "pr:2286",
+      "cosine": 0.377
+    },
+    {
+      "a": "pr:580",
+      "b": "pr:582",
+      "cosine": 0.377
+    },
+    {
+      "a": "pr:854",
+      "b": "pr:936",
+      "cosine": 0.375
+    },
+    {
+      "a": "pr:2686",
+      "b": "pr:2711",
+      "cosine": 0.37
+    },
+    {
+      "a": "pr:854",
+      "b": "pr:856",
+      "cosine": 0.369
+    },
+    {
+      "a": "pr:850",
+      "b": "pr:936",
+      "cosine": 0.367
+    },
+    {
+      "a": "pr:2686",
+      "b": "pr:2693",
+      "cosine": 0.366
+    },
+    {
+      "a": "pr:1953",
+      "b": "pr:2600",
+      "cosine": 0.363
+    },
+    {
+      "a": "pr:851",
+      "b": "pr:856",
+      "cosine": 0.362
+    },
+    {
+      "a": "pr:852",
+      "b": "pr:854",
+      "cosine": 0.362
+    },
+    {
+      "a": "pr:852",
+      "b": "pr:856",
+      "cosine": 0.362
+    },
+    {
+      "a": "pr:850",
+      "b": "pr:856",
+      "cosine": 0.362
+    },
+    {
+      "a": "pr:1690",
+      "b": "pr:1896",
+      "cosine": 0.361
+    },
+    {
+      "a": "pr:2062",
+      "b": "pr:2112",
+      "cosine": 0.361
+    },
+    {
+      "a": "pr:1430",
+      "b": "pr:2067",
+      "cosine": 0.359
+    },
+    {
+      "a": "pr:1197",
+      "b": "pr:2067",
+      "cosine": 0.356
+    },
+    {
+      "a": "pr:853",
+      "b": "pr:856",
+      "cosine": 0.356
+    },
+    {
+      "a": "pr:855",
+      "b": "pr:856",
+      "cosine": 0.354
+    },
+    {
+      "a": "pr:856",
+      "b": "pr:936",
+      "cosine": 0.354
+    },
+    {
+      "a": "pr:851",
+      "b": "pr:936",
+      "cosine": 0.353
+    },
+    {
+      "a": "pr:2489",
+      "b": "pr:2692",
+      "cosine": 0.353
+    },
+    {
+      "a": "pr:1494",
+      "b": "pr:2218",
+      "cosine": 0.353
+    },
+    {
+      "a": "pr:850",
+      "b": "pr:854",
+      "cosine": 0.353
+    },
+    {
+      "a": "pr:1707",
+      "b": "pr:2017",
+      "cosine": 0.352
+    },
+    {
+      "a": "pr:1423",
+      "b": "pr:2439",
+      "cosine": 0.352
+    },
+    {
+      "a": "pr:1149",
+      "b": "pr:2022",
+      "cosine": 0.351
+    },
+    {
+      "a": "pr:851",
+      "b": "pr:852",
+      "cosine": 0.35
+    },
+    {
+      "a": "pr:1654",
+      "b": "pr:2013",
+      "cosine": 0.35
+    },
+    {
+      "a": "pr:2017",
+      "b": "pr:2353",
+      "cosine": 0.349
+    },
+    {
+      "a": "pr:852",
+      "b": "pr:936",
+      "cosine": 0.349
+    },
+    {
+      "a": "pr:1281",
+      "b": "pr:2405",
+      "cosine": 0.348
+    },
+    {
+      "a": "pr:852",
+      "b": "pr:853",
+      "cosine": 0.345
+    },
+    {
+      "a": "pr:851",
+      "b": "pr:853",
+      "cosine": 0.343
+    },
+    {
+      "a": "pr:853",
+      "b": "pr:854",
+      "cosine": 0.341
+    },
+    {
+      "a": "pr:2632",
+      "b": "pr:2817",
+      "cosine": 0.341
+    },
+    {
+      "a": "pr:850",
+      "b": "pr:851",
+      "cosine": 0.341
+    },
+    {
+      "a": "pr:850",
+      "b": "pr:852",
+      "cosine": 0.34
+    },
+    {
+      "a": "pr:854",
+      "b": "pr:855",
+      "cosine": 0.34
+    },
+    {
+      "a": "pr:2498",
+      "b": "pr:2642",
+      "cosine": 0.339
+    },
+    {
+      "a": "pr:850",
+      "b": "pr:855",
+      "cosine": 0.337
+    },
+    {
+      "a": "pr:2067",
+      "b": "pr:2335",
+      "cosine": 0.336
+    },
+    {
+      "a": "pr:1891",
+      "b": "pr:1906",
+      "cosine": 0.336
+    },
+    {
+      "a": "pr:853",
+      "b": "pr:936",
+      "cosine": 0.335
+    },
+    {
+      "a": "pr:850",
+      "b": "pr:853",
+      "cosine": 0.335
+    },
+    {
+      "a": "pr:1803",
+      "b": "pr:2690",
+      "cosine": 0.334
+    },
+    {
+      "a": "pr:851",
+      "b": "pr:855",
+      "cosine": 0.334
+    },
+    {
+      "a": "pr:1240",
+      "b": "pr:2168",
+      "cosine": 0.333
+    },
+    {
+      "a": "pr:852",
+      "b": "pr:855",
+      "cosine": 0.333
+    },
+    {
+      "a": "pr:1803",
+      "b": "pr:2846",
+      "cosine": 0.333
+    },
+    {
+      "a": "pr:1714",
+      "b": "pr:2572",
+      "cosine": 0.331
+    },
+    {
+      "a": "pr:1690",
+      "b": "pr:2524",
+      "cosine": 0.331
+    },
+    {
+      "a": "pr:1072",
+      "b": "pr:1240",
+      "cosine": 0.331
+    },
+    {
+      "a": "pr:1417",
+      "b": "pr:1597",
+      "cosine": 0.33
+    },
+    {
+      "a": "pr:1072",
+      "b": "pr:2489",
+      "cosine": 0.33
+    },
+    {
+      "a": "pr:1839",
+      "b": "pr:2370",
+      "cosine": 0.329
+    },
+    {
+      "a": "pr:2257",
+      "b": "pr:2487",
+      "cosine": 0.329
+    },
+    {
+      "a": "pr:853",
+      "b": "pr:855",
+      "cosine": 0.328
+    },
+    {
+      "a": "pr:2000",
+      "b": "pr:2429",
+      "cosine": 0.327
+    },
+    {
+      "a": "pr:855",
+      "b": "pr:936",
+      "cosine": 0.326
+    },
+    {
+      "a": "pr:570",
+      "b": "pr:856",
+      "cosine": 0.324
+    },
+    {
+      "a": "pr:2065",
+      "b": "pr:2112",
+      "cosine": 0.324
+    },
+    {
+      "a": "pr:2065",
+      "b": "pr:2274",
+      "cosine": 0.324
+    },
+    {
+      "a": "pr:936",
+      "b": "pr:1197",
+      "cosine": 0.323
+    },
+    {
+      "a": "pr:856",
+      "b": "pr:900",
+      "cosine": 0.322
+    },
+    {
+      "a": "pr:2017",
+      "b": "pr:2029",
+      "cosine": 0.322
+    },
+    {
+      "a": "pr:2487",
+      "b": "pr:2499",
+      "cosine": 0.32
+    },
+    {
+      "a": "pr:1121",
+      "b": "pr:2551",
+      "cosine": 0.317
+    },
+    {
+      "a": "pr:2017",
+      "b": "pr:2587",
+      "cosine": 0.316
+    },
+    {
+      "a": "pr:936",
+      "b": "pr:2067",
+      "cosine": 0.314
+    },
+    {
+      "a": "pr:900",
+      "b": "pr:936",
+      "cosine": 0.314
+    },
+    {
+      "a": "pr:2023",
+      "b": "pr:2304",
+      "cosine": 0.313
+    },
+    {
+      "a": "pr:1071",
+      "b": "pr:1494",
+      "cosine": 0.31
+    },
+    {
+      "a": "pr:1071",
+      "b": "pr:2448",
+      "cosine": 0.309
+    },
+    {
+      "a": "pr:2586",
+      "b": "pr:2618",
+      "cosine": 0.308
+    },
+    {
+      "a": "pr:936",
+      "b": "pr:2751",
+      "cosine": 0.307
+    },
+    {
+      "a": "pr:1149",
+      "b": "pr:2444",
+      "cosine": 0.306
+    },
+    {
+      "a": "pr:1240",
+      "b": "pr:2325",
+      "cosine": 0.306
+    },
+    {
+      "a": "pr:1218",
+      "b": "pr:2804",
+      "cosine": 0.304
+    },
+    {
+      "a": "pr:1983",
+      "b": "pr:2406",
+      "cosine": 0.304
+    },
+    {
+      "a": "pr:2062",
+      "b": "pr:2065",
+      "cosine": 0.3
+    },
+    {
+      "a": "pr:856",
+      "b": "pr:2201",
+      "cosine": 0.299
+    },
+    {
+      "a": "pr:1341",
+      "b": "pr:1690",
+      "cosine": 0.299
+    },
+    {
+      "a": "pr:2124",
+      "b": "pr:2422",
+      "cosine": 0.296
+    },
+    {
+      "a": "pr:1072",
+      "b": "pr:2692",
+      "cosine": 0.295
+    },
+    {
+      "a": "pr:1826",
+      "b": "pr:2842",
+      "cosine": 0.293
+    },
+    {
+      "a": "pr:2452",
+      "b": "pr:2494",
+      "cosine": 0.292
+    },
+    {
+      "a": "pr:2634",
+      "b": "pr:2696",
+      "cosine": 0.292
+    },
+    {
+      "a": "pr:2006",
+      "b": "pr:2600",
+      "cosine": 0.291
+    },
+    {
+      "a": "pr:570",
+      "b": "pr:850",
+      "cosine": 0.289
+    },
+    {
+      "a": "pr:2455",
+      "b": "pr:2600",
+      "cosine": 0.288
+    },
+    {
+      "a": "pr:2519",
+      "b": "pr:2531",
+      "cosine": 0.288
+    },
+    {
+      "a": "pr:1558",
+      "b": "pr:1560",
+      "cosine": 0.288
+    },
+    {
+      "a": "pr:2107",
+      "b": "pr:2429",
+      "cosine": 0.287
+    },
+    {
+      "a": "pr:977",
+      "b": "pr:2214",
+      "cosine": 0.286
+    },
+    {
+      "a": "pr:1690",
+      "b": "pr:2352",
+      "cosine": 0.284
+    },
+    {
+      "a": "pr:1310",
+      "b": "pr:2572",
+      "cosine": 0.284
+    },
+    {
+      "a": "pr:2352",
+      "b": "pr:2524",
+      "cosine": 0.283
+    },
+    {
+      "a": "pr:1494",
+      "b": "pr:2448",
+      "cosine": 0.282
+    },
+    {
+      "a": "pr:1197",
+      "b": "pr:1430",
+      "cosine": 0.282
+    },
+    {
+      "a": "pr:2326",
+      "b": "pr:2592",
+      "cosine": 0.281
+    },
+    {
+      "a": "pr:2710",
+      "b": "pr:2776",
+      "cosine": 0.281
+    },
+    {
+      "a": "pr:2514",
+      "b": "pr:2804",
+      "cosine": 0.28
+    },
+    {
+      "a": "pr:2274",
+      "b": "pr:2487",
+      "cosine": 0.279
+    },
+    {
+      "a": "pr:850",
+      "b": "pr:900",
+      "cosine": 0.279
+    },
+    {
+      "a": "pr:2107",
+      "b": "pr:2566",
+      "cosine": 0.277
+    },
+    {
+      "a": "pr:1692",
+      "b": "pr:2478",
+      "cosine": 0.276
+    },
+    {
+      "a": "pr:977",
+      "b": "pr:1013",
+      "cosine": 0.274
+    },
+    {
+      "a": "pr:2257",
+      "b": "pr:2274",
+      "cosine": 0.274
+    },
+    {
+      "a": "pr:570",
+      "b": "pr:936",
+      "cosine": 0.274
+    },
+    {
+      "a": "pr:2634",
+      "b": "pr:2669",
+      "cosine": 0.274
+    },
+    {
+      "a": "pr:2686",
+      "b": "pr:2776",
+      "cosine": 0.273
+    },
+    {
+      "a": "pr:2406",
+      "b": "pr:2717",
+      "cosine": 0.273
+    },
+    {
+      "a": "pr:2498",
+      "b": "pr:2592",
+      "cosine": 0.273
+    },
+    {
+      "a": "pr:852",
+      "b": "pr:900",
+      "cosine": 0.272
+    },
+    {
+      "a": "pr:1961",
+      "b": "pr:2026",
+      "cosine": 0.271
+    },
+    {
+      "a": "pr:855",
+      "b": "pr:900",
+      "cosine": 0.271
+    },
+    {
+      "a": "pr:854",
+      "b": "pr:900",
+      "cosine": 0.27
+    },
+    {
+      "a": "pr:2711",
+      "b": "pr:2776",
+      "cosine": 0.27
+    },
+    {
+      "a": "pr:1430",
+      "b": "pr:2751",
+      "cosine": 0.27
+    },
+    {
+      "a": "pr:1896",
+      "b": "pr:1904",
+      "cosine": 0.269
+    },
+    {
+      "a": "pr:2274",
+      "b": "pr:2499",
+      "cosine": 0.268
+    },
+    {
+      "a": "pr:2690",
+      "b": "pr:2846",
+      "cosine": 0.267
+    },
+    {
+      "a": "pr:2168",
+      "b": "pr:2325",
+      "cosine": 0.267
+    },
+    {
+      "a": "pr:853",
+      "b": "pr:900",
+      "cosine": 0.267
+    },
+    {
+      "a": "pr:2549",
+      "b": "pr:2586",
+      "cosine": 0.267
+    },
+    {
+      "a": "pr:2065",
+      "b": "pr:2487",
+      "cosine": 0.266
+    },
+    {
+      "a": "pr:570",
+      "b": "pr:854",
+      "cosine": 0.265
+    },
+    {
+      "a": "pr:851",
+      "b": "pr:900",
+      "cosine": 0.265
+    },
+    {
+      "a": "pr:2000",
+      "b": "pr:2600",
+      "cosine": 0.265
+    },
+    {
+      "a": "pr:570",
+      "b": "pr:851",
+      "cosine": 0.265
+    },
+    {
+      "a": "pr:1993",
+      "b": "pr:2549",
+      "cosine": 0.264
+    },
+    {
+      "a": "pr:2586",
+      "b": "pr:2634",
+      "cosine": 0.264
+    },
+    {
+      "a": "pr:2267",
+      "b": "pr:2587",
+      "cosine": 0.263
+    },
+    {
+      "a": "pr:2168",
+      "b": "pr:2489",
+      "cosine": 0.262
+    },
+    {
+      "a": "pr:1707",
+      "b": "pr:2029",
+      "cosine": 0.262
+    },
+    {
+      "a": "pr:2370",
+      "b": "pr:2817",
+      "cosine": 0.261
+    },
+    {
+      "a": "pr:1953",
+      "b": "pr:2006",
+      "cosine": 0.261
+    },
+    {
+      "a": "pr:1417",
+      "b": "pr:2741",
+      "cosine": 0.26
+    },
+    {
+      "a": "pr:2436",
+      "b": "pr:2695",
+      "cosine": 0.259
+    },
+    {
+      "a": "pr:570",
+      "b": "pr:852",
+      "cosine": 0.258
+    },
+    {
+      "a": "pr:1707",
+      "b": "pr:2587",
+      "cosine": 0.258
+    },
+    {
+      "a": "pr:851",
+      "b": "pr:942",
+      "cosine": 0.257
+    },
+    {
+      "a": "pr:1423",
+      "b": "pr:1618",
+      "cosine": 0.257
+    },
+    {
+      "a": "pr:570",
+      "b": "pr:855",
+      "cosine": 0.256
+    },
+    {
+      "a": "pr:2325",
+      "b": "pr:2489",
+      "cosine": 0.256
+    },
+    {
+      "a": "pr:1071",
+      "b": "pr:2403",
+      "cosine": 0.256
+    },
+    {
+      "a": "pr:1799",
+      "b": "pr:2029",
+      "cosine": 0.255
+    },
+    {
+      "a": "pr:2029",
+      "b": "pr:2353",
+      "cosine": 0.255
+    },
+    {
+      "a": "pr:570",
+      "b": "pr:853",
+      "cosine": 0.254
+    },
+    {
+      "a": "pr:1218",
+      "b": "pr:2514",
+      "cosine": 0.254
+    },
+    {
+      "a": "pr:2487",
+      "b": "pr:2820",
+      "cosine": 0.254
+    },
+    {
+      "a": "pr:2062",
+      "b": "pr:2487",
+      "cosine": 0.253
+    },
+    {
+      "a": "pr:2420",
+      "b": "pr:2424",
+      "cosine": 0.253
+    },
+    {
+      "a": "pr:1183",
+      "b": "pr:2054",
+      "cosine": 0.253
+    },
+    {
+      "a": "pr:853",
+      "b": "pr:942",
+      "cosine": 0.252
+    },
+    {
+      "a": "pr:2630",
+      "b": "pr:2851",
+      "cosine": 0.251
+    },
+    {
+      "a": "issue:2571",
+      "b": "pr:2572",
+      "cosine": 0.914
+    },
+    {
+      "a": "issue:1857",
+      "b": "pr:1858",
+      "cosine": 0.798
+    },
+    {
+      "a": "issue:2437",
+      "b": "pr:2440",
+      "cosine": 0.79
+    },
+    {
+      "a": "issue:1897",
+      "b": "pr:1898",
+      "cosine": 0.776
+    },
+    {
+      "a": "issue:2160",
+      "b": "pr:2161",
+      "cosine": 0.758
+    },
+    {
+      "a": "issue:2283",
+      "b": "pr:2284",
+      "cosine": 0.74
+    },
+    {
+      "a": "issue:1895",
+      "b": "pr:1896",
+      "cosine": 0.722
+    },
+    {
+      "a": "issue:2273",
+      "b": "pr:2274",
+      "cosine": 0.713
+    },
+    {
+      "a": "issue:2276",
+      "b": "pr:2277",
+      "cosine": 0.691
+    },
+    {
+      "a": "issue:2278",
+      "b": "pr:2279",
+      "cosine": 0.691
+    },
+    {
+      "a": "issue:2285",
+      "b": "pr:2286",
+      "cosine": 0.69
+    },
+    {
+      "a": "issue:2281",
+      "b": "pr:2282",
+      "cosine": 0.678
+    },
+    {
+      "a": "issue:2567",
+      "b": "pr:2568",
+      "cosine": 0.674
+    },
+    {
+      "a": "issue:1693",
+      "b": "pr:1694",
+      "cosine": 0.674
+    },
+    {
+      "a": "issue:1638",
+      "b": "pr:1637",
+      "cosine": 0.65
+    },
+    {
+      "a": "issue:2215",
+      "b": "pr:2216",
+      "cosine": 0.644
+    },
+    {
+      "a": "issue:2447",
+      "b": "pr:2448",
+      "cosine": 0.644
+    },
+    {
+      "a": "issue:2209",
+      "b": "pr:2210",
+      "cosine": 0.644
+    },
+    {
+      "a": "issue:2207",
+      "b": "pr:2208",
+      "cosine": 0.635
+    },
+    {
+      "a": "issue:1715",
+      "b": "pr:1839",
+      "cosine": 0.61
+    },
+    {
+      "a": "issue:1992",
+      "b": "pr:1993",
+      "cosine": 0.61
+    },
+    {
+      "a": "issue:2433",
+      "b": "pr:2491",
+      "cosine": 0.607
+    },
+    {
+      "a": "issue:2256",
+      "b": "pr:2257",
+      "cosine": 0.607
+    },
+    {
+      "a": "issue:126",
+      "b": "pr:127",
+      "cosine": 0.597
+    },
+    {
+      "a": "issue:1749",
+      "b": "pr:1838",
+      "cosine": 0.597
+    },
+    {
+      "a": "issue:2123",
+      "b": "pr:2124",
+      "cosine": 0.588
+    },
+    {
+      "a": "issue:2252",
+      "b": "pr:2253",
+      "cosine": 0.574
+    },
+    {
+      "a": "issue:1946",
+      "b": "pr:1962",
+      "cosine": 0.564
+    },
+    {
+      "a": "issue:1612",
+      "b": "pr:1679",
+      "cosine": 0.551
+    },
+    {
+      "a": "issue:1527",
+      "b": "pr:2640",
+      "cosine": 0.549
+    },
+    {
+      "a": "issue:940",
+      "b": "pr:942",
+      "cosine": 0.545
+    },
+    {
+      "a": "issue:1670",
+      "b": "pr:1671",
+      "cosine": 0.542
+    },
+    {
+      "a": "issue:1078",
+      "b": "pr:1079",
+      "cosine": 0.534
+    },
+    {
+      "a": "issue:2372",
+      "b": "pr:2373",
+      "cosine": 0.528
+    },
+    {
+      "a": "issue:1371",
+      "b": "pr:1372",
+      "cosine": 0.527
+    },
+    {
+      "a": "issue:2156",
+      "b": "pr:2157",
+      "cosine": 0.524
+    },
+    {
+      "a": "issue:2636",
+      "b": "pr:2637",
+      "cosine": 0.518
+    },
+    {
+      "a": "issue:2635",
+      "b": "pr:2719",
+      "cosine": 0.518
+    },
+    {
+      "a": "issue:2144",
+      "b": "pr:2145",
+      "cosine": 0.517
+    },
+    {
+      "a": "issue:1717",
+      "b": "pr:1803",
+      "cosine": 0.516
+    },
+    {
+      "a": "issue:1899",
+      "b": "pr:1900",
+      "cosine": 0.502
+    },
+    {
+      "a": "issue:1150",
+      "b": "pr:1149",
+      "cosine": 0.502
+    },
+    {
+      "a": "issue:2673",
+      "b": "pr:2548",
+      "cosine": 0.501
+    },
+    {
+      "a": "issue:2152",
+      "b": "pr:2153",
+      "cosine": 0.499
+    },
+    {
+      "a": "issue:2091",
+      "b": "pr:2092",
+      "cosine": 0.487
+    },
+    {
+      "a": "issue:1750",
+      "b": "pr:1799",
+      "cosine": 0.485
+    },
+    {
+      "a": "issue:713",
+      "b": "pr:2376",
+      "cosine": 0.484
+    },
+    {
+      "a": "issue:2102",
+      "b": "pr:2486",
+      "cosine": 0.478
+    },
+    {
+      "a": "issue:1781",
+      "b": "pr:1837",
+      "cosine": 0.476
+    },
+    {
+      "a": "issue:2537",
+      "b": "pr:2548",
+      "cosine": 0.474
+    },
+    {
+      "a": "issue:2527",
+      "b": "pr:2528",
+      "cosine": 0.474
+    },
+    {
+      "a": "issue:1520",
+      "b": "pr:1706",
+      "cosine": 0.472
+    },
+    {
+      "a": "issue:1702",
+      "b": "pr:1703",
+      "cosine": 0.462
+    },
+    {
+      "a": "issue:912",
+      "b": "pr:1560",
+      "cosine": 0.459
+    },
+    {
+      "a": "issue:2450",
+      "b": "pr:2494",
+      "cosine": 0.458
+    },
+    {
+      "a": "issue:1219",
+      "b": "pr:2378",
+      "cosine": 0.454
+    },
+    {
+      "a": "issue:2538",
+      "b": "pr:2469",
+      "cosine": 0.453
+    },
+    {
+      "a": "issue:2826",
+      "b": "pr:2847",
+      "cosine": 0.452
+    },
+    {
+      "a": "issue:2437",
+      "b": "pr:2492",
+      "cosine": 0.45
+    },
+    {
+      "a": "issue:2150",
+      "b": "pr:2151",
+      "cosine": 0.448
+    },
+    {
+      "a": "issue:1916",
+      "b": "pr:1966",
+      "cosine": 0.445
+    },
+    {
+      "a": "issue:2662",
+      "b": "pr:1310",
+      "cosine": 0.444
+    },
+    {
+      "a": "issue:2537",
+      "b": "pr:2648",
+      "cosine": 0.44
+    },
+    {
+      "a": "issue:1503",
+      "b": "pr:1719",
+      "cosine": 0.439
+    },
+    {
+      "a": "issue:2484",
+      "b": "pr:2497",
+      "cosine": 0.436
+    },
+    {
+      "a": "issue:2465",
+      "b": "pr:2467",
+      "cosine": 0.435
+    },
+    {
+      "a": "issue:2463",
+      "b": "pr:2501",
+      "cosine": 0.435
+    },
+    {
+      "a": "issue:2675",
+      "b": "pr:2566",
+      "cosine": 0.433
+    },
+    {
+      "a": "issue:1073",
+      "b": "pr:1159",
+      "cosine": 0.432
+    },
+    {
+      "a": "issue:2395",
+      "b": "pr:1707",
+      "cosine": 0.432
+    },
+    {
+      "a": "issue:968",
+      "b": "pr:2067",
+      "cosine": 0.427
+    },
+    {
+      "a": "issue:1749",
+      "b": "pr:2856",
+      "cosine": 0.422
+    },
+    {
+      "a": "issue:1270",
+      "b": "pr:1460",
+      "cosine": 0.42
+    },
+    {
+      "a": "issue:1061",
+      "b": "pr:2376",
+      "cosine": 0.416
+    },
+    {
+      "a": "issue:2803",
+      "b": "pr:2802",
+      "cosine": 0.414
+    },
+    {
+      "a": "issue:1857",
+      "b": "pr:1965",
+      "cosine": 0.413
+    },
+    {
+      "a": "issue:968",
+      "b": "pr:936",
+      "cosine": 0.412
+    },
+    {
+      "a": "issue:1977",
+      "b": "pr:2220",
+      "cosine": 0.411
+    },
+    {
+      "a": "issue:2703",
+      "b": "pr:2548",
+      "cosine": 0.409
+    },
+    {
+      "a": "issue:2170",
+      "b": "pr:2642",
+      "cosine": 0.409
+    },
+    {
+      "a": "issue:2775",
+      "b": "pr:2548",
+      "cosine": 0.408
+    },
+    {
+      "a": "issue:1741",
+      "b": "pr:2670",
+      "cosine": 0.408
+    },
+    {
+      "a": "issue:1738",
+      "b": "pr:1800",
+      "cosine": 0.405
+    },
+    {
+      "a": "issue:2056",
+      "b": "pr:1597",
+      "cosine": 0.405
+    },
+    {
+      "a": "issue:1486",
+      "b": "pr:1554",
+      "cosine": 0.401
+    },
+    {
+      "a": "issue:1971",
+      "b": "pr:1976",
+      "cosine": 0.399
+    },
+    {
+      "a": "issue:713",
+      "b": "pr:2652",
+      "cosine": 0.398
+    },
+    {
+      "a": "issue:2579",
+      "b": "pr:2548",
+      "cosine": 0.398
+    },
+    {
+      "a": "issue:1945",
+      "b": "pr:1976",
+      "cosine": 0.397
+    },
+    {
+      "a": "issue:2594",
+      "b": "pr:2548",
+      "cosine": 0.395
+    },
+    {
+      "a": "issue:2059",
+      "b": "pr:2070",
+      "cosine": 0.392
+    },
+    {
+      "a": "issue:2464",
+      "b": "pr:2467",
+      "cosine": 0.388
+    },
+    {
+      "a": "issue:2106",
+      "b": "pr:2261",
+      "cosine": 0.381
+    },
+    {
+      "a": "issue:968",
+      "b": "pr:2751",
+      "cosine": 0.379
+    },
+    {
+      "a": "issue:2750",
+      "b": "pr:2752",
+      "cosine": 0.378
+    },
+    {
+      "a": "issue:1014",
+      "b": "pr:1177",
+      "cosine": 0.377
+    },
+    {
+      "a": "issue:2680",
+      "b": "pr:2436",
+      "cosine": 0.376
+    },
+    {
+      "a": "issue:2673",
+      "b": "pr:2648",
+      "cosine": 0.373
+    },
+    {
+      "a": "issue:2576",
+      "b": "pr:2717",
+      "cosine": 0.373
+    },
+    {
+      "a": "issue:2626",
+      "b": "pr:2548",
+      "cosine": 0.372
+    },
+    {
+      "a": "issue:2783",
+      "b": "pr:1376",
+      "cosine": 0.372
+    },
+    {
+      "a": "issue:2849",
+      "b": "pr:2850",
+      "cosine": 0.371
+    },
+    {
+      "a": "issue:968",
+      "b": "pr:1197",
+      "cosine": 0.368
+    },
+    {
+      "a": "issue:2774",
+      "b": "pr:2777",
+      "cosine": 0.368
+    },
+    {
+      "a": "issue:2773",
+      "b": "pr:2777",
+      "cosine": 0.368
+    },
+    {
+      "a": "issue:2772",
+      "b": "pr:2777",
+      "cosine": 0.368
+    },
+    {
+      "a": "issue:2812",
+      "b": "pr:2124",
+      "cosine": 0.368
+    },
+    {
+      "a": "issue:2808",
+      "b": "pr:2124",
+      "cosine": 0.368
+    },
+    {
+      "a": "issue:2256",
+      "b": "pr:2499",
+      "cosine": 0.367
+    },
+    {
+      "a": "issue:2689",
+      "b": "pr:2757",
+      "cosine": 0.364
+    },
+    {
+      "a": "issue:2466",
+      "b": "pr:2493",
+      "cosine": 0.364
+    },
+    {
+      "a": "issue:2841",
+      "b": "pr:1181",
+      "cosine": 0.361
+    },
+    {
+      "a": "issue:2091",
+      "b": "pr:2456",
+      "cosine": 0.36
+    },
+    {
+      "a": "issue:919",
+      "b": "pr:2218",
+      "cosine": 0.36
+    },
+    {
+      "a": "issue:2445",
+      "b": "pr:2428",
+      "cosine": 0.36
+    },
+    {
+      "a": "issue:1768",
+      "b": "pr:1791",
+      "cosine": 0.359
+    },
+    {
+      "a": "issue:1061",
+      "b": "pr:2652",
+      "cosine": 0.359
+    },
+    {
+      "a": "issue:2383",
+      "b": "pr:1016",
+      "cosine": 0.356
+    },
+    {
+      "a": "issue:2039",
+      "b": "pr:2487",
+      "cosine": 0.356
+    },
+    {
+      "a": "issue:1717",
+      "b": "pr:2846",
+      "cosine": 0.354
+    },
+    {
+      "a": "issue:2222",
+      "b": "pr:2329",
+      "cosine": 0.351
+    },
+    {
+      "a": "issue:2170",
+      "b": "pr:2592",
+      "cosine": 0.351
+    },
+    {
+      "a": "issue:1150",
+      "b": "pr:2022",
+      "cosine": 0.351
+    },
+    {
+      "a": "issue:1987",
+      "b": "pr:1988",
+      "cosine": 0.347
+    },
+    {
+      "a": "issue:2580",
+      "b": "pr:2017",
+      "cosine": 0.346
+    },
+    {
+      "a": "issue:2111",
+      "b": "pr:1553",
+      "cosine": 0.344
+    },
+    {
+      "a": "issue:2297",
+      "b": "pr:2316",
+      "cosine": 0.343
+    },
+    {
+      "a": "issue:1516",
+      "b": "pr:2566",
+      "cosine": 0.342
+    },
+    {
+      "a": "issue:2675",
+      "b": "pr:2642",
+      "cosine": 0.341
+    },
+    {
+      "a": "issue:1520",
+      "b": "pr:2192",
+      "cosine": 0.34
+    },
+    {
+      "a": "issue:957",
+      "b": "pr:1006",
+      "cosine": 0.34
+    },
+    {
+      "a": "issue:1525",
+      "b": "pr:1529",
+      "cosine": 0.339
+    },
+    {
+      "a": "issue:1963",
+      "b": "pr:2764",
+      "cosine": 0.338
+    },
+    {
+      "a": "issue:1513",
+      "b": "pr:1183",
+      "cosine": 0.338
+    },
+    {
+      "a": "issue:2775",
+      "b": "pr:2648",
+      "cosine": 0.337
+    },
+    {
+      "a": "issue:2298",
+      "b": "pr:2761",
+      "cosine": 0.336
+    },
+    {
+      "a": "issue:2703",
+      "b": "pr:2648",
+      "cosine": 0.336
+    },
+    {
+      "a": "issue:526",
+      "b": "pr:1554",
+      "cosine": 0.335
+    },
+    {
+      "a": "issue:2051",
+      "b": "pr:2592",
+      "cosine": 0.335
+    },
+    {
+      "a": "issue:2202",
+      "b": "pr:2670",
+      "cosine": 0.332
+    },
+    {
+      "a": "issue:202",
+      "b": "pr:263",
+      "cosine": 0.332
+    },
+    {
+      "a": "issue:2446",
+      "b": "pr:2495",
+      "cosine": 0.33
+    },
+    {
+      "a": "issue:2546",
+      "b": "pr:2428",
+      "cosine": 0.33
+    },
+    {
+      "a": "issue:2138",
+      "b": "pr:2804",
+      "cosine": 0.327
+    },
+    {
+      "a": "issue:584",
+      "b": "pr:582",
+      "cosine": 0.326
+    },
+    {
+      "a": "issue:2624",
+      "b": "pr:2625",
+      "cosine": 0.324
+    },
+    {
+      "a": "issue:2536",
+      "b": "pr:2548",
+      "cosine": 0.324
+    },
+    {
+      "a": "issue:1493",
+      "b": "pr:353",
+      "cosine": 0.323
+    },
+    {
+      "a": "issue:2186",
+      "b": "pr:2188",
+      "cosine": 0.322
+    },
+    {
+      "a": "issue:2256",
+      "b": "pr:2487",
+      "cosine": 0.322
+    },
+    {
+      "a": "issue:2760",
+      "b": "pr:2779",
+      "cosine": 0.322
+    },
+    {
+      "a": "issue:2823",
+      "b": "pr:2317",
+      "cosine": 0.322
+    },
+    {
+      "a": "issue:2337",
+      "b": "pr:2642",
+      "cosine": 0.321
+    },
+    {
+      "a": "issue:2132",
+      "b": "pr:1791",
+      "cosine": 0.321
+    },
+    {
+      "a": "issue:2039",
+      "b": "pr:2062",
+      "cosine": 0.32
+    },
+    {
+      "a": "issue:2511",
+      "b": "pr:1838",
+      "cosine": 0.32
+    },
+    {
+      "a": "issue:2645",
+      "b": "pr:2548",
+      "cosine": 0.32
+    },
+    {
+      "a": "issue:2176",
+      "b": "pr:2642",
+      "cosine": 0.32
+    },
+    {
+      "a": "issue:584",
+      "b": "pr:580",
+      "cosine": 0.319
+    },
+    {
+      "a": "issue:2667",
+      "b": "pr:2548",
+      "cosine": 0.317
+    },
+    {
+      "a": "issue:2829",
+      "b": "pr:2837",
+      "cosine": 0.316
+    },
+    {
+      "a": "issue:617",
+      "b": "pr:1331",
+      "cosine": 0.316
+    },
+    {
+      "a": "issue:2676",
+      "b": "pr:2566",
+      "cosine": 0.315
+    },
+    {
+      "a": "issue:2828",
+      "b": "pr:2836",
+      "cosine": 0.315
+    },
+    {
+      "a": "issue:2099",
+      "b": "pr:2101",
+      "cosine": 0.314
+    },
+    {
+      "a": "issue:1574",
+      "b": "pr:1707",
+      "cosine": 0.314
+    },
+    {
+      "a": "issue:970",
+      "b": "pr:1016",
+      "cosine": 0.314
+    },
+    {
+      "a": "issue:1357",
+      "b": "pr:1006",
+      "cosine": 0.314
+    },
+    {
+      "a": "issue:2490",
+      "b": "pr:2442",
+      "cosine": 0.313
+    },
+    {
+      "a": "issue:1516",
+      "b": "pr:2107",
+      "cosine": 0.313
+    },
+    {
+      "a": "issue:2078",
+      "b": "pr:2519",
+      "cosine": 0.31
+    },
+    {
+      "a": "issue:2103",
+      "b": "pr:2642",
+      "cosine": 0.309
+    },
+    {
+      "a": "issue:2579",
+      "b": "pr:2648",
+      "cosine": 0.309
+    },
+    {
+      "a": "issue:2170",
+      "b": "pr:2326",
+      "cosine": 0.309
+    },
+    {
+      "a": "issue:2580",
+      "b": "pr:2353",
+      "cosine": 0.309
+    },
+    {
+      "a": "issue:2571",
+      "b": "pr:1714",
+      "cosine": 0.309
+    },
+    {
+      "a": "issue:2594",
+      "b": "pr:2648",
+      "cosine": 0.308
+    },
+    {
+      "a": "issue:2136",
+      "b": "pr:2804",
+      "cosine": 0.308
+    },
+    {
+      "a": "issue:2372",
+      "b": "pr:1618",
+      "cosine": 0.307
+    },
+    {
+      "a": "issue:2213",
+      "b": "pr:2214",
+      "cosine": 0.307
+    },
+    {
+      "a": "issue:2426",
+      "b": "pr:2441",
+      "cosine": 0.307
+    },
+    {
+      "a": "issue:1895",
+      "b": "pr:2352",
+      "cosine": 0.307
+    },
+    {
+      "a": "issue:2450",
+      "b": "pr:2452",
+      "cosine": 0.306
+    },
+    {
+      "a": "issue:2843",
+      "b": "pr:2315",
+      "cosine": 0.306
+    },
+    {
+      "a": "issue:1715",
+      "b": "pr:2370",
+      "cosine": 0.306
+    },
+    {
+      "a": "issue:2283",
+      "b": "pr:2286",
+      "cosine": 0.303
+    },
+    {
+      "a": "issue:2256",
+      "b": "pr:2274",
+      "cosine": 0.303
+    },
+    {
+      "a": "issue:1641",
+      "b": "pr:1006",
+      "cosine": 0.303
+    },
+    {
+      "a": "issue:2527",
+      "b": "pr:472",
+      "cosine": 0.301
+    },
+    {
+      "a": "issue:1740",
+      "b": "pr:2566",
+      "cosine": 0.301
+    },
+    {
+      "a": "issue:2657",
+      "b": "pr:2652",
+      "cosine": 0.301
+    },
+    {
+      "a": "issue:2222",
+      "b": "pr:2243",
+      "cosine": 0.3
+    },
+    {
+      "a": "issue:976",
+      "b": "pr:975",
+      "cosine": 0.299
+    },
+    {
+      "a": "issue:2273",
+      "b": "pr:2487",
+      "cosine": 0.298
+    },
+    {
+      "a": "issue:584",
+      "b": "pr:581",
+      "cosine": 0.296
+    },
+    {
+      "a": "issue:2675",
+      "b": "pr:2592",
+      "cosine": 0.295
+    },
+    {
+      "a": "issue:1307",
+      "b": "pr:1855",
+      "cosine": 0.295
+    },
+    {
+      "a": "issue:1745",
+      "b": "pr:2730",
+      "cosine": 0.294
+    },
+    {
+      "a": "issue:2247",
+      "b": "pr:2702",
+      "cosine": 0.293
+    },
+    {
+      "a": "issue:1890",
+      "b": "pr:1903",
+      "cosine": 0.293
+    },
+    {
+      "a": "issue:2039",
+      "b": "pr:2802",
+      "cosine": 0.292
+    },
+    {
+      "a": "issue:2447",
+      "b": "pr:1494",
+      "cosine": 0.291
+    },
+    {
+      "a": "issue:834",
+      "b": "pr:1006",
+      "cosine": 0.291
+    },
+    {
+      "a": "issue:2608",
+      "b": "pr:1654",
+      "cosine": 0.291
+    },
+    {
+      "a": "issue:2285",
+      "b": "pr:2284",
+      "cosine": 0.29
+    },
+    {
+      "a": "issue:2273",
+      "b": "pr:2499",
+      "cosine": 0.289
+    },
+    {
+      "a": "issue:1895",
+      "b": "pr:2524",
+      "cosine": 0.289
+    },
+    {
+      "a": "issue:486",
+      "b": "pr:853",
+      "cosine": 0.289
+    },
+    {
+      "a": "issue:1150",
+      "b": "pr:2444",
+      "cosine": 0.286
+    },
+    {
+      "a": "issue:2039",
+      "b": "pr:2257",
+      "cosine": 0.285
+    },
+    {
+      "a": "issue:1728",
+      "b": "pr:1731",
+      "cosine": 0.285
+    },
+    {
+      "a": "issue:2580",
+      "b": "pr:1707",
+      "cosine": 0.285
+    },
+    {
+      "a": "issue:2541",
+      "b": "pr:2642",
+      "cosine": 0.284
+    },
+    {
+      "a": "issue:2490",
+      "b": "pr:2771",
+      "cosine": 0.283
+    },
+    {
+      "a": "issue:2185",
+      "b": "pr:2201",
+      "cosine": 0.283
+    },
+    {
+      "a": "issue:2039",
+      "b": "pr:2499",
+      "cosine": 0.282
+    },
+    {
+      "a": "issue:2664",
+      "b": "pr:2697",
+      "cosine": 0.282
+    },
+    {
+      "a": "issue:2123",
+      "b": "pr:2422",
+      "cosine": 0.281
+    },
+    {
+      "a": "issue:2394",
+      "b": "pr:2551",
+      "cosine": 0.281
+    },
+    {
+      "a": "issue:2431",
+      "b": "pr:2361",
+      "cosine": 0.281
+    },
+    {
+      "a": "issue:968",
+      "b": "pr:2335",
+      "cosine": 0.28
+    },
+    {
+      "a": "issue:2763",
+      "b": "pr:2497",
+      "cosine": 0.28
+    },
+    {
+      "a": "issue:2337",
+      "b": "pr:2566",
+      "cosine": 0.28
+    },
+    {
+      "a": "issue:430",
+      "b": "pr:2436",
+      "cosine": 0.28
+    },
+    {
+      "a": "issue:1490",
+      "b": "pr:1558",
+      "cosine": 0.28
+    },
+    {
+      "a": "issue:1402",
+      "b": "pr:2592",
+      "cosine": 0.279
+    },
+    {
+      "a": "issue:2812",
+      "b": "pr:2422",
+      "cosine": 0.279
+    },
+    {
+      "a": "issue:2808",
+      "b": "pr:2422",
+      "cosine": 0.279
+    },
+    {
+      "a": "issue:1591",
+      "b": "pr:1553",
+      "cosine": 0.279
+    },
+    {
+      "a": "issue:1467",
+      "b": "pr:1931",
+      "cosine": 0.279
+    },
+    {
+      "a": "issue:2106",
+      "b": "pr:2514",
+      "cosine": 0.278
+    },
+    {
+      "a": "issue:2763",
+      "b": "pr:2534",
+      "cosine": 0.278
+    },
+    {
+      "a": "issue:2056",
+      "b": "pr:1417",
+      "cosine": 0.278
+    },
+    {
+      "a": "issue:2580",
+      "b": "pr:2029",
+      "cosine": 0.278
+    },
+    {
+      "a": "issue:2626",
+      "b": "pr:2648",
+      "cosine": 0.275
+    },
+    {
+      "a": "issue:2176",
+      "b": "pr:2566",
+      "cosine": 0.275
+    },
+    {
+      "a": "issue:303",
+      "b": "pr:1181",
+      "cosine": 0.275
+    },
+    {
+      "a": "issue:2633",
+      "b": "pr:2274",
+      "cosine": 0.274
+    },
+    {
+      "a": "issue:2273",
+      "b": "pr:2257",
+      "cosine": 0.273
+    },
+    {
+      "a": "issue:1895",
+      "b": "pr:1690",
+      "cosine": 0.273
+    },
+    {
+      "a": "issue:2458",
+      "b": "pr:2459",
+      "cosine": 0.273
+    },
+    {
+      "a": "issue:1672",
+      "b": "pr:2566",
+      "cosine": 0.272
+    },
+    {
+      "a": "issue:2447",
+      "b": "pr:1071",
+      "cosine": 0.271
+    },
+    {
+      "a": "issue:2728",
+      "b": "pr:1494",
+      "cosine": 0.27
+    },
+    {
+      "a": "issue:2536",
+      "b": "pr:2648",
+      "cosine": 0.269
+    },
+    {
+      "a": "issue:1734",
+      "b": "pr:2510",
+      "cosine": 0.269
+    },
+    {
+      "a": "issue:1890",
+      "b": "pr:2702",
+      "cosine": 0.268
+    },
+    {
+      "a": "issue:2136",
+      "b": "pr:2261",
+      "cosine": 0.268
+    },
+    {
+      "a": "issue:1038",
+      "b": "pr:894",
+      "cosine": 0.267
+    },
+    {
+      "a": "issue:2577",
+      "b": "pr:2670",
+      "cosine": 0.267
+    },
+    {
+      "a": "issue:1674",
+      "b": "pr:2566",
+      "cosine": 0.267
+    },
+    {
+      "a": "issue:1750",
+      "b": "pr:2029",
+      "cosine": 0.266
+    },
+    {
+      "a": "issue:1739",
+      "b": "pr:2063",
+      "cosine": 0.266
+    },
+    {
+      "a": "issue:2728",
+      "b": "pr:2430",
+      "cosine": 0.266
+    },
+    {
+      "a": "issue:2680",
+      "b": "pr:2695",
+      "cosine": 0.266
+    },
+    {
+      "a": "issue:2273",
+      "b": "pr:2065",
+      "cosine": 0.266
+    },
+    {
+      "a": "issue:2039",
+      "b": "pr:2488",
+      "cosine": 0.266
+    },
+    {
+      "a": "issue:2170",
+      "b": "pr:2692",
+      "cosine": 0.266
+    },
+    {
+      "a": "issue:2106",
+      "b": "pr:1218",
+      "cosine": 0.265
+    },
+    {
+      "a": "issue:1868",
+      "b": "pr:1654",
+      "cosine": 0.265
+    },
+    {
+      "a": "issue:2080",
+      "b": "pr:1646",
+      "cosine": 0.265
+    },
+    {
+      "a": "issue:2106",
+      "b": "pr:2804",
+      "cosine": 0.265
+    },
+    {
+      "a": "issue:1001",
+      "b": "pr:1679",
+      "cosine": 0.265
+    },
+    {
+      "a": "issue:2511",
+      "b": "pr:2856",
+      "cosine": 0.264
+    },
+    {
+      "a": "issue:1353",
+      "b": "pr:894",
+      "cosine": 0.263
+    },
+    {
+      "a": "issue:2176",
+      "b": "pr:2592",
+      "cosine": 0.262
+    },
+    {
+      "a": "issue:2337",
+      "b": "pr:2000",
+      "cosine": 0.262
+    },
+    {
+      "a": "issue:2671",
+      "b": "pr:2548",
+      "cosine": 0.262
+    },
+    {
+      "a": "issue:1516",
+      "b": "pr:2000",
+      "cosine": 0.262
+    },
+    {
+      "a": "issue:2571",
+      "b": "pr:1310",
+      "cosine": 0.261
+    },
+    {
+      "a": "issue:2256",
+      "b": "pr:2802",
+      "cosine": 0.26
+    },
+    {
+      "a": "issue:2138",
+      "b": "pr:1218",
+      "cosine": 0.26
+    },
+    {
+      "a": "issue:2395",
+      "b": "pr:2353",
+      "cosine": 0.258
+    },
+    {
+      "a": "issue:1574",
+      "b": "pr:2017",
+      "cosine": 0.258
+    },
+    {
+      "a": "issue:1058",
+      "b": "pr:1060",
+      "cosine": 0.258
+    },
+    {
+      "a": "issue:2511",
+      "b": "pr:1707",
+      "cosine": 0.258
+    },
+    {
+      "a": "issue:2103",
+      "b": "pr:2000",
+      "cosine": 0.257
+    },
+    {
+      "a": "issue:1574",
+      "b": "pr:2587",
+      "cosine": 0.257
+    },
+    {
+      "a": "issue:882",
+      "b": "pr:1006",
+      "cosine": 0.256
+    },
+    {
+      "a": "issue:2663",
+      "b": "pr:2519",
+      "cosine": 0.256
+    },
+    {
+      "a": "issue:2613",
+      "b": "pr:1460",
+      "cosine": 0.255
+    },
+    {
+      "a": "issue:2170",
+      "b": "pr:2498",
+      "cosine": 0.255
+    },
+    {
+      "a": "issue:575",
+      "b": "pr:2166",
+      "cosine": 0.254
+    },
+    {
+      "a": "issue:2547",
+      "b": "pr:1560",
+      "cosine": 0.254
+    },
+    {
+      "a": "issue:2394",
+      "b": "pr:1121",
+      "cosine": 0.253
+    },
+    {
+      "a": "issue:968",
+      "b": "pr:1430",
+      "cosine": 0.251
+    },
+    {
+      "a": "issue:2337",
+      "b": "pr:2592",
+      "cosine": 0.251
+    },
+    {
+      "a": "issue:1467",
+      "b": "pr:2418",
+      "cosine": 0.251
+    },
+    {
+      "a": "issue:2103",
+      "b": "pr:2842",
+      "cosine": 0.251
+    },
+    {
+      "a": "issue:2136",
+      "b": "pr:2514",
+      "cosine": 0.25
+    },
+    {
+      "a": "issue:2503",
+      "b": "pr:477",
+      "cosine": 0.25
+    },
+    {
+      "a": "issue:2103",
+      "b": "pr:2592",
+      "cosine": 0.25
+    }
+  ],
+  "multi_close_prs": {
+    "2091": [
+      2092,
+      2456
+    ],
+    "2256": [
+      2257,
+      2499
+    ],
+    "2273": [
+      2274,
+      2802
+    ],
+    "2437": [
+      2440,
+      2492
+    ],
+    "2450": [
+      2452,
+      2494
+    ],
+    "1717": [
+      2690,
+      1803
+    ],
+    "203": [
+      1051,
+      1060
+    ],
+    "1857": [
+      1858,
+      1965
+    ]
+  },
+  "title_jaccard_pairs": [
+    {
+      "a": "issue:2815",
+      "b": "issue:2811",
+      "jaccard": 1.0
+    },
+    {
+      "a": "issue:2814",
+      "b": "issue:2810",
+      "jaccard": 1.0
+    },
+    {
+      "a": "issue:2813",
+      "b": "issue:2809",
+      "jaccard": 1.0
+    },
+    {
+      "a": "issue:2812",
+      "b": "issue:2808",
+      "jaccard": 1.0
+    },
+    {
+      "a": "issue:2774",
+      "b": "issue:2773",
+      "jaccard": 1.0
+    },
+    {
+      "a": "issue:2774",
+      "b": "issue:2772",
+      "jaccard": 1.0
+    },
+    {
+      "a": "issue:2773",
+      "b": "issue:2772",
+      "jaccard": 1.0
+    },
+    {
+      "a": "issue:2567",
+      "b": "pr:2568",
+      "jaccard": 0.8
+    },
+    {
+      "a": "issue:2390",
+      "b": "issue:2388",
+      "jaccard": 1.0
+    },
+    {
+      "a": "issue:2222",
+      "b": "pr:2329",
+      "jaccard": 1.0
+    },
+    {
+      "a": "issue:2198",
+      "b": "issue:2196",
+      "jaccard": 1.0
+    },
+    {
+      "a": "issue:1861",
+      "b": "issue:1859",
+      "jaccard": 1.0
+    },
+    {
+      "a": "issue:1520",
+      "b": "pr:1706",
+      "jaccard": 0.833
+    },
+    {
+      "a": "issue:1219",
+      "b": "pr:2378",
+      "jaccard": 0.857
+    },
+    {
+      "a": "issue:126",
+      "b": "pr:127",
+      "jaccard": 0.8
+    },
+    {
+      "a": "pr:2853",
+      "b": "pr:2127",
+      "jaccard": 0.75
+    },
+    {
+      "a": "pr:2819",
+      "b": "pr:2817",
+      "jaccard": 0.8
+    },
+    {
+      "a": "pr:2751",
+      "b": "pr:1197",
+      "jaccard": 0.875
+    },
+    {
+      "a": "pr:2534",
+      "b": "pr:2532",
+      "jaccard": 1.0
+    },
+    {
+      "a": "pr:2492",
+      "b": "pr:2440",
+      "jaccard": 0.875
+    },
+    {
+      "a": "pr:2381",
+      "b": "pr:1202",
+      "jaccard": 1.0
+    }
+  ]
+}

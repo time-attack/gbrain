@@ -1,0 +1,726 @@
+{
+  "meta": {
+    "generatedAt": "2026-07-16T19:43:47.554Z",
+    "count": 50
+  },
+  "items": [
+    {
+      "id": "pr:1803",
+      "canonical": null,
+      "related": [],
+      "explanation": "Real bug report: fix(embed): label content_chunks.model with the model that produced the vector (#1717)",
+      "proposedSolution": "Confirm on master. Add a failing test. Ship a narrow fix."
+    },
+    {
+      "id": "pr:2853",
+      "canonical": {
+        "kind": "pr",
+        "number": 2127
+      },
+      "related": [
+        {
+          "kind": "pr",
+          "number": 2127
+        }
+      ],
+      "explanation": "This is the same problem as PR #2127. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on PR #2127."
+    },
+    {
+      "id": "pr:2819",
+      "canonical": {
+        "kind": "pr",
+        "number": 2817
+      },
+      "related": [
+        {
+          "kind": "pr",
+          "number": 2817
+        }
+      ],
+      "explanation": "This is the same problem as PR #2817. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on PR #2817."
+    },
+    {
+      "id": "pr:2802",
+      "canonical": null,
+      "related": [],
+      "explanation": "This is a duplicate of another open item. Keep one thread.",
+      "proposedSolution": "Close as duplicate after a quick glance."
+    },
+    {
+      "id": "pr:2751",
+      "canonical": {
+        "kind": "pr",
+        "number": 1197
+      },
+      "related": [
+        {
+          "kind": "pr",
+          "number": 1197
+        }
+      ],
+      "explanation": "This is the same problem as PR #1197. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on PR #1197."
+    },
+    {
+      "id": "pr:2690",
+      "canonical": null,
+      "related": [],
+      "explanation": "This is a duplicate of another open item. Keep one thread.",
+      "proposedSolution": "Close as duplicate after a quick glance."
+    },
+    {
+      "id": "pr:2572",
+      "canonical": {
+        "kind": "issue",
+        "number": 2571
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2571
+        }
+      ],
+      "explanation": "This is the same problem as issue #2571. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2571."
+    },
+    {
+      "id": "pr:2568",
+      "canonical": {
+        "kind": "issue",
+        "number": 2567
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2567
+        }
+      ],
+      "explanation": "This is the same problem as issue #2567. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2567."
+    },
+    {
+      "id": "pr:2534",
+      "canonical": {
+        "kind": "pr",
+        "number": 2532
+      },
+      "related": [
+        {
+          "kind": "pr",
+          "number": 2532
+        }
+      ],
+      "explanation": "This is the same problem as PR #2532. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on PR #2532."
+    },
+    {
+      "id": "pr:2521",
+      "canonical": {
+        "kind": "pr",
+        "number": 2026
+      },
+      "related": [
+        {
+          "kind": "pr",
+          "number": 2026
+        }
+      ],
+      "explanation": "This is the same problem as PR #2026. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on PR #2026."
+    },
+    {
+      "id": "pr:2499",
+      "canonical": null,
+      "related": [],
+      "explanation": "This is a duplicate of another open item. Keep one thread.",
+      "proposedSolution": "Close as duplicate after a quick glance."
+    },
+    {
+      "id": "pr:2494",
+      "canonical": null,
+      "related": [],
+      "explanation": "This is a duplicate of another open item. Keep one thread.",
+      "proposedSolution": "Close as duplicate after a quick glance."
+    },
+    {
+      "id": "pr:2491",
+      "canonical": {
+        "kind": "issue",
+        "number": 2433
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2433
+        }
+      ],
+      "explanation": "This is the same problem as issue #2433. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2433."
+    },
+    {
+      "id": "pr:2456",
+      "canonical": null,
+      "related": [],
+      "explanation": "This is a duplicate of another open item. Keep one thread.",
+      "proposedSolution": "Close as duplicate after a quick glance."
+    },
+    {
+      "id": "pr:2448",
+      "canonical": {
+        "kind": "issue",
+        "number": 2447
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2447
+        }
+      ],
+      "explanation": "This is the same problem as issue #2447. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2447."
+    },
+    {
+      "id": "pr:2378",
+      "canonical": {
+        "kind": "issue",
+        "number": 1219
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1219
+        }
+      ],
+      "explanation": "This is the same problem as issue #1219. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1219."
+    },
+    {
+      "id": "pr:2329",
+      "canonical": {
+        "kind": "issue",
+        "number": 2222
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2222
+        }
+      ],
+      "explanation": "This is the same problem as issue #2222. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2222."
+    },
+    {
+      "id": "pr:2286",
+      "canonical": {
+        "kind": "issue",
+        "number": 2285
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2285
+        }
+      ],
+      "explanation": "This is the same problem as issue #2285. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2285."
+    },
+    {
+      "id": "pr:2284",
+      "canonical": {
+        "kind": "issue",
+        "number": 2283
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2283
+        }
+      ],
+      "explanation": "This is the same problem as issue #2283. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2283."
+    },
+    {
+      "id": "pr:2282",
+      "canonical": {
+        "kind": "issue",
+        "number": 2281
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2281
+        }
+      ],
+      "explanation": "This is the same problem as issue #2281. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2281."
+    },
+    {
+      "id": "pr:2279",
+      "canonical": {
+        "kind": "issue",
+        "number": 2278
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2278
+        }
+      ],
+      "explanation": "This is the same problem as issue #2278. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2278."
+    },
+    {
+      "id": "pr:2277",
+      "canonical": {
+        "kind": "issue",
+        "number": 2276
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2276
+        }
+      ],
+      "explanation": "This is the same problem as issue #2276. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2276."
+    },
+    {
+      "id": "pr:2274",
+      "canonical": {
+        "kind": "issue",
+        "number": 2273
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2273
+        }
+      ],
+      "explanation": "This is the same problem as issue #2273. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2273."
+    },
+    {
+      "id": "pr:2257",
+      "canonical": {
+        "kind": "issue",
+        "number": 2256
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2256
+        }
+      ],
+      "explanation": "This is the same problem as issue #2256. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2256."
+    },
+    {
+      "id": "pr:2253",
+      "canonical": {
+        "kind": "issue",
+        "number": 2252
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2252
+        }
+      ],
+      "explanation": "This is the same problem as issue #2252. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2252."
+    },
+    {
+      "id": "pr:2216",
+      "canonical": {
+        "kind": "issue",
+        "number": 2215
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2215
+        }
+      ],
+      "explanation": "This is the same problem as issue #2215. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2215."
+    },
+    {
+      "id": "pr:2210",
+      "canonical": {
+        "kind": "issue",
+        "number": 2209
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2209
+        }
+      ],
+      "explanation": "This is the same problem as issue #2209. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2209."
+    },
+    {
+      "id": "pr:2208",
+      "canonical": {
+        "kind": "issue",
+        "number": 2207
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2207
+        }
+      ],
+      "explanation": "This is the same problem as issue #2207. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2207."
+    },
+    {
+      "id": "issue:2204",
+      "canonical": {
+        "kind": "issue",
+        "number": 1516
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1516
+        },
+        {
+          "kind": "issue",
+          "number": 1672
+        },
+        {
+          "kind": "issue",
+          "number": 1740
+        }
+      ],
+      "explanation": "This is the same problem as issue #1516. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1516."
+    },
+    {
+      "id": "issue:2202",
+      "canonical": {
+        "kind": "issue",
+        "number": 1741
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1741
+        }
+      ],
+      "explanation": "This is the same problem as issue #1741. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1741."
+    },
+    {
+      "id": "pr:2161",
+      "canonical": {
+        "kind": "issue",
+        "number": 2160
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2160
+        }
+      ],
+      "explanation": "This is the same problem as issue #2160. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2160."
+    },
+    {
+      "id": "pr:2124",
+      "canonical": {
+        "kind": "issue",
+        "number": 2123
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 2123
+        }
+      ],
+      "explanation": "This is the same problem as issue #2123. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #2123."
+    },
+    {
+      "id": "pr:1993",
+      "canonical": {
+        "kind": "issue",
+        "number": 1992
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1992
+        }
+      ],
+      "explanation": "This is the same problem as issue #1992. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1992."
+    },
+    {
+      "id": "pr:1965",
+      "canonical": null,
+      "related": [],
+      "explanation": "This is a duplicate of another open item. Keep one thread.",
+      "proposedSolution": "Close as duplicate after a quick glance."
+    },
+    {
+      "id": "pr:1962",
+      "canonical": {
+        "kind": "issue",
+        "number": 1946
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1946
+        }
+      ],
+      "explanation": "This is the same problem as issue #1946. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1946."
+    },
+    {
+      "id": "pr:1898",
+      "canonical": {
+        "kind": "issue",
+        "number": 1897
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1897
+        }
+      ],
+      "explanation": "This is the same problem as issue #1897. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1897."
+    },
+    {
+      "id": "pr:1896",
+      "canonical": {
+        "kind": "issue",
+        "number": 1895
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1895
+        }
+      ],
+      "explanation": "This is the same problem as issue #1895. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1895."
+    },
+    {
+      "id": "pr:1858",
+      "canonical": {
+        "kind": "issue",
+        "number": 1857
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1857
+        }
+      ],
+      "explanation": "This is the same problem as issue #1857. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1857."
+    },
+    {
+      "id": "pr:1839",
+      "canonical": {
+        "kind": "issue",
+        "number": 1715
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1715
+        }
+      ],
+      "explanation": "This is the same problem as issue #1715. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1715."
+    },
+    {
+      "id": "pr:1838",
+      "canonical": {
+        "kind": "issue",
+        "number": 1749
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1749
+        }
+      ],
+      "explanation": "This is the same problem as issue #1749. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1749."
+    },
+    {
+      "id": "issue:1740",
+      "canonical": {
+        "kind": "issue",
+        "number": 1516
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1516
+        },
+        {
+          "kind": "issue",
+          "number": 1672
+        },
+        {
+          "kind": "issue",
+          "number": 2204
+        }
+      ],
+      "explanation": "This is the same problem as issue #1516. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1516."
+    },
+    {
+      "id": "issue:1739",
+      "canonical": {
+        "kind": "issue",
+        "number": 1487
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1487
+        }
+      ],
+      "explanation": "This is the same problem as issue #1487. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1487."
+    },
+    {
+      "id": "pr:1706",
+      "canonical": {
+        "kind": "issue",
+        "number": 1520
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1520
+        }
+      ],
+      "explanation": "This is the same problem as issue #1520. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1520."
+    },
+    {
+      "id": "pr:1694",
+      "canonical": {
+        "kind": "issue",
+        "number": 1693
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1693
+        }
+      ],
+      "explanation": "This is the same problem as issue #1693. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1693."
+    },
+    {
+      "id": "pr:1679",
+      "canonical": {
+        "kind": "issue",
+        "number": 1612
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1612
+        }
+      ],
+      "explanation": "This is the same problem as issue #1612. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1612."
+    },
+    {
+      "id": "issue:1672",
+      "canonical": {
+        "kind": "issue",
+        "number": 1516
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 1516
+        },
+        {
+          "kind": "issue",
+          "number": 1740
+        },
+        {
+          "kind": "issue",
+          "number": 2204
+        }
+      ],
+      "explanation": "This is the same problem as issue #1516. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #1516."
+    },
+    {
+      "id": "issue:1638",
+      "canonical": {
+        "kind": "pr",
+        "number": 1637
+      },
+      "related": [
+        {
+          "kind": "pr",
+          "number": 1637
+        }
+      ],
+      "explanation": "This is the same problem as PR #1637. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on PR #1637."
+    },
+    {
+      "id": "issue:1041",
+      "canonical": {
+        "kind": "issue",
+        "number": 579
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 579
+        }
+      ],
+      "explanation": "This is the same problem as issue #579. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #579."
+    },
+    {
+      "id": "issue:457",
+      "canonical": {
+        "kind": "issue",
+        "number": 456
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 456
+        }
+      ],
+      "explanation": "This is the same problem as issue #456. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #456."
+    },
+    {
+      "id": "pr:127",
+      "canonical": {
+        "kind": "issue",
+        "number": 126
+      },
+      "related": [
+        {
+          "kind": "issue",
+          "number": 126
+        }
+      ],
+      "explanation": "This is the same problem as issue #126. Keep one thread.",
+      "proposedSolution": "Close this. Put any extra details on issue #126."
+    }
+  ]
+}

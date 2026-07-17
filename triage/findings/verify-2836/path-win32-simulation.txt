@@ -1,0 +1,26 @@
+win32 relative: ["topics\\foo.md","topics\\bar.md","notes\\deep\\baz.md","readme.md"]
+OLD stale: [ "topics-foo", "topics-bar", "notes-baz", "gone" ]
+NEW plan: {
+  staleSlugs: [ "gone" ],
+  reconcilableCount: 5,
+  massDelete: false,
+}
+sample bigCurrent: ["root0.md","root1.md","root2.md"]
+sample stored: [ "root0.md", "root1.md", "root2.md" ]
+AFTER fix on #2828-scale corpus: {
+  stale: 0,
+  mass: false,
+  count: 1224,
+}
+OLD on #2828-scale: {
+  stale: 1215,
+  rootSurvivors: 9,
+}
+isSyncable forward: true
+isSyncable backslash: true
+isSyncable win literal: true
+genuine large delete: {
+  stale: 500,
+  mass: false,
+  blocked: false,
+}

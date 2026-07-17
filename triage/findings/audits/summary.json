@@ -1,0 +1,291 @@
+{
+  "generatedAt": "2026-07-16T21:19:14.008Z",
+  "repo": "garrytan/gbrain",
+  "branch": "cursor/backlog-dashboard-9efd",
+  "labelsApplied": [
+    "duplicate",
+    "already-fixed",
+    "proprietary",
+    "low-value",
+    "p0",
+    "p1",
+    "p2",
+    "p3",
+    "merge-candidate",
+    "fix-needed",
+    "needs-review",
+    "feature-consider"
+  ],
+  "priorityMeanings": {
+    "P0": "security / data-loss",
+    "P1": "concrete bugs / high-priority fixes",
+    "P2": "features / proposals",
+    "P3": "no strong auto signal — needs a quick human glance"
+  },
+  "alreadyFixedWave": {
+    "initiallyClosed": 61,
+    "initiallyLeftOpen": [
+      11,
+      14,
+      223,
+      555,
+      699,
+      1144,
+      1172,
+      1331,
+      1569,
+      1963,
+      2050
+    ],
+    "falsePositivesReopened": [
+      {
+        "number": 1434,
+        "why": "Partial fix only (#1456). Residual #2229 still open; reporter said #1456 was NOT the full fix."
+      },
+      {
+        "number": 1633,
+        "why": "Maintainer said #1807 fixed orphan-pileup symptom only; busy-loop root cause still open."
+      },
+      {
+        "number": 1745,
+        "why": "Open PR #2730 still targets Fixes #1745 for remaining module-singleton null window."
+      }
+    ],
+    "reviewedKeepClosed": [
+      {
+        "number": 978,
+        "why": "New-ingestion source attribution fixed; residual was historical page migration."
+      },
+      {
+        "number": 1404,
+        "why": "Canonical fix #1805 landed after repro comments; residuals have their own issues."
+      },
+      {
+        "number": 1762,
+        "why": "Regex false positive on corrected-root-cause wording; #1810 closes it."
+      }
+    ],
+    "netClosedRemaining": 58
+  },
+  "duplicateWaves": {
+    "exactSameKindClosedEarlier": "11 items (issues+competing PRs)",
+    "wave3ClosedIssuesKeepFixPr": [
+      {
+        "issue": 2571,
+        "pr": 2572
+      },
+      {
+        "issue": 2567,
+        "pr": 2568
+      },
+      {
+        "issue": 2433,
+        "pr": 2491
+      },
+      {
+        "issue": 2447,
+        "pr": 2448
+      },
+      {
+        "issue": 1219,
+        "pr": 2378
+      },
+      {
+        "issue": 2222,
+        "pr": 2329
+      },
+      {
+        "issue": 2285,
+        "pr": 2286
+      },
+      {
+        "issue": 2283,
+        "pr": 2284
+      },
+      {
+        "issue": 2281,
+        "pr": 2282
+      },
+      {
+        "issue": 2278,
+        "pr": 2279
+      },
+      {
+        "issue": 2276,
+        "pr": 2277
+      },
+      {
+        "issue": 2273,
+        "pr": 2274
+      },
+      {
+        "issue": 2256,
+        "pr": 2257
+      },
+      {
+        "issue": 2252,
+        "pr": 2253
+      },
+      {
+        "issue": 2215,
+        "pr": 2216
+      },
+      {
+        "issue": 2207,
+        "pr": 2208
+      },
+      {
+        "issue": 2160,
+        "pr": 2161
+      },
+      {
+        "issue": 2123,
+        "pr": 2124
+      },
+      {
+        "issue": 1992,
+        "pr": 1993
+      },
+      {
+        "issue": 1897,
+        "pr": 1898
+      },
+      {
+        "issue": 1895,
+        "pr": 1896
+      },
+      {
+        "issue": 1857,
+        "pr": 1858
+      },
+      {
+        "issue": 1715,
+        "pr": 1839
+      },
+      {
+        "issue": 1749,
+        "pr": 1838
+      },
+      {
+        "issue": 1520,
+        "pr": 1706
+      },
+      {
+        "issue": 1693,
+        "pr": 1694
+      },
+      {
+        "issue": 1612,
+        "pr": 1679
+      },
+      {
+        "issue": 126,
+        "pr": 127
+      },
+      {
+        "issue": 1638,
+        "pr": 1637
+      }
+    ],
+    "wave3DelabeledMisleadingDuplicateOnPrs": [
+      2572,
+      2568,
+      2491,
+      2448,
+      2378,
+      2329,
+      2286,
+      2284,
+      2282,
+      2279,
+      2277,
+      2274,
+      2257,
+      2253,
+      2216,
+      2208,
+      2161,
+      2124,
+      1993,
+      1898,
+      1896,
+      1858,
+      1839,
+      1838,
+      1706,
+      1694,
+      1679,
+      127,
+      1637,
+      2210,
+      1962
+    ],
+    "wave3AuditProblems": [],
+    "rule": "Never close a fix PR because it is labeled duplicate of its issue. Close the issue, keep the PR."
+  },
+  "windows2836": {
+    "pr": "https://github.com/garrytan/gbrain/pull/2836",
+    "issue": "https://github.com/garrytan/gbrain/issues/2828",
+    "unitTests": "13/13 pass",
+    "relatedTests": "12/12 pass",
+    "pathWin32Simulation": "Reproduced #2828 fingerprint with path.win32.relative; 1224-page corpus stale 1215→0 after fix; valve blocks >50% wipe",
+    "recommendation": "merge",
+    "caveat": "No real Windows host/CI; string-separator bug class verified via path.win32 on Linux.",
+    "artifacts": [
+      "findings/verify-2836/unit-tests.txt",
+      "findings/verify-2836/related-tests.txt",
+      "findings/verify-2836/path-win32-simulation.txt"
+    ]
+  },
+  "wave1CheckFirst": {
+    "p0": [
+      {
+        "n": 2836,
+        "kind": "pr",
+        "note": "Windows sync mass-delete — verified, merge candidate"
+      },
+      {
+        "n": 2828,
+        "kind": "issue",
+        "note": "paired with 2836"
+      },
+      {
+        "n": 2825,
+        "kind": "issue",
+        "note": "query_cache hard-exclude leak"
+      },
+      {
+        "n": 2684,
+        "kind": "issue",
+        "note": "CLI take-writes slug-only"
+      },
+      {
+        "n": 2706,
+        "kind": "issue",
+        "note": "image pages source_id=default"
+      }
+    ],
+    "mergeCandidates": [
+      2836,
+      2730,
+      2440,
+      2801,
+      472,
+      2068,
+      2632,
+      2820
+    ],
+    "doNotReclose": [
+      1434,
+      2229,
+      1633,
+      1745
+    ],
+    "alreadyMerged": [
+      {
+        "n": 2625,
+        "note": "admin token leak fix"
+      }
+    ]
+  }
+}
